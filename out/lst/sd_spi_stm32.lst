@@ -1,0 +1,3367 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"sd_spi_stm32.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.power_on,"ax",%progbits
+  19              		.align	2
+  20              		.thumb
+  21              		.thumb_func
+  23              	power_on:
+  24              	.LFB41:
+  25              		.file 1 ".\\FatFs/sd_spi_stm32.c"
+   1:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+   2:.\FatFs/sd_spi_stm32.c **** /* MMC/SDSC/SDHC (in SPI mode) control module for STM32 Version 1.1.6    */
+   3:.\FatFs/sd_spi_stm32.c **** /* (C) Martin Thomas, 2010 - based on the AVR MMC module (C)ChaN, 2007   */
+   4:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+   5:.\FatFs/sd_spi_stm32.c **** 
+   6:.\FatFs/sd_spi_stm32.c **** /* Copyright (c) 2010, Martin Thomas, ChaN
+   7:.\FatFs/sd_spi_stm32.c ****    All rights reserved.
+   8:.\FatFs/sd_spi_stm32.c **** 
+   9:.\FatFs/sd_spi_stm32.c ****    Redistribution and use in source and binary forms, with or without
+  10:.\FatFs/sd_spi_stm32.c ****    modification, are permitted provided that the following conditions are met:
+  11:.\FatFs/sd_spi_stm32.c **** 
+  12:.\FatFs/sd_spi_stm32.c ****    * Redistributions of source code must retain the above copyright
+  13:.\FatFs/sd_spi_stm32.c ****      notice, this list of conditions and the following disclaimer.
+  14:.\FatFs/sd_spi_stm32.c ****    * Redistributions in binary form must reproduce the above copyright
+  15:.\FatFs/sd_spi_stm32.c ****      notice, this list of conditions and the following disclaimer in
+  16:.\FatFs/sd_spi_stm32.c ****      the documentation and/or other materials provided with the
+  17:.\FatFs/sd_spi_stm32.c ****      distribution.
+  18:.\FatFs/sd_spi_stm32.c ****    * Neither the name of the copyright holders nor the names of
+  19:.\FatFs/sd_spi_stm32.c ****      contributors may be used to endorse or promote products derived
+  20:.\FatFs/sd_spi_stm32.c ****      from this software without specific prior written permission.
+  21:.\FatFs/sd_spi_stm32.c **** 
+  22:.\FatFs/sd_spi_stm32.c ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  23:.\FatFs/sd_spi_stm32.c ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  24:.\FatFs/sd_spi_stm32.c ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  25:.\FatFs/sd_spi_stm32.c ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  26:.\FatFs/sd_spi_stm32.c ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  27:.\FatFs/sd_spi_stm32.c ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  28:.\FatFs/sd_spi_stm32.c ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  29:.\FatFs/sd_spi_stm32.c ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  30:.\FatFs/sd_spi_stm32.c ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  31:.\FatFs/sd_spi_stm32.c ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  32:.\FatFs/sd_spi_stm32.c ****   POSSIBILITY OF SUCH DAMAGE. */
+  33:.\FatFs/sd_spi_stm32.c **** 
+  34:.\FatFs/sd_spi_stm32.c **** 
+  35:.\FatFs/sd_spi_stm32.c **** #include "stm32f10x.h"
+  36:.\FatFs/sd_spi_stm32.c **** #include "ffconf.h"
+  37:.\FatFs/sd_spi_stm32.c **** #include "diskio.h"
+  38:.\FatFs/sd_spi_stm32.c **** 
+  39:.\FatFs/sd_spi_stm32.c **** // demo uses a command line option to define this (see Makefile):
+  40:.\FatFs/sd_spi_stm32.c **** #define STM32_SD_USE_DMA
+  41:.\FatFs/sd_spi_stm32.c **** 
+  42:.\FatFs/sd_spi_stm32.c **** 
+  43:.\FatFs/sd_spi_stm32.c **** #ifdef STM32_SD_USE_DMA
+  44:.\FatFs/sd_spi_stm32.c **** // #warning "Information only: using DMA"
+  45:.\FatFs/sd_spi_stm32.c **** #pragma message "*** Using DMA ***"
+  46:.\FatFs/sd_spi_stm32.c **** #endif
+  47:.\FatFs/sd_spi_stm32.c **** 
+  48:.\FatFs/sd_spi_stm32.c **** /* set to 1 to provide a disk_ioctrl function even if not needed by the FatFs */
+  49:.\FatFs/sd_spi_stm32.c **** #define STM32_SD_DISK_IOCTRL_FORCE      0
+  50:.\FatFs/sd_spi_stm32.c **** 
+  51:.\FatFs/sd_spi_stm32.c **** // demo uses a command line option to define this (see Makefile):
+  52:.\FatFs/sd_spi_stm32.c **** //#define USE_EK_STM32F
+  53:.\FatFs/sd_spi_stm32.c **** //#define USE_STM32_P103
+  54:.\FatFs/sd_spi_stm32.c **** #define USE_MINI_STM32
+  55:.\FatFs/sd_spi_stm32.c **** 
+  56:.\FatFs/sd_spi_stm32.c **** #if defined(USE_EK_STM32F)
+  57:.\FatFs/sd_spi_stm32.c ****  #define CARD_SUPPLY_SWITCHABLE   1
+  58:.\FatFs/sd_spi_stm32.c ****  #define GPIO_PWR                 GPIOD
+  59:.\FatFs/sd_spi_stm32.c ****  #define RCC_APB2Periph_GPIO_PWR  RCC_APB2Periph_GPIOD
+  60:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_PWR             GPIO_Pin_10
+  61:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Mode_PWR            GPIO_Mode_Out_OD /* pull-up resistor at power FET */
+  62:.\FatFs/sd_spi_stm32.c ****  #define SOCKET_WP_CONNECTED      0
+  63:.\FatFs/sd_spi_stm32.c ****  #define SOCKET_CP_CONNECTED      0
+  64:.\FatFs/sd_spi_stm32.c ****  #define SPI_SD                   SPI1
+  65:.\FatFs/sd_spi_stm32.c ****  #define GPIO_CS                  GPIOD
+  66:.\FatFs/sd_spi_stm32.c ****  #define RCC_APB2Periph_GPIO_CS   RCC_APB2Periph_GPIOD
+  67:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_CS              GPIO_Pin_9
+  68:.\FatFs/sd_spi_stm32.c ****  #define DMA_Channel_SPI_SD_RX    DMA1_Channel2
+  69:.\FatFs/sd_spi_stm32.c ****  #define DMA_Channel_SPI_SD_TX    DMA1_Channel3
+  70:.\FatFs/sd_spi_stm32.c ****  #define DMA_FLAG_SPI_SD_TC_RX    DMA1_FLAG_TC2
+  71:.\FatFs/sd_spi_stm32.c ****  #define DMA_FLAG_SPI_SD_TC_TX    DMA1_FLAG_TC3
+  72:.\FatFs/sd_spi_stm32.c ****  #define GPIO_SPI_SD              GPIOA
+  73:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_SPI_SD_SCK      GPIO_Pin_5
+  74:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_SPI_SD_MISO     GPIO_Pin_6
+  75:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_SPI_SD_MOSI     GPIO_Pin_7
+  76:.\FatFs/sd_spi_stm32.c ****  #define RCC_APBPeriphClockCmd_SPI_SD  RCC_APB2PeriphClockCmd
+  77:.\FatFs/sd_spi_stm32.c ****  #define RCC_APBPeriph_SPI_SD     RCC_APB2Periph_SPI1
+  78:.\FatFs/sd_spi_stm32.c ****  /* - for SPI1 and full-speed APB2: 72MHz/4 */
+  79:.\FatFs/sd_spi_stm32.c ****  #define SPI_BaudRatePrescaler_SPI_SD  SPI_BaudRatePrescaler_4
+  80:.\FatFs/sd_spi_stm32.c **** 
+  81:.\FatFs/sd_spi_stm32.c **** #elif defined(USE_STM32_P103)
+  82:.\FatFs/sd_spi_stm32.c ****  // Olimex STM32-P103 not tested!
+  83:.\FatFs/sd_spi_stm32.c ****  #define CARD_SUPPLY_SWITCHABLE   0
+  84:.\FatFs/sd_spi_stm32.c ****  #define SOCKET_WP_CONNECTED      1 /* write-protect socket-switch */
+  85:.\FatFs/sd_spi_stm32.c ****  #define SOCKET_CP_CONNECTED      1 /* card-present socket-switch */
+  86:.\FatFs/sd_spi_stm32.c ****  #define GPIO_WP                  GPIOC
+  87:.\FatFs/sd_spi_stm32.c ****  #define GPIO_CP                  GPIOC
+  88:.\FatFs/sd_spi_stm32.c ****  #define RCC_APBxPeriph_GPIO_WP   RCC_APB2Periph_GPIOC
+  89:.\FatFs/sd_spi_stm32.c ****  #define RCC_APBxPeriph_GPIO_CP   RCC_APB2Periph_GPIOC
+  90:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_WP              GPIO_Pin_6
+  91:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_CP              GPIO_Pin_7
+  92:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Mode_WP             GPIO_Mode_IN_FLOATING /* external resistor */
+  93:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Mode_CP             GPIO_Mode_IN_FLOATING /* external resistor */
+  94:.\FatFs/sd_spi_stm32.c ****  #define SPI_SD                   SPI2
+  95:.\FatFs/sd_spi_stm32.c ****  #define GPIO_CS                  GPIOB
+  96:.\FatFs/sd_spi_stm32.c ****  #define RCC_APB2Periph_GPIO_CS   RCC_APB2Periph_GPIOB
+  97:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_CS              GPIO_Pin_12
+  98:.\FatFs/sd_spi_stm32.c ****  #define DMA_Channel_SPI_SD_RX    DMA1_Channel4
+  99:.\FatFs/sd_spi_stm32.c ****  #define DMA_Channel_SPI_SD_TX    DMA1_Channel5
+ 100:.\FatFs/sd_spi_stm32.c ****  #define DMA_FLAG_SPI_SD_TC_RX    DMA1_FLAG_TC4
+ 101:.\FatFs/sd_spi_stm32.c ****  #define DMA_FLAG_SPI_SD_TC_TX    DMA1_FLAG_TC5
+ 102:.\FatFs/sd_spi_stm32.c ****  #define GPIO_SPI_SD              GPIOB
+ 103:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_SPI_SD_SCK      GPIO_Pin_13
+ 104:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_SPI_SD_MISO     GPIO_Pin_14
+ 105:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_SPI_SD_MOSI     GPIO_Pin_15
+ 106:.\FatFs/sd_spi_stm32.c ****  #define RCC_APBPeriphClockCmd_SPI_SD  RCC_APB1PeriphClockCmd
+ 107:.\FatFs/sd_spi_stm32.c ****  #define RCC_APBPeriph_SPI_SD     RCC_APB1Periph_SPI2
+ 108:.\FatFs/sd_spi_stm32.c ****  /* for SPI2 and full-speed APB1: 36MHz/2 */
+ 109:.\FatFs/sd_spi_stm32.c ****  /* !! PRESCALE 4 used here - 2 does not work, maybe because
+ 110:.\FatFs/sd_spi_stm32.c ****        of the poor wiring on the HELI_V1 prototype hardware */
+ 111:.\FatFs/sd_spi_stm32.c ****  #define SPI_BaudRatePrescaler_SPI_SD  SPI_BaudRatePrescaler_4
+ 112:.\FatFs/sd_spi_stm32.c **** 
+ 113:.\FatFs/sd_spi_stm32.c **** #elif defined(USE_MINI_STM32)
+ 114:.\FatFs/sd_spi_stm32.c ****  #define CARD_SUPPLY_SWITCHABLE   0
+ 115:.\FatFs/sd_spi_stm32.c ****  #define SOCKET_WP_CONNECTED      0
+ 116:.\FatFs/sd_spi_stm32.c ****  #define SOCKET_CP_CONNECTED      0
+ 117:.\FatFs/sd_spi_stm32.c ****  #define SPI_SD                   SPI1
+ 118:.\FatFs/sd_spi_stm32.c ****  #define GPIO_CS                  GPIOA
+ 119:.\FatFs/sd_spi_stm32.c ****  #define RCC_APB2Periph_GPIO_CS   RCC_APB2Periph_GPIOA
+ 120:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_CS              GPIO_Pin_4
+ 121:.\FatFs/sd_spi_stm32.c ****  #define DMA_Channel_SPI_SD_RX    DMA1_Channel2
+ 122:.\FatFs/sd_spi_stm32.c ****  #define DMA_Channel_SPI_SD_TX    DMA1_Channel3
+ 123:.\FatFs/sd_spi_stm32.c ****  #define DMA_FLAG_SPI_SD_TC_RX    DMA1_FLAG_TC2
+ 124:.\FatFs/sd_spi_stm32.c ****  #define DMA_FLAG_SPI_SD_TC_TX    DMA1_FLAG_TC3
+ 125:.\FatFs/sd_spi_stm32.c ****  #define GPIO_SPI_SD              GPIOA
+ 126:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_SPI_SD_SCK      GPIO_Pin_5
+ 127:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_SPI_SD_MISO     GPIO_Pin_6
+ 128:.\FatFs/sd_spi_stm32.c ****  #define GPIO_Pin_SPI_SD_MOSI     GPIO_Pin_7
+ 129:.\FatFs/sd_spi_stm32.c ****  #define RCC_APBPeriphClockCmd_SPI_SD  RCC_APB2PeriphClockCmd
+ 130:.\FatFs/sd_spi_stm32.c ****  #define RCC_APBPeriph_SPI_SD     RCC_APB2Periph_SPI1
+ 131:.\FatFs/sd_spi_stm32.c ****  /* - for SPI1 and full-speed APB2: 72MHz/4 */
+ 132:.\FatFs/sd_spi_stm32.c ****  #define SPI_BaudRatePrescaler_SPI_SD  SPI_BaudRatePrescaler_4
+ 133:.\FatFs/sd_spi_stm32.c **** 
+ 134:.\FatFs/sd_spi_stm32.c **** #else
+ 135:.\FatFs/sd_spi_stm32.c **** #error "unsupported board"
+ 136:.\FatFs/sd_spi_stm32.c **** #endif
+ 137:.\FatFs/sd_spi_stm32.c **** 
+ 138:.\FatFs/sd_spi_stm32.c **** 
+ 139:.\FatFs/sd_spi_stm32.c **** /* Definitions for MMC/SDC command */
+ 140:.\FatFs/sd_spi_stm32.c **** #define CMD0	(0x40+0)	/* GO_IDLE_STATE */
+ 141:.\FatFs/sd_spi_stm32.c **** #define CMD1	(0x40+1)	/* SEND_OP_COND (MMC) */
+ 142:.\FatFs/sd_spi_stm32.c **** #define ACMD41	(0xC0+41)	/* SEND_OP_COND (SDC) */
+ 143:.\FatFs/sd_spi_stm32.c **** #define CMD8	(0x40+8)	/* SEND_IF_COND */
+ 144:.\FatFs/sd_spi_stm32.c **** #define CMD9	(0x40+9)	/* SEND_CSD */
+ 145:.\FatFs/sd_spi_stm32.c **** #define CMD10	(0x40+10)	/* SEND_CID */
+ 146:.\FatFs/sd_spi_stm32.c **** #define CMD12	(0x40+12)	/* STOP_TRANSMISSION */
+ 147:.\FatFs/sd_spi_stm32.c **** #define ACMD13	(0xC0+13)	/* SD_STATUS (SDC) */
+ 148:.\FatFs/sd_spi_stm32.c **** #define CMD16	(0x40+16)	/* SET_BLOCKLEN */
+ 149:.\FatFs/sd_spi_stm32.c **** #define CMD17	(0x40+17)	/* READ_SINGLE_BLOCK */
+ 150:.\FatFs/sd_spi_stm32.c **** #define CMD18	(0x40+18)	/* READ_MULTIPLE_BLOCK */
+ 151:.\FatFs/sd_spi_stm32.c **** #define CMD23	(0x40+23)	/* SET_BLOCK_COUNT (MMC) */
+ 152:.\FatFs/sd_spi_stm32.c **** #define ACMD23	(0xC0+23)	/* SET_WR_BLK_ERASE_COUNT (SDC) */
+ 153:.\FatFs/sd_spi_stm32.c **** #define CMD24	(0x40+24)	/* WRITE_BLOCK */
+ 154:.\FatFs/sd_spi_stm32.c **** #define CMD25	(0x40+25)	/* WRITE_MULTIPLE_BLOCK */
+ 155:.\FatFs/sd_spi_stm32.c **** #define CMD55	(0x40+55)	/* APP_CMD */
+ 156:.\FatFs/sd_spi_stm32.c **** #define CMD58	(0x40+58)	/* READ_OCR */
+ 157:.\FatFs/sd_spi_stm32.c **** 
+ 158:.\FatFs/sd_spi_stm32.c **** /* Card-Select Controls  (Platform dependent) */
+ 159:.\FatFs/sd_spi_stm32.c **** #define SELECT()        GPIO_ResetBits(GPIO_CS, GPIO_Pin_CS)    /* MMC CS = L */
+ 160:.\FatFs/sd_spi_stm32.c **** #define DESELECT()      GPIO_SetBits(GPIO_CS, GPIO_Pin_CS)      /* MMC CS = H */
+ 161:.\FatFs/sd_spi_stm32.c **** 
+ 162:.\FatFs/sd_spi_stm32.c **** /* Manley EK-STM32F board does not offer socket contacts -> dummy values: */
+ 163:.\FatFs/sd_spi_stm32.c **** #define SOCKPORT	1			/* Socket contact port */
+ 164:.\FatFs/sd_spi_stm32.c **** #define SOCKWP		0			/* Write protect switch (PB5) */
+ 165:.\FatFs/sd_spi_stm32.c **** #define SOCKINS		0			/* Card detect switch (PB4) */
+ 166:.\FatFs/sd_spi_stm32.c **** 
+ 167:.\FatFs/sd_spi_stm32.c **** #if (_MAX_SS != 512) || (_FS_READONLY == 0) || (STM32_SD_DISK_IOCTRL_FORCE == 1)
+ 168:.\FatFs/sd_spi_stm32.c **** #define STM32_SD_DISK_IOCTRL   1
+ 169:.\FatFs/sd_spi_stm32.c **** #else
+ 170:.\FatFs/sd_spi_stm32.c **** #define STM32_SD_DISK_IOCTRL   0
+ 171:.\FatFs/sd_spi_stm32.c **** #endif
+ 172:.\FatFs/sd_spi_stm32.c **** 
+ 173:.\FatFs/sd_spi_stm32.c **** /*--------------------------------------------------------------------------
+ 174:.\FatFs/sd_spi_stm32.c **** 
+ 175:.\FatFs/sd_spi_stm32.c ****    Module Private Functions and Variables
+ 176:.\FatFs/sd_spi_stm32.c **** 
+ 177:.\FatFs/sd_spi_stm32.c **** ---------------------------------------------------------------------------*/
+ 178:.\FatFs/sd_spi_stm32.c **** 
+ 179:.\FatFs/sd_spi_stm32.c **** static const DWORD socket_state_mask_cp = (1 << 0);
+ 180:.\FatFs/sd_spi_stm32.c **** static const DWORD socket_state_mask_wp = (1 << 1);
+ 181:.\FatFs/sd_spi_stm32.c **** 
+ 182:.\FatFs/sd_spi_stm32.c **** static volatile
+ 183:.\FatFs/sd_spi_stm32.c **** DSTATUS Stat = STA_NOINIT;	/* Disk status */
+ 184:.\FatFs/sd_spi_stm32.c **** 
+ 185:.\FatFs/sd_spi_stm32.c **** static volatile
+ 186:.\FatFs/sd_spi_stm32.c **** DWORD Timer1, Timer2;	/* 100Hz decrement timers */
+ 187:.\FatFs/sd_spi_stm32.c **** 
+ 188:.\FatFs/sd_spi_stm32.c **** static
+ 189:.\FatFs/sd_spi_stm32.c **** BYTE CardType;			/* Card type flags */
+ 190:.\FatFs/sd_spi_stm32.c **** 
+ 191:.\FatFs/sd_spi_stm32.c **** enum speed_setting { INTERFACE_SLOW, INTERFACE_FAST };
+ 192:.\FatFs/sd_spi_stm32.c **** 
+ 193:.\FatFs/sd_spi_stm32.c **** static void interface_speed( enum speed_setting speed )
+ 194:.\FatFs/sd_spi_stm32.c **** {
+ 195:.\FatFs/sd_spi_stm32.c **** 	DWORD tmp;
+ 196:.\FatFs/sd_spi_stm32.c **** 
+ 197:.\FatFs/sd_spi_stm32.c **** 	tmp = SPI_SD->CR1;
+ 198:.\FatFs/sd_spi_stm32.c **** 	if ( speed == INTERFACE_SLOW ) {
+ 199:.\FatFs/sd_spi_stm32.c **** 		/* Set slow clock (100k-400k) */
+ 200:.\FatFs/sd_spi_stm32.c **** 		tmp = ( tmp | SPI_BaudRatePrescaler_256 );
+ 201:.\FatFs/sd_spi_stm32.c **** 	} else {
+ 202:.\FatFs/sd_spi_stm32.c **** 		/* Set fast clock (depends on the CSD) */
+ 203:.\FatFs/sd_spi_stm32.c **** 		tmp = ( tmp & ~SPI_BaudRatePrescaler_256 ) | SPI_BaudRatePrescaler_SPI_SD;
+ 204:.\FatFs/sd_spi_stm32.c **** 	}
+ 205:.\FatFs/sd_spi_stm32.c **** 	SPI_SD->CR1 = tmp;
+ 206:.\FatFs/sd_spi_stm32.c **** }
+ 207:.\FatFs/sd_spi_stm32.c **** 
+ 208:.\FatFs/sd_spi_stm32.c **** #if SOCKET_WP_CONNECTED
+ 209:.\FatFs/sd_spi_stm32.c **** /* Socket's Write-Protection Pin: high = write-protected, low = writable */
+ 210:.\FatFs/sd_spi_stm32.c **** 
+ 211:.\FatFs/sd_spi_stm32.c **** static void socket_wp_init(void)
+ 212:.\FatFs/sd_spi_stm32.c **** {
+ 213:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitTypeDef GPIO_InitStructure;
+ 214:.\FatFs/sd_spi_stm32.c **** 
+ 215:.\FatFs/sd_spi_stm32.c **** 	/* Configure I/O for write-protect */
+ 216:.\FatFs/sd_spi_stm32.c **** 	RCC_APB2PeriphClockCmd(RCC_APBxPeriph_GPIO_WP, ENABLE);
+ 217:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_WP;
+ 218:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_WP;
+ 219:.\FatFs/sd_spi_stm32.c **** 	GPIO_Init(GPIO_WP, &GPIO_InitStructure);
+ 220:.\FatFs/sd_spi_stm32.c **** }
+ 221:.\FatFs/sd_spi_stm32.c **** 
+ 222:.\FatFs/sd_spi_stm32.c **** static DWORD socket_is_write_protected(void)
+ 223:.\FatFs/sd_spi_stm32.c **** {
+ 224:.\FatFs/sd_spi_stm32.c **** 	return ( GPIO_ReadInputData(GPIO_WP) & GPIO_Pin_WP ) ? socket_state_mask_wp : 0;
+ 225:.\FatFs/sd_spi_stm32.c **** }
+ 226:.\FatFs/sd_spi_stm32.c **** 
+ 227:.\FatFs/sd_spi_stm32.c **** #else
+ 228:.\FatFs/sd_spi_stm32.c **** 
+ 229:.\FatFs/sd_spi_stm32.c **** static void socket_wp_init(void)
+ 230:.\FatFs/sd_spi_stm32.c **** {
+ 231:.\FatFs/sd_spi_stm32.c **** 	return;
+ 232:.\FatFs/sd_spi_stm32.c **** }
+ 233:.\FatFs/sd_spi_stm32.c **** 
+ 234:.\FatFs/sd_spi_stm32.c **** static __inline DWORD socket_is_write_protected(void)
+ 235:.\FatFs/sd_spi_stm32.c **** {
+ 236:.\FatFs/sd_spi_stm32.c **** 	return 0; /* fake not protected */
+ 237:.\FatFs/sd_spi_stm32.c **** }
+ 238:.\FatFs/sd_spi_stm32.c **** 
+ 239:.\FatFs/sd_spi_stm32.c **** #endif /* SOCKET_WP_CONNECTED */
+ 240:.\FatFs/sd_spi_stm32.c **** 
+ 241:.\FatFs/sd_spi_stm32.c **** 
+ 242:.\FatFs/sd_spi_stm32.c **** #if SOCKET_CP_CONNECTED
+ 243:.\FatFs/sd_spi_stm32.c **** /* Socket's Card-Present Pin: high = socket empty, low = card inserted */
+ 244:.\FatFs/sd_spi_stm32.c **** 
+ 245:.\FatFs/sd_spi_stm32.c **** static void socket_cp_init(void)
+ 246:.\FatFs/sd_spi_stm32.c **** {
+ 247:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitTypeDef GPIO_InitStructure;
+ 248:.\FatFs/sd_spi_stm32.c **** 
+ 249:.\FatFs/sd_spi_stm32.c **** 	/* Configure I/O for card-present */
+ 250:.\FatFs/sd_spi_stm32.c **** 	RCC_APB2PeriphClockCmd(RCC_APBxPeriph_GPIO_CP, ENABLE);
+ 251:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_CP;
+ 252:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_CP;
+ 253:.\FatFs/sd_spi_stm32.c **** 	GPIO_Init(GPIO_CP, &GPIO_InitStructure);
+ 254:.\FatFs/sd_spi_stm32.c **** }
+ 255:.\FatFs/sd_spi_stm32.c **** 
+ 256:.\FatFs/sd_spi_stm32.c **** static inline DWORD socket_is_empty(void)
+ 257:.\FatFs/sd_spi_stm32.c **** {
+ 258:.\FatFs/sd_spi_stm32.c **** 	return ( GPIO_ReadInputData(GPIO_CP) & GPIO_Pin_CP ) ? socket_state_mask_cp : FALSE;
+ 259:.\FatFs/sd_spi_stm32.c **** }
+ 260:.\FatFs/sd_spi_stm32.c **** 
+ 261:.\FatFs/sd_spi_stm32.c **** #else
+ 262:.\FatFs/sd_spi_stm32.c **** 
+ 263:.\FatFs/sd_spi_stm32.c **** static void socket_cp_init(void)
+ 264:.\FatFs/sd_spi_stm32.c **** {
+ 265:.\FatFs/sd_spi_stm32.c **** 	return;
+ 266:.\FatFs/sd_spi_stm32.c **** }
+ 267:.\FatFs/sd_spi_stm32.c **** 
+ 268:.\FatFs/sd_spi_stm32.c **** static __inline DWORD socket_is_empty(void)
+ 269:.\FatFs/sd_spi_stm32.c **** {
+ 270:.\FatFs/sd_spi_stm32.c **** 	return 0; /* fake inserted */
+ 271:.\FatFs/sd_spi_stm32.c **** }
+ 272:.\FatFs/sd_spi_stm32.c **** 
+ 273:.\FatFs/sd_spi_stm32.c **** #endif /* SOCKET_CP_CONNECTED */
+ 274:.\FatFs/sd_spi_stm32.c **** 
+ 275:.\FatFs/sd_spi_stm32.c **** 
+ 276:.\FatFs/sd_spi_stm32.c **** #if CARD_SUPPLY_SWITCHABLE
+ 277:.\FatFs/sd_spi_stm32.c **** 
+ 278:.\FatFs/sd_spi_stm32.c **** static void card_power(BOOL on)		/* switch FET for card-socket VCC */
+ 279:.\FatFs/sd_spi_stm32.c **** {
+ 280:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitTypeDef GPIO_InitStructure;
+ 281:.\FatFs/sd_spi_stm32.c **** 
+ 282:.\FatFs/sd_spi_stm32.c **** 	/* Turn on GPIO for power-control pin connected to FET's gate */
+ 283:.\FatFs/sd_spi_stm32.c **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIO_PWR, ENABLE);
+ 284:.\FatFs/sd_spi_stm32.c **** 	/* Configure I/O for Power FET */
+ 285:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_PWR;
+ 286:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_PWR;
+ 287:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 288:.\FatFs/sd_spi_stm32.c **** 	GPIO_Init(GPIO_PWR, &GPIO_InitStructure);
+ 289:.\FatFs/sd_spi_stm32.c **** 	if (on) {
+ 290:.\FatFs/sd_spi_stm32.c **** 		GPIO_ResetBits(GPIO_PWR, GPIO_Pin_PWR);
+ 291:.\FatFs/sd_spi_stm32.c **** 	} else {
+ 292:.\FatFs/sd_spi_stm32.c **** 		/* Chip select internal pull-down (to avoid parasite powering) */
+ 293:.\FatFs/sd_spi_stm32.c **** 		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_CS;
+ 294:.\FatFs/sd_spi_stm32.c **** 		GPIO_Init(GPIO_CS, &GPIO_InitStructure);
+ 295:.\FatFs/sd_spi_stm32.c **** 
+ 296:.\FatFs/sd_spi_stm32.c **** 		GPIO_SetBits(GPIO_PWR, GPIO_Pin_PWR);
+ 297:.\FatFs/sd_spi_stm32.c **** 	}
+ 298:.\FatFs/sd_spi_stm32.c **** }
+ 299:.\FatFs/sd_spi_stm32.c **** 
+ 300:.\FatFs/sd_spi_stm32.c **** #if (STM32_SD_DISK_IOCTRL == 1)
+ 301:.\FatFs/sd_spi_stm32.c **** static int chk_power(void)		/* Socket power state: 0=off, 1=on */
+ 302:.\FatFs/sd_spi_stm32.c **** {
+ 303:.\FatFs/sd_spi_stm32.c **** 	if ( GPIO_ReadOutputDataBit(GPIO_PWR, GPIO_Pin_PWR) == Bit_SET ) {
+ 304:.\FatFs/sd_spi_stm32.c **** 		return 0;
+ 305:.\FatFs/sd_spi_stm32.c **** 	} else {
+ 306:.\FatFs/sd_spi_stm32.c **** 		return 1;
+ 307:.\FatFs/sd_spi_stm32.c **** 	}
+ 308:.\FatFs/sd_spi_stm32.c **** }
+ 309:.\FatFs/sd_spi_stm32.c **** #endif
+ 310:.\FatFs/sd_spi_stm32.c **** 
+ 311:.\FatFs/sd_spi_stm32.c **** #else
+ 312:.\FatFs/sd_spi_stm32.c **** 
+ 313:.\FatFs/sd_spi_stm32.c **** static void card_power(BYTE on)
+ 314:.\FatFs/sd_spi_stm32.c **** {
+ 315:.\FatFs/sd_spi_stm32.c **** 	on=on;
+ 316:.\FatFs/sd_spi_stm32.c **** }
+ 317:.\FatFs/sd_spi_stm32.c **** 
+ 318:.\FatFs/sd_spi_stm32.c **** #if (STM32_SD_DISK_IOCTRL == 1)
+ 319:.\FatFs/sd_spi_stm32.c **** static int chk_power(void)
+ 320:.\FatFs/sd_spi_stm32.c **** {
+ 321:.\FatFs/sd_spi_stm32.c **** 	return 1; /* fake powered */
+ 322:.\FatFs/sd_spi_stm32.c **** }
+ 323:.\FatFs/sd_spi_stm32.c **** #endif
+ 324:.\FatFs/sd_spi_stm32.c **** 
+ 325:.\FatFs/sd_spi_stm32.c **** #endif /* CARD_SUPPLY_SWITCHABLE */
+ 326:.\FatFs/sd_spi_stm32.c **** 
+ 327:.\FatFs/sd_spi_stm32.c **** 
+ 328:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 329:.\FatFs/sd_spi_stm32.c **** /* Transmit/Receive a byte to MMC via SPI  (Platform dependent)          */
+ 330:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 331:.\FatFs/sd_spi_stm32.c **** static BYTE stm32_spi_rw( BYTE out )
+ 332:.\FatFs/sd_spi_stm32.c **** {
+ 333:.\FatFs/sd_spi_stm32.c **** 	/* Loop while DR register in not empty */
+ 334:.\FatFs/sd_spi_stm32.c **** 	/// not needed: while (SPI_I2S_GetFlagStatus(SPI_SD, SPI_I2S_FLAG_TXE) == RESET) { ; }
+ 335:.\FatFs/sd_spi_stm32.c **** 
+ 336:.\FatFs/sd_spi_stm32.c **** 	/* Send byte through the SPI peripheral */
+ 337:.\FatFs/sd_spi_stm32.c **** 	SPI_I2S_SendData(SPI_SD, out);
+ 338:.\FatFs/sd_spi_stm32.c **** 
+ 339:.\FatFs/sd_spi_stm32.c **** 	/* Wait to receive a byte */
+ 340:.\FatFs/sd_spi_stm32.c **** 	while (SPI_I2S_GetFlagStatus(SPI_SD, SPI_I2S_FLAG_RXNE) == RESET) { ; }
+ 341:.\FatFs/sd_spi_stm32.c **** 
+ 342:.\FatFs/sd_spi_stm32.c **** 	/* Return the byte read from the SPI bus */
+ 343:.\FatFs/sd_spi_stm32.c **** 	return SPI_I2S_ReceiveData(SPI_SD);
+ 344:.\FatFs/sd_spi_stm32.c **** }
+ 345:.\FatFs/sd_spi_stm32.c **** 
+ 346:.\FatFs/sd_spi_stm32.c **** 
+ 347:.\FatFs/sd_spi_stm32.c **** 
+ 348:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 349:.\FatFs/sd_spi_stm32.c **** /* Transmit a byte to MMC via SPI  (Platform dependent)                  */
+ 350:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 351:.\FatFs/sd_spi_stm32.c **** 
+ 352:.\FatFs/sd_spi_stm32.c **** #define xmit_spi(dat)  stm32_spi_rw(dat)
+ 353:.\FatFs/sd_spi_stm32.c **** 
+ 354:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 355:.\FatFs/sd_spi_stm32.c **** /* Receive a byte from MMC via SPI  (Platform dependent)                 */
+ 356:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 357:.\FatFs/sd_spi_stm32.c **** 
+ 358:.\FatFs/sd_spi_stm32.c **** static
+ 359:.\FatFs/sd_spi_stm32.c **** BYTE rcvr_spi (void)
+ 360:.\FatFs/sd_spi_stm32.c **** {
+ 361:.\FatFs/sd_spi_stm32.c **** 	return stm32_spi_rw(0xff);
+ 362:.\FatFs/sd_spi_stm32.c **** }
+ 363:.\FatFs/sd_spi_stm32.c **** 
+ 364:.\FatFs/sd_spi_stm32.c **** /* Alternative macro to receive data fast */
+ 365:.\FatFs/sd_spi_stm32.c **** #define rcvr_spi_m(dst)  *(dst)=stm32_spi_rw(0xff)
+ 366:.\FatFs/sd_spi_stm32.c **** 
+ 367:.\FatFs/sd_spi_stm32.c **** 
+ 368:.\FatFs/sd_spi_stm32.c **** 
+ 369:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 370:.\FatFs/sd_spi_stm32.c **** /* Wait for card ready                                                   */
+ 371:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 372:.\FatFs/sd_spi_stm32.c **** 
+ 373:.\FatFs/sd_spi_stm32.c **** static
+ 374:.\FatFs/sd_spi_stm32.c **** BYTE wait_ready (void)
+ 375:.\FatFs/sd_spi_stm32.c **** {
+ 376:.\FatFs/sd_spi_stm32.c **** 	BYTE res;
+ 377:.\FatFs/sd_spi_stm32.c **** 
+ 378:.\FatFs/sd_spi_stm32.c **** 
+ 379:.\FatFs/sd_spi_stm32.c **** 	Timer2 = 50;	/* Wait for ready in timeout of 500ms */
+ 380:.\FatFs/sd_spi_stm32.c **** 	rcvr_spi();
+ 381:.\FatFs/sd_spi_stm32.c **** 	do
+ 382:.\FatFs/sd_spi_stm32.c **** 		res = rcvr_spi();
+ 383:.\FatFs/sd_spi_stm32.c **** 	while ((res != 0xFF) && Timer2);
+ 384:.\FatFs/sd_spi_stm32.c **** 
+ 385:.\FatFs/sd_spi_stm32.c **** 	return res;
+ 386:.\FatFs/sd_spi_stm32.c **** }
+ 387:.\FatFs/sd_spi_stm32.c **** 
+ 388:.\FatFs/sd_spi_stm32.c **** 
+ 389:.\FatFs/sd_spi_stm32.c **** 
+ 390:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 391:.\FatFs/sd_spi_stm32.c **** /* Deselect the card and release SPI bus                                 */
+ 392:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 393:.\FatFs/sd_spi_stm32.c **** 
+ 394:.\FatFs/sd_spi_stm32.c **** static
+ 395:.\FatFs/sd_spi_stm32.c **** void release_spi (void)
+ 396:.\FatFs/sd_spi_stm32.c **** {
+ 397:.\FatFs/sd_spi_stm32.c **** 	DESELECT();
+ 398:.\FatFs/sd_spi_stm32.c **** 	rcvr_spi();
+ 399:.\FatFs/sd_spi_stm32.c **** }
+ 400:.\FatFs/sd_spi_stm32.c **** 
+ 401:.\FatFs/sd_spi_stm32.c **** #ifdef STM32_SD_USE_DMA
+ 402:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 403:.\FatFs/sd_spi_stm32.c **** /* Transmit/Receive Block using DMA (Platform dependent. STM32 here)     */
+ 404:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 405:.\FatFs/sd_spi_stm32.c **** static
+ 406:.\FatFs/sd_spi_stm32.c **** void stm32_dma_transfer(
+ 407:.\FatFs/sd_spi_stm32.c **** 	BOOL receive,		/* FALSE for buff->SPI, TRUE for SPI->buff               */
+ 408:.\FatFs/sd_spi_stm32.c **** 	const BYTE *buff,	/* receive TRUE  : 512 byte data block to be transmitted
+ 409:.\FatFs/sd_spi_stm32.c **** 						   receive FALSE : Data buffer to store received data    */
+ 410:.\FatFs/sd_spi_stm32.c **** 	UINT btr 			/* receive TRUE  : Byte count (must be multiple of 2)
+ 411:.\FatFs/sd_spi_stm32.c **** 						   receive FALSE : Byte count (must be 512)              */
+ 412:.\FatFs/sd_spi_stm32.c **** )
+ 413:.\FatFs/sd_spi_stm32.c **** {
+ 414:.\FatFs/sd_spi_stm32.c **** 	DMA_InitTypeDef DMA_InitStructure;
+ 415:.\FatFs/sd_spi_stm32.c **** 	WORD rw_workbyte[] = { 0xffff };
+ 416:.\FatFs/sd_spi_stm32.c **** 
+ 417:.\FatFs/sd_spi_stm32.c **** 	/* shared DMA configuration values */
+ 418:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_PeripheralBaseAddr = (DWORD)(&(SPI_SD->DR));
+ 419:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+ 420:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+ 421:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+ 422:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_BufferSize = btr;
+ 423:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+ 424:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_Priority = DMA_Priority_VeryHigh;
+ 425:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+ 426:.\FatFs/sd_spi_stm32.c **** 
+ 427:.\FatFs/sd_spi_stm32.c **** 	DMA_DeInit(DMA_Channel_SPI_SD_RX);
+ 428:.\FatFs/sd_spi_stm32.c **** 	DMA_DeInit(DMA_Channel_SPI_SD_TX);
+ 429:.\FatFs/sd_spi_stm32.c **** 
+ 430:.\FatFs/sd_spi_stm32.c **** 	if ( receive ) {
+ 431:.\FatFs/sd_spi_stm32.c **** 
+ 432:.\FatFs/sd_spi_stm32.c **** 		/* DMA1 channel2 configuration SPI1 RX ---------------------------------------------*/
+ 433:.\FatFs/sd_spi_stm32.c **** 		/* DMA1 channel4 configuration SPI2 RX ---------------------------------------------*/
+ 434:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryBaseAddr = (DWORD)buff;
+ 435:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+ 436:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+ 437:.\FatFs/sd_spi_stm32.c **** 		DMA_Init(DMA_Channel_SPI_SD_RX, &DMA_InitStructure);
+ 438:.\FatFs/sd_spi_stm32.c **** 
+ 439:.\FatFs/sd_spi_stm32.c **** 		/* DMA1 channel3 configuration SPI1 TX ---------------------------------------------*/
+ 440:.\FatFs/sd_spi_stm32.c **** 		/* DMA1 channel5 configuration SPI2 TX ---------------------------------------------*/
+ 441:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryBaseAddr = (DWORD)rw_workbyte;
+ 442:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+ 443:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Disable;
+ 444:.\FatFs/sd_spi_stm32.c **** 		DMA_Init(DMA_Channel_SPI_SD_TX, &DMA_InitStructure);
+ 445:.\FatFs/sd_spi_stm32.c **** 
+ 446:.\FatFs/sd_spi_stm32.c **** 	} else {
+ 447:.\FatFs/sd_spi_stm32.c **** 
+ 448:.\FatFs/sd_spi_stm32.c **** #if _FS_READONLY == 0
+ 449:.\FatFs/sd_spi_stm32.c **** 		/* DMA1 channel2 configuration SPI1 RX ---------------------------------------------*/
+ 450:.\FatFs/sd_spi_stm32.c **** 		/* DMA1 channel4 configuration SPI2 RX ---------------------------------------------*/
+ 451:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryBaseAddr = (DWORD)rw_workbyte;
+ 452:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+ 453:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Disable;
+ 454:.\FatFs/sd_spi_stm32.c **** 		DMA_Init(DMA_Channel_SPI_SD_RX, &DMA_InitStructure);
+ 455:.\FatFs/sd_spi_stm32.c **** 
+ 456:.\FatFs/sd_spi_stm32.c **** 		/* DMA1 channel3 configuration SPI1 TX ---------------------------------------------*/
+ 457:.\FatFs/sd_spi_stm32.c **** 		/* DMA1 channel5 configuration SPI2 TX ---------------------------------------------*/
+ 458:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryBaseAddr = (DWORD)buff;
+ 459:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+ 460:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+ 461:.\FatFs/sd_spi_stm32.c **** 		DMA_Init(DMA_Channel_SPI_SD_TX, &DMA_InitStructure);
+ 462:.\FatFs/sd_spi_stm32.c **** #endif
+ 463:.\FatFs/sd_spi_stm32.c **** 
+ 464:.\FatFs/sd_spi_stm32.c **** 	}
+ 465:.\FatFs/sd_spi_stm32.c **** 
+ 466:.\FatFs/sd_spi_stm32.c **** 	/* Enable DMA RX Channel */
+ 467:.\FatFs/sd_spi_stm32.c **** 	DMA_Cmd(DMA_Channel_SPI_SD_RX, ENABLE);
+ 468:.\FatFs/sd_spi_stm32.c **** 	/* Enable DMA TX Channel */
+ 469:.\FatFs/sd_spi_stm32.c **** 	DMA_Cmd(DMA_Channel_SPI_SD_TX, ENABLE);
+ 470:.\FatFs/sd_spi_stm32.c **** 
+ 471:.\FatFs/sd_spi_stm32.c **** 	/* Enable SPI TX/RX request */
+ 472:.\FatFs/sd_spi_stm32.c **** 	SPI_I2S_DMACmd(SPI_SD, SPI_I2S_DMAReq_Rx | SPI_I2S_DMAReq_Tx, ENABLE);
+ 473:.\FatFs/sd_spi_stm32.c **** 
+ 474:.\FatFs/sd_spi_stm32.c **** 	/* Wait until DMA1_Channel 3 Transfer Complete */
+ 475:.\FatFs/sd_spi_stm32.c **** 	/// not needed: while (DMA_GetFlagStatus(DMA_FLAG_SPI_SD_TC_TX) == RESET) { ; }
+ 476:.\FatFs/sd_spi_stm32.c **** 	/* Wait until DMA1_Channel 2 Receive Complete */
+ 477:.\FatFs/sd_spi_stm32.c **** 	while (DMA_GetFlagStatus(DMA_FLAG_SPI_SD_TC_RX) == RESET) { ; }
+ 478:.\FatFs/sd_spi_stm32.c **** 	// same w/o function-call:
+ 479:.\FatFs/sd_spi_stm32.c **** 	// while ( ( ( DMA1->ISR ) & DMA_FLAG_SPI_SD_TC_RX ) == RESET ) { ; }
+ 480:.\FatFs/sd_spi_stm32.c **** 
+ 481:.\FatFs/sd_spi_stm32.c **** 	/* Disable DMA RX Channel */
+ 482:.\FatFs/sd_spi_stm32.c **** 	DMA_Cmd(DMA_Channel_SPI_SD_RX, DISABLE);
+ 483:.\FatFs/sd_spi_stm32.c **** 	/* Disable DMA TX Channel */
+ 484:.\FatFs/sd_spi_stm32.c **** 	DMA_Cmd(DMA_Channel_SPI_SD_TX, DISABLE);
+ 485:.\FatFs/sd_spi_stm32.c **** 
+ 486:.\FatFs/sd_spi_stm32.c **** 	/* Disable SPI RX/TX request */
+ 487:.\FatFs/sd_spi_stm32.c **** 	SPI_I2S_DMACmd(SPI_SD, SPI_I2S_DMAReq_Rx | SPI_I2S_DMAReq_Tx, DISABLE);
+ 488:.\FatFs/sd_spi_stm32.c **** }
+ 489:.\FatFs/sd_spi_stm32.c **** #endif /* STM32_SD_USE_DMA */
+ 490:.\FatFs/sd_spi_stm32.c **** 
+ 491:.\FatFs/sd_spi_stm32.c **** 
+ 492:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 493:.\FatFs/sd_spi_stm32.c **** /* Power Control and interface-initialization (Platform dependent)       */
+ 494:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 495:.\FatFs/sd_spi_stm32.c **** 
+ 496:.\FatFs/sd_spi_stm32.c **** static
+ 497:.\FatFs/sd_spi_stm32.c **** void power_on (void)
+ 498:.\FatFs/sd_spi_stm32.c **** {
+  26              		.loc 1 498 0
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 32
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30 0000 70B5     		push	{r4, r5, r6, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 16
+  33              		.cfi_offset 4, -16
+  34              		.cfi_offset 5, -12
+  35              		.cfi_offset 6, -8
+  36              		.cfi_offset 14, -4
+  37 0002 88B0     		sub	sp, sp, #32
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 48
+ 499:.\FatFs/sd_spi_stm32.c **** 	SPI_InitTypeDef  SPI_InitStructure;
+ 500:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitTypeDef GPIO_InitStructure;
+ 501:.\FatFs/sd_spi_stm32.c **** 	volatile BYTE dummyread;
+ 502:.\FatFs/sd_spi_stm32.c **** 
+ 503:.\FatFs/sd_spi_stm32.c **** 	/* Enable GPIO clock for CS */
+ 504:.\FatFs/sd_spi_stm32.c **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIO_CS, ENABLE);
+  40              		.loc 1 504 0
+  41 0004 0420     		movs	r0, #4
+  42 0006 0121     		movs	r1, #1
+  43 0008 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  44              	.LVL0:
+ 505:.\FatFs/sd_spi_stm32.c **** 	/* Enable SPI clock, SPI1: APB2, SPI2: APB1 */
+ 506:.\FatFs/sd_spi_stm32.c **** 	RCC_APBPeriphClockCmd_SPI_SD(RCC_APBPeriph_SPI_SD, ENABLE);
+  45              		.loc 1 506 0
+  46 000c 4FF48050 		mov	r0, #4096
+  47 0010 0121     		movs	r1, #1
+  48 0012 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+  49              	.LVL1:
+ 507:.\FatFs/sd_spi_stm32.c **** 
+ 508:.\FatFs/sd_spi_stm32.c **** 	card_power(1);
+ 509:.\FatFs/sd_spi_stm32.c **** 	socket_cp_init();
+ 510:.\FatFs/sd_spi_stm32.c **** 	socket_wp_init();
+ 511:.\FatFs/sd_spi_stm32.c **** 
+ 512:.\FatFs/sd_spi_stm32.c ****         
+ 513:.\FatFs/sd_spi_stm32.c **** //	for (Timer1 = 25; Timer1; );	/* Wait for 250ms */
+ 514:.\FatFs/sd_spi_stm32.c **** 
+ 515:.\FatFs/sd_spi_stm32.c **** 	/* Configure I/O for Flash Chip select */
+ 516:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_CS;
+  50              		.loc 1 516 0
+  51 0016 1025     		movs	r5, #16
+  52 0018 ADF80850 		strh	r5, [sp, #8]	@ movhi
+ 517:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_Out_PP;
+  53              		.loc 1 517 0
+  54 001c 8DF80B50 		strb	r5, [sp, #11]
+ 518:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  55              		.loc 1 518 0
+  56 0020 0326     		movs	r6, #3
+  57 0022 8DF80A60 		strb	r6, [sp, #10]
+ 519:.\FatFs/sd_spi_stm32.c **** 	GPIO_Init(GPIO_CS, &GPIO_InitStructure);
+  58              		.loc 1 519 0
+  59 0026 2C4C     		ldr	r4, .L5
+  60 0028 2046     		mov	r0, r4
+  61 002a 02A9     		add	r1, sp, #8
+  62 002c FFF7FEFF 		bl	GPIO_Init
+  63              	.LVL2:
+ 520:.\FatFs/sd_spi_stm32.c **** 
+ 521:.\FatFs/sd_spi_stm32.c **** 	/* De-select the Card: Chip Select high */
+ 522:.\FatFs/sd_spi_stm32.c **** 	DESELECT();
+  64              		.loc 1 522 0
+  65 0030 2046     		mov	r0, r4
+  66 0032 2946     		mov	r1, r5
+  67 0034 FFF7FEFF 		bl	GPIO_SetBits
+  68              	.LVL3:
+ 523:.\FatFs/sd_spi_stm32.c **** 
+ 524:.\FatFs/sd_spi_stm32.c **** 	/* Configure SPI pins: SCK and MOSI with default alternate function (not re-mapped) push-pull */
+ 525:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_SPI_SD_SCK | GPIO_Pin_SPI_SD_MOSI;
+  69              		.loc 1 525 0
+  70 0038 A023     		movs	r3, #160
+  71 003a ADF80830 		strh	r3, [sp, #8]	@ movhi
+ 526:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  72              		.loc 1 526 0
+  73 003e 8DF80A60 		strb	r6, [sp, #10]
+ 527:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+  74              		.loc 1 527 0
+  75 0042 1823     		movs	r3, #24
+  76 0044 8DF80B30 		strb	r3, [sp, #11]
+ 528:.\FatFs/sd_spi_stm32.c **** 	GPIO_Init(GPIO_SPI_SD, &GPIO_InitStructure);
+  77              		.loc 1 528 0
+  78 0048 2046     		mov	r0, r4
+  79 004a 02A9     		add	r1, sp, #8
+  80 004c FFF7FEFF 		bl	GPIO_Init
+  81              	.LVL4:
+ 529:.\FatFs/sd_spi_stm32.c **** 	/* Configure MISO as Input with internal pull-up */
+ 530:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_SPI_SD_MISO;
+  82              		.loc 1 530 0
+  83 0050 4023     		movs	r3, #64
+  84 0052 ADF80830 		strh	r3, [sp, #8]	@ movhi
+ 531:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPU;
+  85              		.loc 1 531 0
+  86 0056 4823     		movs	r3, #72
+  87 0058 8DF80B30 		strb	r3, [sp, #11]
+ 532:.\FatFs/sd_spi_stm32.c **** 	GPIO_Init(GPIO_SPI_SD, &GPIO_InitStructure);
+  88              		.loc 1 532 0
+  89 005c 2046     		mov	r0, r4
+  90 005e 02A9     		add	r1, sp, #8
+  91 0060 FFF7FEFF 		bl	GPIO_Init
+  92              	.LVL5:
+ 533:.\FatFs/sd_spi_stm32.c **** 
+ 534:.\FatFs/sd_spi_stm32.c **** 	/* SPI configuration */
+ 535:.\FatFs/sd_spi_stm32.c **** 	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+  93              		.loc 1 535 0
+  94 0064 0024     		movs	r4, #0
+  95 0066 ADF80C40 		strh	r4, [sp, #12]	@ movhi
+ 536:.\FatFs/sd_spi_stm32.c **** 	SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
+  96              		.loc 1 536 0
+  97 006a 4FF48273 		mov	r3, #260
+  98 006e ADF80E30 		strh	r3, [sp, #14]	@ movhi
+ 537:.\FatFs/sd_spi_stm32.c **** 	SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
+  99              		.loc 1 537 0
+ 100 0072 ADF81040 		strh	r4, [sp, #16]	@ movhi
+ 538:.\FatFs/sd_spi_stm32.c **** 	SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
+ 101              		.loc 1 538 0
+ 102 0076 ADF81240 		strh	r4, [sp, #18]	@ movhi
+ 539:.\FatFs/sd_spi_stm32.c **** 	SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
+ 103              		.loc 1 539 0
+ 104 007a ADF81440 		strh	r4, [sp, #20]	@ movhi
+ 540:.\FatFs/sd_spi_stm32.c **** 	SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
+ 105              		.loc 1 540 0
+ 106 007e 4FF40073 		mov	r3, #512
+ 107 0082 ADF81630 		strh	r3, [sp, #22]	@ movhi
+ 541:.\FatFs/sd_spi_stm32.c **** 	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_SPI_SD; // 72000kHz/256=281kHz < 4
+ 108              		.loc 1 541 0
+ 109 0086 0823     		movs	r3, #8
+ 110 0088 ADF81830 		strh	r3, [sp, #24]	@ movhi
+ 542:.\FatFs/sd_spi_stm32.c **** 	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
+ 111              		.loc 1 542 0
+ 112 008c ADF81A40 		strh	r4, [sp, #26]	@ movhi
+ 543:.\FatFs/sd_spi_stm32.c **** 	SPI_InitStructure.SPI_CRCPolynomial = 7;
+ 113              		.loc 1 543 0
+ 114 0090 0723     		movs	r3, #7
+ 115 0092 ADF81C30 		strh	r3, [sp, #28]	@ movhi
+ 544:.\FatFs/sd_spi_stm32.c **** 
+ 545:.\FatFs/sd_spi_stm32.c **** 	SPI_Init(SPI_SD, &SPI_InitStructure);
+ 116              		.loc 1 545 0
+ 117 0096 114D     		ldr	r5, .L5+4
+ 118 0098 2846     		mov	r0, r5
+ 119 009a 03A9     		add	r1, sp, #12
+ 120 009c FFF7FEFF 		bl	SPI_Init
+ 121              	.LVL6:
+ 546:.\FatFs/sd_spi_stm32.c **** 	SPI_CalculateCRC(SPI_SD, DISABLE);
+ 122              		.loc 1 546 0
+ 123 00a0 2846     		mov	r0, r5
+ 124 00a2 2146     		mov	r1, r4
+ 125 00a4 FFF7FEFF 		bl	SPI_CalculateCRC
+ 126              	.LVL7:
+ 547:.\FatFs/sd_spi_stm32.c **** 	SPI_Cmd(SPI_SD, ENABLE);
+ 127              		.loc 1 547 0
+ 128 00a8 2846     		mov	r0, r5
+ 129 00aa 0121     		movs	r1, #1
+ 130 00ac FFF7FEFF 		bl	SPI_Cmd
+ 131              	.LVL8:
+ 548:.\FatFs/sd_spi_stm32.c **** 
+ 549:.\FatFs/sd_spi_stm32.c **** 	/* drain SPI */
+ 550:.\FatFs/sd_spi_stm32.c **** 	while (SPI_I2S_GetFlagStatus(SPI_SD, SPI_I2S_FLAG_TXE) == RESET) { ; }
+ 132              		.loc 1 550 0
+ 133 00b0 0224     		movs	r4, #2
+ 134              	.L2:
+ 135              		.loc 1 550 0 is_stmt 0 discriminator 1
+ 136 00b2 2846     		mov	r0, r5
+ 137 00b4 2146     		mov	r1, r4
+ 138 00b6 FFF7FEFF 		bl	SPI_I2S_GetFlagStatus
+ 139              	.LVL9:
+ 140 00ba 0028     		cmp	r0, #0
+ 141 00bc F9D0     		beq	.L2
+ 551:.\FatFs/sd_spi_stm32.c **** 	dummyread = SPI_I2S_ReceiveData(SPI_SD);
+ 142              		.loc 1 551 0 is_stmt 1
+ 143 00be 0748     		ldr	r0, .L5+4
+ 144 00c0 FFF7FEFF 		bl	SPI_I2S_ReceiveData
+ 145              	.LVL10:
+ 146 00c4 C0B2     		uxtb	r0, r0
+ 147 00c6 8DF80700 		strb	r0, [sp, #7]
+ 552:.\FatFs/sd_spi_stm32.c **** 
+ 553:.\FatFs/sd_spi_stm32.c **** #ifdef STM32_SD_USE_DMA
+ 554:.\FatFs/sd_spi_stm32.c **** 	/* enable DMA clock */
+ 555:.\FatFs/sd_spi_stm32.c **** 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
+ 148              		.loc 1 555 0
+ 149 00ca 0120     		movs	r0, #1
+ 150 00cc 0146     		mov	r1, r0
+ 151 00ce FFF7FEFF 		bl	RCC_AHBPeriphClockCmd
+ 152              	.LVL11:
+ 556:.\FatFs/sd_spi_stm32.c **** #endif
+ 557:.\FatFs/sd_spi_stm32.c **** }
+ 153              		.loc 1 557 0
+ 154 00d2 08B0     		add	sp, sp, #32
+ 155              	.LCFI2:
+ 156              		.cfi_def_cfa_offset 16
+ 157              		@ sp needed
+ 158 00d4 70BD     		pop	{r4, r5, r6, pc}
+ 159              	.L6:
+ 160 00d6 00BF     		.align	2
+ 161              	.L5:
+ 162 00d8 00080140 		.word	1073809408
+ 163 00dc 00300140 		.word	1073819648
+ 164              		.cfi_endproc
+ 165              	.LFE41:
+ 167              		.section	.text.stm32_spi_rw,"ax",%progbits
+ 168              		.align	2
+ 169              		.thumb
+ 170              		.thumb_func
+ 172              	stm32_spi_rw:
+ 173              	.LFB36:
+ 332:.\FatFs/sd_spi_stm32.c **** 	/* Loop while DR register in not empty */
+ 174              		.loc 1 332 0
+ 175              		.cfi_startproc
+ 176              		@ args = 0, pretend = 0, frame = 0
+ 177              		@ frame_needed = 0, uses_anonymous_args = 0
+ 178              	.LVL12:
+ 179 0000 38B5     		push	{r3, r4, r5, lr}
+ 180              	.LCFI3:
+ 181              		.cfi_def_cfa_offset 16
+ 182              		.cfi_offset 3, -16
+ 183              		.cfi_offset 4, -12
+ 184              		.cfi_offset 5, -8
+ 185              		.cfi_offset 14, -4
+ 337:.\FatFs/sd_spi_stm32.c **** 
+ 186              		.loc 1 337 0
+ 187 0002 0146     		mov	r1, r0
+ 188 0004 0748     		ldr	r0, .L11
+ 189              	.LVL13:
+ 190 0006 FFF7FEFF 		bl	SPI_I2S_SendData
+ 191              	.LVL14:
+ 340:.\FatFs/sd_spi_stm32.c **** 
+ 192              		.loc 1 340 0
+ 193 000a 064D     		ldr	r5, .L11
+ 194 000c 0124     		movs	r4, #1
+ 195              	.L8:
+ 340:.\FatFs/sd_spi_stm32.c **** 
+ 196              		.loc 1 340 0 is_stmt 0 discriminator 1
+ 197 000e 2846     		mov	r0, r5
+ 198 0010 2146     		mov	r1, r4
+ 199 0012 FFF7FEFF 		bl	SPI_I2S_GetFlagStatus
+ 200              	.LVL15:
+ 201 0016 0028     		cmp	r0, #0
+ 202 0018 F9D0     		beq	.L8
+ 343:.\FatFs/sd_spi_stm32.c **** }
+ 203              		.loc 1 343 0 is_stmt 1
+ 204 001a 0248     		ldr	r0, .L11
+ 205 001c FFF7FEFF 		bl	SPI_I2S_ReceiveData
+ 206              	.LVL16:
+ 344:.\FatFs/sd_spi_stm32.c **** 
+ 207              		.loc 1 344 0
+ 208 0020 C0B2     		uxtb	r0, r0
+ 209 0022 38BD     		pop	{r3, r4, r5, pc}
+ 210              	.L12:
+ 211              		.align	2
+ 212              	.L11:
+ 213 0024 00300140 		.word	1073819648
+ 214              		.cfi_endproc
+ 215              	.LFE36:
+ 217              		.section	.text.rcvr_spi,"ax",%progbits
+ 218              		.align	2
+ 219              		.thumb
+ 220              		.thumb_func
+ 222              	rcvr_spi:
+ 223              	.LFB37:
+ 360:.\FatFs/sd_spi_stm32.c **** 	return stm32_spi_rw(0xff);
+ 224              		.loc 1 360 0
+ 225              		.cfi_startproc
+ 226              		@ args = 0, pretend = 0, frame = 0
+ 227              		@ frame_needed = 0, uses_anonymous_args = 0
+ 228 0000 08B5     		push	{r3, lr}
+ 229              	.LCFI4:
+ 230              		.cfi_def_cfa_offset 8
+ 231              		.cfi_offset 3, -8
+ 232              		.cfi_offset 14, -4
+ 361:.\FatFs/sd_spi_stm32.c **** }
+ 233              		.loc 1 361 0
+ 234 0002 FF20     		movs	r0, #255
+ 235 0004 FFF7FEFF 		bl	stm32_spi_rw
+ 236              	.LVL17:
+ 362:.\FatFs/sd_spi_stm32.c **** 
+ 237              		.loc 1 362 0
+ 238 0008 08BD     		pop	{r3, pc}
+ 239              		.cfi_endproc
+ 240              	.LFE37:
+ 242 000a 00BF     		.section	.text.wait_ready,"ax",%progbits
+ 243              		.align	2
+ 244              		.thumb
+ 245              		.thumb_func
+ 247              	wait_ready:
+ 248              	.LFB38:
+ 375:.\FatFs/sd_spi_stm32.c **** 	BYTE res;
+ 249              		.loc 1 375 0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253 0000 10B5     		push	{r4, lr}
+ 254              	.LCFI5:
+ 255              		.cfi_def_cfa_offset 8
+ 256              		.cfi_offset 4, -8
+ 257              		.cfi_offset 14, -4
+ 379:.\FatFs/sd_spi_stm32.c **** 	rcvr_spi();
+ 258              		.loc 1 379 0
+ 259 0002 3222     		movs	r2, #50
+ 260 0004 064B     		ldr	r3, .L20
+ 261 0006 1A60     		str	r2, [r3]
+ 380:.\FatFs/sd_spi_stm32.c **** 	do
+ 262              		.loc 1 380 0
+ 263 0008 FFF7FEFF 		bl	rcvr_spi
+ 264              	.LVL18:
+ 383:.\FatFs/sd_spi_stm32.c **** 
+ 265              		.loc 1 383 0
+ 266 000c 044C     		ldr	r4, .L20
+ 267              	.L17:
+ 382:.\FatFs/sd_spi_stm32.c **** 	while ((res != 0xFF) && Timer2);
+ 268              		.loc 1 382 0 discriminator 2
+ 269 000e FFF7FEFF 		bl	rcvr_spi
+ 270              	.LVL19:
+ 383:.\FatFs/sd_spi_stm32.c **** 
+ 271              		.loc 1 383 0 discriminator 2
+ 272 0012 FF28     		cmp	r0, #255
+ 273 0014 02D0     		beq	.L16
+ 383:.\FatFs/sd_spi_stm32.c **** 
+ 274              		.loc 1 383 0 is_stmt 0 discriminator 1
+ 275 0016 2368     		ldr	r3, [r4]
+ 276 0018 002B     		cmp	r3, #0
+ 277 001a F8D1     		bne	.L17
+ 278              	.L16:
+ 386:.\FatFs/sd_spi_stm32.c **** 
+ 279              		.loc 1 386 0 is_stmt 1
+ 280 001c 10BD     		pop	{r4, pc}
+ 281              	.L21:
+ 282 001e 00BF     		.align	2
+ 283              	.L20:
+ 284 0020 00000000 		.word	.LANCHOR0
+ 285              		.cfi_endproc
+ 286              	.LFE38:
+ 288              		.section	.text.release_spi,"ax",%progbits
+ 289              		.align	2
+ 290              		.thumb
+ 291              		.thumb_func
+ 293              	release_spi:
+ 294              	.LFB39:
+ 396:.\FatFs/sd_spi_stm32.c **** 	DESELECT();
+ 295              		.loc 1 396 0
+ 296              		.cfi_startproc
+ 297              		@ args = 0, pretend = 0, frame = 0
+ 298              		@ frame_needed = 0, uses_anonymous_args = 0
+ 299 0000 08B5     		push	{r3, lr}
+ 300              	.LCFI6:
+ 301              		.cfi_def_cfa_offset 8
+ 302              		.cfi_offset 3, -8
+ 303              		.cfi_offset 14, -4
+ 397:.\FatFs/sd_spi_stm32.c **** 	rcvr_spi();
+ 304              		.loc 1 397 0
+ 305 0002 0348     		ldr	r0, .L24
+ 306 0004 1021     		movs	r1, #16
+ 307 0006 FFF7FEFF 		bl	GPIO_SetBits
+ 308              	.LVL20:
+ 398:.\FatFs/sd_spi_stm32.c **** }
+ 309              		.loc 1 398 0
+ 310 000a FFF7FEFF 		bl	rcvr_spi
+ 311              	.LVL21:
+ 312 000e 08BD     		pop	{r3, pc}
+ 313              	.L25:
+ 314              		.align	2
+ 315              	.L24:
+ 316 0010 00080140 		.word	1073809408
+ 317              		.cfi_endproc
+ 318              	.LFE39:
+ 320              		.section	.text.send_cmd,"ax",%progbits
+ 321              		.align	2
+ 322              		.thumb
+ 323              		.thumb_func
+ 325              	send_cmd:
+ 326              	.LFB45:
+ 558:.\FatFs/sd_spi_stm32.c **** 
+ 559:.\FatFs/sd_spi_stm32.c **** static
+ 560:.\FatFs/sd_spi_stm32.c **** void power_off (void)
+ 561:.\FatFs/sd_spi_stm32.c **** {
+ 562:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitTypeDef GPIO_InitStructure;
+ 563:.\FatFs/sd_spi_stm32.c **** 
+ 564:.\FatFs/sd_spi_stm32.c **** 	if (!(Stat & STA_NOINIT)) {
+ 565:.\FatFs/sd_spi_stm32.c **** 		SELECT();
+ 566:.\FatFs/sd_spi_stm32.c **** 		wait_ready();
+ 567:.\FatFs/sd_spi_stm32.c **** 		release_spi();
+ 568:.\FatFs/sd_spi_stm32.c **** 	}
+ 569:.\FatFs/sd_spi_stm32.c **** 
+ 570:.\FatFs/sd_spi_stm32.c **** 	SPI_I2S_DeInit(SPI_SD);
+ 571:.\FatFs/sd_spi_stm32.c **** 	SPI_Cmd(SPI_SD, DISABLE);
+ 572:.\FatFs/sd_spi_stm32.c **** 	RCC_APBPeriphClockCmd_SPI_SD(RCC_APBPeriph_SPI_SD, DISABLE);
+ 573:.\FatFs/sd_spi_stm32.c **** 
+ 574:.\FatFs/sd_spi_stm32.c **** 	/* All SPI-Pins to input with weak internal pull-downs */
+ 575:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_SPI_SD_SCK | GPIO_Pin_SPI_SD_MISO | GPIO_Pin_SPI_SD_MOSI;
+ 576:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPD;
+ 577:.\FatFs/sd_spi_stm32.c **** 	GPIO_Init(GPIO_SPI_SD, &GPIO_InitStructure);
+ 578:.\FatFs/sd_spi_stm32.c **** 
+ 579:.\FatFs/sd_spi_stm32.c **** 	card_power(0);
+ 580:.\FatFs/sd_spi_stm32.c **** 
+ 581:.\FatFs/sd_spi_stm32.c **** 	Stat |= STA_NOINIT;		/* Set STA_NOINIT */
+ 582:.\FatFs/sd_spi_stm32.c **** }
+ 583:.\FatFs/sd_spi_stm32.c **** 
+ 584:.\FatFs/sd_spi_stm32.c **** 
+ 585:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 586:.\FatFs/sd_spi_stm32.c **** /* Receive a data packet from MMC                                        */
+ 587:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 588:.\FatFs/sd_spi_stm32.c **** 
+ 589:.\FatFs/sd_spi_stm32.c **** static
+ 590:.\FatFs/sd_spi_stm32.c **** BOOL rcvr_datablock (
+ 591:.\FatFs/sd_spi_stm32.c **** 	BYTE *buff,			/* Data buffer to store received data */
+ 592:.\FatFs/sd_spi_stm32.c **** 	UINT btr			/* Byte count (must be multiple of 4) */
+ 593:.\FatFs/sd_spi_stm32.c **** )
+ 594:.\FatFs/sd_spi_stm32.c **** {
+ 595:.\FatFs/sd_spi_stm32.c **** 	BYTE token;
+ 596:.\FatFs/sd_spi_stm32.c **** 
+ 597:.\FatFs/sd_spi_stm32.c **** 
+ 598:.\FatFs/sd_spi_stm32.c **** 	Timer1 = 10;
+ 599:.\FatFs/sd_spi_stm32.c **** 	do {							/* Wait for data packet in timeout of 100ms */
+ 600:.\FatFs/sd_spi_stm32.c **** 		token = rcvr_spi();
+ 601:.\FatFs/sd_spi_stm32.c **** 	} while ((token == 0xFF) && Timer1);
+ 602:.\FatFs/sd_spi_stm32.c **** 	if(token != 0xFE) return FALSE;	/* If not valid data token, return with error */
+ 603:.\FatFs/sd_spi_stm32.c **** 
+ 604:.\FatFs/sd_spi_stm32.c **** #ifdef STM32_SD_USE_DMA
+ 605:.\FatFs/sd_spi_stm32.c **** 	stm32_dma_transfer( TRUE, buff, btr );
+ 606:.\FatFs/sd_spi_stm32.c **** #else
+ 607:.\FatFs/sd_spi_stm32.c **** 	do {							/* Receive the data block into buffer */
+ 608:.\FatFs/sd_spi_stm32.c **** 		rcvr_spi_m(buff++);
+ 609:.\FatFs/sd_spi_stm32.c **** 		rcvr_spi_m(buff++);
+ 610:.\FatFs/sd_spi_stm32.c **** 		rcvr_spi_m(buff++);
+ 611:.\FatFs/sd_spi_stm32.c **** 		rcvr_spi_m(buff++);
+ 612:.\FatFs/sd_spi_stm32.c **** 	} while (btr -= 4);
+ 613:.\FatFs/sd_spi_stm32.c **** #endif /* STM32_SD_USE_DMA */
+ 614:.\FatFs/sd_spi_stm32.c **** 
+ 615:.\FatFs/sd_spi_stm32.c **** 	rcvr_spi();						/* Discard CRC */
+ 616:.\FatFs/sd_spi_stm32.c **** 	rcvr_spi();
+ 617:.\FatFs/sd_spi_stm32.c **** 
+ 618:.\FatFs/sd_spi_stm32.c **** 	return TRUE;					/* Return with success */
+ 619:.\FatFs/sd_spi_stm32.c **** }
+ 620:.\FatFs/sd_spi_stm32.c **** 
+ 621:.\FatFs/sd_spi_stm32.c **** 
+ 622:.\FatFs/sd_spi_stm32.c **** 
+ 623:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 624:.\FatFs/sd_spi_stm32.c **** /* Send a data packet to MMC                                             */
+ 625:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 626:.\FatFs/sd_spi_stm32.c **** 
+ 627:.\FatFs/sd_spi_stm32.c **** #if _FS_READONLY == 0
+ 628:.\FatFs/sd_spi_stm32.c **** static
+ 629:.\FatFs/sd_spi_stm32.c **** BOOL xmit_datablock (
+ 630:.\FatFs/sd_spi_stm32.c **** 	const BYTE *buff,	/* 512 byte data block to be transmitted */
+ 631:.\FatFs/sd_spi_stm32.c **** 	BYTE token			/* Data/Stop token */
+ 632:.\FatFs/sd_spi_stm32.c **** )
+ 633:.\FatFs/sd_spi_stm32.c **** {
+ 634:.\FatFs/sd_spi_stm32.c **** 	BYTE resp;
+ 635:.\FatFs/sd_spi_stm32.c **** #ifndef STM32_SD_USE_DMA
+ 636:.\FatFs/sd_spi_stm32.c **** 	BYTE wc;
+ 637:.\FatFs/sd_spi_stm32.c **** #endif
+ 638:.\FatFs/sd_spi_stm32.c **** 
+ 639:.\FatFs/sd_spi_stm32.c **** 	if (wait_ready() != 0xFF) return FALSE;
+ 640:.\FatFs/sd_spi_stm32.c **** 
+ 641:.\FatFs/sd_spi_stm32.c **** 	xmit_spi(token);					/* transmit data token */
+ 642:.\FatFs/sd_spi_stm32.c **** 	if (token != 0xFD) {	/* Is data token */
+ 643:.\FatFs/sd_spi_stm32.c **** 
+ 644:.\FatFs/sd_spi_stm32.c **** #ifdef STM32_SD_USE_DMA
+ 645:.\FatFs/sd_spi_stm32.c **** 		stm32_dma_transfer( FALSE, buff, 512 );
+ 646:.\FatFs/sd_spi_stm32.c **** #else
+ 647:.\FatFs/sd_spi_stm32.c **** 		wc = 0;
+ 648:.\FatFs/sd_spi_stm32.c **** 		do {							/* transmit the 512 byte data block to MMC */
+ 649:.\FatFs/sd_spi_stm32.c **** 			xmit_spi(*buff++);
+ 650:.\FatFs/sd_spi_stm32.c **** 			xmit_spi(*buff++);
+ 651:.\FatFs/sd_spi_stm32.c **** 		} while (--wc);
+ 652:.\FatFs/sd_spi_stm32.c **** #endif /* STM32_SD_USE_DMA */
+ 653:.\FatFs/sd_spi_stm32.c **** 
+ 654:.\FatFs/sd_spi_stm32.c **** 		xmit_spi(0xFF);					/* CRC (Dummy) */
+ 655:.\FatFs/sd_spi_stm32.c **** 		xmit_spi(0xFF);
+ 656:.\FatFs/sd_spi_stm32.c **** 		resp = rcvr_spi();				/* Receive data response */
+ 657:.\FatFs/sd_spi_stm32.c **** 		if ((resp & 0x1F) != 0x05)		/* If not accepted, return with error */
+ 658:.\FatFs/sd_spi_stm32.c **** 			return FALSE;
+ 659:.\FatFs/sd_spi_stm32.c **** 	}
+ 660:.\FatFs/sd_spi_stm32.c **** 
+ 661:.\FatFs/sd_spi_stm32.c **** 	return TRUE;
+ 662:.\FatFs/sd_spi_stm32.c **** }
+ 663:.\FatFs/sd_spi_stm32.c **** #endif /* _READONLY */
+ 664:.\FatFs/sd_spi_stm32.c **** 
+ 665:.\FatFs/sd_spi_stm32.c **** 
+ 666:.\FatFs/sd_spi_stm32.c **** 
+ 667:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 668:.\FatFs/sd_spi_stm32.c **** /* Send a command packet to MMC                                          */
+ 669:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 670:.\FatFs/sd_spi_stm32.c **** 
+ 671:.\FatFs/sd_spi_stm32.c **** static
+ 672:.\FatFs/sd_spi_stm32.c **** BYTE send_cmd (
+ 673:.\FatFs/sd_spi_stm32.c **** 	BYTE cmd,		/* Command byte */
+ 674:.\FatFs/sd_spi_stm32.c **** 	DWORD arg		/* Argument */
+ 675:.\FatFs/sd_spi_stm32.c **** )
+ 676:.\FatFs/sd_spi_stm32.c **** {
+ 327              		.loc 1 676 0
+ 328              		.cfi_startproc
+ 329              		@ args = 0, pretend = 0, frame = 0
+ 330              		@ frame_needed = 0, uses_anonymous_args = 0
+ 331              	.LVL22:
+ 332 0000 70B5     		push	{r4, r5, r6, lr}
+ 333              	.LCFI7:
+ 334              		.cfi_def_cfa_offset 16
+ 335              		.cfi_offset 4, -16
+ 336              		.cfi_offset 5, -12
+ 337              		.cfi_offset 6, -8
+ 338              		.cfi_offset 14, -4
+ 339 0002 0546     		mov	r5, r0
+ 340 0004 0E46     		mov	r6, r1
+ 677:.\FatFs/sd_spi_stm32.c **** 	BYTE n, res;
+ 678:.\FatFs/sd_spi_stm32.c **** 
+ 679:.\FatFs/sd_spi_stm32.c **** 
+ 680:.\FatFs/sd_spi_stm32.c **** 	if (cmd & 0x80) {	/* ACMD<n> is the command sequence of CMD55-CMD<n> */
+ 341              		.loc 1 680 0
+ 342 0006 10F0800F 		tst	r0, #128
+ 343 000a 07D0     		beq	.L27
+ 344              	.LVL23:
+ 681:.\FatFs/sd_spi_stm32.c **** 		cmd &= 0x7F;
+ 682:.\FatFs/sd_spi_stm32.c **** 		res = send_cmd(CMD55, 0);
+ 345              		.loc 1 682 0
+ 346 000c 7720     		movs	r0, #119
+ 347 000e 0021     		movs	r1, #0
+ 348              	.LVL24:
+ 349 0010 FFF7F6FF 		bl	send_cmd
+ 350              	.LVL25:
+ 683:.\FatFs/sd_spi_stm32.c **** 		if (res > 1) return res;
+ 351              		.loc 1 683 0
+ 352 0014 0128     		cmp	r0, #1
+ 353 0016 3FD8     		bhi	.L37
+ 681:.\FatFs/sd_spi_stm32.c **** 		cmd &= 0x7F;
+ 354              		.loc 1 681 0
+ 355 0018 05F07F05 		and	r5, r5, #127
+ 356              	.LVL26:
+ 357              	.L27:
+ 684:.\FatFs/sd_spi_stm32.c **** 	}
+ 685:.\FatFs/sd_spi_stm32.c **** 
+ 686:.\FatFs/sd_spi_stm32.c **** 	/* Select the card and wait for ready */
+ 687:.\FatFs/sd_spi_stm32.c **** 	DESELECT();
+ 358              		.loc 1 687 0
+ 359 001c 1F4C     		ldr	r4, .L39
+ 360 001e 2046     		mov	r0, r4
+ 361 0020 1021     		movs	r1, #16
+ 362 0022 FFF7FEFF 		bl	GPIO_SetBits
+ 363              	.LVL27:
+ 688:.\FatFs/sd_spi_stm32.c **** 	SELECT();
+ 364              		.loc 1 688 0
+ 365 0026 2046     		mov	r0, r4
+ 366 0028 1021     		movs	r1, #16
+ 367 002a FFF7FEFF 		bl	GPIO_ResetBits
+ 368              	.LVL28:
+ 689:.\FatFs/sd_spi_stm32.c **** 	if (wait_ready() != 0xFF) {
+ 369              		.loc 1 689 0
+ 370 002e FFF7FEFF 		bl	wait_ready
+ 371              	.LVL29:
+ 372 0032 FF28     		cmp	r0, #255
+ 373 0034 26D1     		bne	.L34
+ 690:.\FatFs/sd_spi_stm32.c **** 		return 0xFF;
+ 691:.\FatFs/sd_spi_stm32.c **** 	}
+ 692:.\FatFs/sd_spi_stm32.c **** 
+ 693:.\FatFs/sd_spi_stm32.c **** 	/* Send command packet */
+ 694:.\FatFs/sd_spi_stm32.c **** 	xmit_spi(cmd);						/* Start + Command index */
+ 374              		.loc 1 694 0
+ 375 0036 2846     		mov	r0, r5
+ 376 0038 FFF7FEFF 		bl	stm32_spi_rw
+ 377              	.LVL30:
+ 695:.\FatFs/sd_spi_stm32.c **** 	xmit_spi((BYTE)(arg >> 24));		/* Argument[31..24] */
+ 378              		.loc 1 695 0
+ 379 003c 300E     		lsrs	r0, r6, #24
+ 380 003e FFF7FEFF 		bl	stm32_spi_rw
+ 381              	.LVL31:
+ 696:.\FatFs/sd_spi_stm32.c **** 	xmit_spi((BYTE)(arg >> 16));		/* Argument[23..16] */
+ 382              		.loc 1 696 0
+ 383 0042 C6F30740 		ubfx	r0, r6, #16, #8
+ 384 0046 FFF7FEFF 		bl	stm32_spi_rw
+ 385              	.LVL32:
+ 697:.\FatFs/sd_spi_stm32.c **** 	xmit_spi((BYTE)(arg >> 8));			/* Argument[15..8] */
+ 386              		.loc 1 697 0
+ 387 004a C6F30720 		ubfx	r0, r6, #8, #8
+ 388 004e FFF7FEFF 		bl	stm32_spi_rw
+ 389              	.LVL33:
+ 698:.\FatFs/sd_spi_stm32.c **** 	xmit_spi((BYTE)arg);				/* Argument[7..0] */
+ 390              		.loc 1 698 0
+ 391 0052 F0B2     		uxtb	r0, r6
+ 392 0054 FFF7FEFF 		bl	stm32_spi_rw
+ 393              	.LVL34:
+ 699:.\FatFs/sd_spi_stm32.c **** 	n = 0x01;							/* Dummy CRC + Stop */
+ 700:.\FatFs/sd_spi_stm32.c **** 	if (cmd == CMD0) n = 0x95;			/* Valid CRC for CMD0(0) */
+ 394              		.loc 1 700 0
+ 395 0058 402D     		cmp	r5, #64
+ 396 005a 19D0     		beq	.L29
+ 701:.\FatFs/sd_spi_stm32.c **** 	if (cmd == CMD8) n = 0x87;			/* Valid CRC for CMD8(0x1AA) */
+ 397              		.loc 1 701 0
+ 398 005c 482D     		cmp	r5, #72
+ 399 005e 13D0     		beq	.L30
+ 702:.\FatFs/sd_spi_stm32.c **** 	xmit_spi(n);
+ 400              		.loc 1 702 0
+ 401 0060 0120     		movs	r0, #1
+ 402 0062 FFF7FEFF 		bl	stm32_spi_rw
+ 403              	.LVL35:
+ 703:.\FatFs/sd_spi_stm32.c **** 
+ 704:.\FatFs/sd_spi_stm32.c **** 	/* Receive command response */
+ 705:.\FatFs/sd_spi_stm32.c **** 	if (cmd == CMD12) rcvr_spi();		/* Skip a stuff byte when stop reading */
+ 404              		.loc 1 705 0
+ 405 0066 4C2D     		cmp	r5, #76
+ 406 0068 01D1     		bne	.L31
+ 407              		.loc 1 705 0 is_stmt 0 discriminator 1
+ 408 006a FFF7FEFF 		bl	rcvr_spi
+ 409              	.LVL36:
+ 410              	.L31:
+ 676:.\FatFs/sd_spi_stm32.c **** 	BYTE n, res;
+ 411              		.loc 1 676 0 is_stmt 1 discriminator 2
+ 412 006e 0A24     		movs	r4, #10
+ 413              	.L32:
+ 414              	.LVL37:
+ 706:.\FatFs/sd_spi_stm32.c **** 
+ 707:.\FatFs/sd_spi_stm32.c **** 	n = 10;								/* Wait for a valid response in timeout of 10 attempts */
+ 708:.\FatFs/sd_spi_stm32.c **** 	do
+ 709:.\FatFs/sd_spi_stm32.c **** 		res = rcvr_spi();
+ 415              		.loc 1 709 0 discriminator 2
+ 416 0070 FFF7FEFF 		bl	rcvr_spi
+ 417              	.LVL38:
+ 710:.\FatFs/sd_spi_stm32.c **** 	while ((res & 0x80) && --n);
+ 418              		.loc 1 710 0 discriminator 2
+ 419 0074 10F0800F 		tst	r0, #128
+ 420 0078 0ED0     		beq	.L37
+ 421              	.LVL39:
+ 422 007a 631E     		subs	r3, r4, #1
+ 423              		.loc 1 710 0 is_stmt 0 discriminator 1
+ 424 007c 13F0FF04 		ands	r4, r3, #255
+ 425              	.LVL40:
+ 426 0080 F6D1     		bne	.L32
+ 427 0082 70BD     		pop	{r4, r5, r6, pc}
+ 428              	.LVL41:
+ 429              	.L34:
+ 690:.\FatFs/sd_spi_stm32.c **** 	}
+ 430              		.loc 1 690 0 is_stmt 1
+ 431 0084 FF20     		movs	r0, #255
+ 432 0086 70BD     		pop	{r4, r5, r6, pc}
+ 433              	.LVL42:
+ 434              	.L30:
+ 702:.\FatFs/sd_spi_stm32.c **** 
+ 435              		.loc 1 702 0
+ 436 0088 8720     		movs	r0, #135
+ 437 008a FFF7FEFF 		bl	stm32_spi_rw
+ 438              	.LVL43:
+ 439 008e EEE7     		b	.L31
+ 440              	.LVL44:
+ 441              	.L29:
+ 442 0090 9520     		movs	r0, #149
+ 443 0092 FFF7FEFF 		bl	stm32_spi_rw
+ 444              	.LVL45:
+ 445 0096 EAE7     		b	.L31
+ 446              	.LVL46:
+ 447              	.L37:
+ 711:.\FatFs/sd_spi_stm32.c **** 
+ 712:.\FatFs/sd_spi_stm32.c **** 	return res;			/* Return with the response value */
+ 713:.\FatFs/sd_spi_stm32.c **** }
+ 448              		.loc 1 713 0
+ 449 0098 70BD     		pop	{r4, r5, r6, pc}
+ 450              	.LVL47:
+ 451              	.L40:
+ 452 009a 00BF     		.align	2
+ 453              	.L39:
+ 454 009c 00080140 		.word	1073809408
+ 455              		.cfi_endproc
+ 456              	.LFE45:
+ 458              		.section	.text.power_off,"ax",%progbits
+ 459              		.align	2
+ 460              		.thumb
+ 461              		.thumb_func
+ 463              	power_off:
+ 464              	.LFB42:
+ 561:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitTypeDef GPIO_InitStructure;
+ 465              		.loc 1 561 0
+ 466              		.cfi_startproc
+ 467              		@ args = 0, pretend = 0, frame = 8
+ 468              		@ frame_needed = 0, uses_anonymous_args = 0
+ 469 0000 10B5     		push	{r4, lr}
+ 470              	.LCFI8:
+ 471              		.cfi_def_cfa_offset 8
+ 472              		.cfi_offset 4, -8
+ 473              		.cfi_offset 14, -4
+ 474 0002 82B0     		sub	sp, sp, #8
+ 475              	.LCFI9:
+ 476              		.cfi_def_cfa_offset 16
+ 564:.\FatFs/sd_spi_stm32.c **** 		SELECT();
+ 477              		.loc 1 564 0
+ 478 0004 154B     		ldr	r3, .L44
+ 479 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 480 0008 13F0010F 		tst	r3, #1
+ 481 000c 07D1     		bne	.L42
+ 565:.\FatFs/sd_spi_stm32.c **** 		wait_ready();
+ 482              		.loc 1 565 0
+ 483 000e 1448     		ldr	r0, .L44+4
+ 484 0010 1021     		movs	r1, #16
+ 485 0012 FFF7FEFF 		bl	GPIO_ResetBits
+ 486              	.LVL48:
+ 566:.\FatFs/sd_spi_stm32.c **** 		release_spi();
+ 487              		.loc 1 566 0
+ 488 0016 FFF7FEFF 		bl	wait_ready
+ 489              	.LVL49:
+ 567:.\FatFs/sd_spi_stm32.c **** 	}
+ 490              		.loc 1 567 0
+ 491 001a FFF7FEFF 		bl	release_spi
+ 492              	.LVL50:
+ 493              	.L42:
+ 570:.\FatFs/sd_spi_stm32.c **** 	SPI_Cmd(SPI_SD, DISABLE);
+ 494              		.loc 1 570 0
+ 495 001e 114C     		ldr	r4, .L44+8
+ 496 0020 2046     		mov	r0, r4
+ 497 0022 FFF7FEFF 		bl	SPI_I2S_DeInit
+ 498              	.LVL51:
+ 571:.\FatFs/sd_spi_stm32.c **** 	RCC_APBPeriphClockCmd_SPI_SD(RCC_APBPeriph_SPI_SD, DISABLE);
+ 499              		.loc 1 571 0
+ 500 0026 2046     		mov	r0, r4
+ 501 0028 0021     		movs	r1, #0
+ 502 002a FFF7FEFF 		bl	SPI_Cmd
+ 503              	.LVL52:
+ 572:.\FatFs/sd_spi_stm32.c **** 
+ 504              		.loc 1 572 0
+ 505 002e 4FF48050 		mov	r0, #4096
+ 506 0032 0021     		movs	r1, #0
+ 507 0034 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+ 508              	.LVL53:
+ 575:.\FatFs/sd_spi_stm32.c **** 	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPD;
+ 509              		.loc 1 575 0
+ 510 0038 E023     		movs	r3, #224
+ 511 003a ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 576:.\FatFs/sd_spi_stm32.c **** 	GPIO_Init(GPIO_SPI_SD, &GPIO_InitStructure);
+ 512              		.loc 1 576 0
+ 513 003e 2823     		movs	r3, #40
+ 514 0040 8DF80730 		strb	r3, [sp, #7]
+ 577:.\FatFs/sd_spi_stm32.c **** 
+ 515              		.loc 1 577 0
+ 516 0044 0648     		ldr	r0, .L44+4
+ 517 0046 01A9     		add	r1, sp, #4
+ 518 0048 FFF7FEFF 		bl	GPIO_Init
+ 519              	.LVL54:
+ 581:.\FatFs/sd_spi_stm32.c **** }
+ 520              		.loc 1 581 0
+ 521 004c 034A     		ldr	r2, .L44
+ 522 004e 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 523 0050 43F00103 		orr	r3, r3, #1
+ 524 0054 1370     		strb	r3, [r2]
+ 582:.\FatFs/sd_spi_stm32.c **** 
+ 525              		.loc 1 582 0
+ 526 0056 02B0     		add	sp, sp, #8
+ 527              	.LCFI10:
+ 528              		.cfi_def_cfa_offset 8
+ 529              		@ sp needed
+ 530 0058 10BD     		pop	{r4, pc}
+ 531              	.L45:
+ 532 005a 00BF     		.align	2
+ 533              	.L44:
+ 534 005c 00000000 		.word	.LANCHOR1
+ 535 0060 00080140 		.word	1073809408
+ 536 0064 00300140 		.word	1073819648
+ 537              		.cfi_endproc
+ 538              	.LFE42:
+ 540              		.section	.text.stm32_dma_transfer,"ax",%progbits
+ 541              		.align	2
+ 542              		.thumb
+ 543              		.thumb_func
+ 545              	stm32_dma_transfer:
+ 546              	.LFB40:
+ 413:.\FatFs/sd_spi_stm32.c **** 	DMA_InitTypeDef DMA_InitStructure;
+ 547              		.loc 1 413 0
+ 548              		.cfi_startproc
+ 549              		@ args = 0, pretend = 0, frame = 48
+ 550              		@ frame_needed = 0, uses_anonymous_args = 0
+ 551              	.LVL55:
+ 552 0000 30B5     		push	{r4, r5, lr}
+ 553              	.LCFI11:
+ 554              		.cfi_def_cfa_offset 12
+ 555              		.cfi_offset 4, -12
+ 556              		.cfi_offset 5, -8
+ 557              		.cfi_offset 14, -4
+ 558 0002 8DB0     		sub	sp, sp, #52
+ 559              	.LCFI12:
+ 560              		.cfi_def_cfa_offset 64
+ 561 0004 0546     		mov	r5, r0
+ 562 0006 0C46     		mov	r4, r1
+ 415:.\FatFs/sd_spi_stm32.c **** 
+ 563              		.loc 1 415 0
+ 564 0008 4FF6FF73 		movw	r3, #65535
+ 565 000c ADF80030 		strh	r3, [sp]	@ movhi
+ 418:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+ 566              		.loc 1 418 0
+ 567 0010 2C4B     		ldr	r3, .L52
+ 568 0012 0193     		str	r3, [sp, #4]
+ 419:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+ 569              		.loc 1 419 0
+ 570 0014 0023     		movs	r3, #0
+ 571 0016 0793     		str	r3, [sp, #28]
+ 420:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+ 572              		.loc 1 420 0
+ 573 0018 0893     		str	r3, [sp, #32]
+ 421:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_BufferSize = btr;
+ 574              		.loc 1 421 0
+ 575 001a 0593     		str	r3, [sp, #20]
+ 422:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+ 576              		.loc 1 422 0
+ 577 001c 0492     		str	r2, [sp, #16]
+ 423:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_Priority = DMA_Priority_VeryHigh;
+ 578              		.loc 1 423 0
+ 579 001e 0993     		str	r3, [sp, #36]
+ 424:.\FatFs/sd_spi_stm32.c **** 	DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
+ 580              		.loc 1 424 0
+ 581 0020 4FF44052 		mov	r2, #12288
+ 582              	.LVL56:
+ 583 0024 0A92     		str	r2, [sp, #40]
+ 425:.\FatFs/sd_spi_stm32.c **** 
+ 584              		.loc 1 425 0
+ 585 0026 0B93     		str	r3, [sp, #44]
+ 427:.\FatFs/sd_spi_stm32.c **** 	DMA_DeInit(DMA_Channel_SPI_SD_TX);
+ 586              		.loc 1 427 0
+ 587 0028 2748     		ldr	r0, .L52+4
+ 588              	.LVL57:
+ 589 002a FFF7FEFF 		bl	DMA_DeInit
+ 590              	.LVL58:
+ 428:.\FatFs/sd_spi_stm32.c **** 
+ 591              		.loc 1 428 0
+ 592 002e 2748     		ldr	r0, .L52+8
+ 593 0030 FFF7FEFF 		bl	DMA_DeInit
+ 594              	.LVL59:
+ 430:.\FatFs/sd_spi_stm32.c **** 
+ 595              		.loc 1 430 0
+ 596 0034 95B1     		cbz	r5, .L47
+ 434:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+ 597              		.loc 1 434 0
+ 598 0036 0294     		str	r4, [sp, #8]
+ 435:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+ 599              		.loc 1 435 0
+ 600 0038 0024     		movs	r4, #0
+ 601              	.LVL60:
+ 602 003a 0394     		str	r4, [sp, #12]
+ 436:.\FatFs/sd_spi_stm32.c **** 		DMA_Init(DMA_Channel_SPI_SD_RX, &DMA_InitStructure);
+ 603              		.loc 1 436 0
+ 604 003c 8023     		movs	r3, #128
+ 605 003e 0693     		str	r3, [sp, #24]
+ 437:.\FatFs/sd_spi_stm32.c **** 
+ 606              		.loc 1 437 0
+ 607 0040 2148     		ldr	r0, .L52+4
+ 608 0042 01A9     		add	r1, sp, #4
+ 609 0044 FFF7FEFF 		bl	DMA_Init
+ 610              	.LVL61:
+ 441:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+ 611              		.loc 1 441 0
+ 612 0048 CDF808D0 		str	sp, [sp, #8]
+ 442:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Disable;
+ 613              		.loc 1 442 0
+ 614 004c 1023     		movs	r3, #16
+ 615 004e 0393     		str	r3, [sp, #12]
+ 443:.\FatFs/sd_spi_stm32.c **** 		DMA_Init(DMA_Channel_SPI_SD_TX, &DMA_InitStructure);
+ 616              		.loc 1 443 0
+ 617 0050 0694     		str	r4, [sp, #24]
+ 444:.\FatFs/sd_spi_stm32.c **** 
+ 618              		.loc 1 444 0
+ 619 0052 1E48     		ldr	r0, .L52+8
+ 620 0054 01A9     		add	r1, sp, #4
+ 621 0056 FFF7FEFF 		bl	DMA_Init
+ 622              	.LVL62:
+ 623 005a 11E0     		b	.L48
+ 624              	.LVL63:
+ 625              	.L47:
+ 451:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
+ 626              		.loc 1 451 0
+ 627 005c CDF808D0 		str	sp, [sp, #8]
+ 452:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Disable;
+ 628              		.loc 1 452 0
+ 629 0060 0023     		movs	r3, #0
+ 630 0062 0393     		str	r3, [sp, #12]
+ 453:.\FatFs/sd_spi_stm32.c **** 		DMA_Init(DMA_Channel_SPI_SD_RX, &DMA_InitStructure);
+ 631              		.loc 1 453 0
+ 632 0064 0693     		str	r3, [sp, #24]
+ 454:.\FatFs/sd_spi_stm32.c **** 
+ 633              		.loc 1 454 0
+ 634 0066 1848     		ldr	r0, .L52+4
+ 635 0068 01A9     		add	r1, sp, #4
+ 636 006a FFF7FEFF 		bl	DMA_Init
+ 637              	.LVL64:
+ 458:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;
+ 638              		.loc 1 458 0
+ 639 006e 0294     		str	r4, [sp, #8]
+ 459:.\FatFs/sd_spi_stm32.c **** 		DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+ 640              		.loc 1 459 0
+ 641 0070 1023     		movs	r3, #16
+ 642 0072 0393     		str	r3, [sp, #12]
+ 460:.\FatFs/sd_spi_stm32.c **** 		DMA_Init(DMA_Channel_SPI_SD_TX, &DMA_InitStructure);
+ 643              		.loc 1 460 0
+ 644 0074 8023     		movs	r3, #128
+ 645 0076 0693     		str	r3, [sp, #24]
+ 461:.\FatFs/sd_spi_stm32.c **** #endif
+ 646              		.loc 1 461 0
+ 647 0078 1448     		ldr	r0, .L52+8
+ 648 007a 01A9     		add	r1, sp, #4
+ 649 007c FFF7FEFF 		bl	DMA_Init
+ 650              	.LVL65:
+ 651              	.L48:
+ 467:.\FatFs/sd_spi_stm32.c **** 	/* Enable DMA TX Channel */
+ 652              		.loc 1 467 0
+ 653 0080 1148     		ldr	r0, .L52+4
+ 654 0082 0121     		movs	r1, #1
+ 655 0084 FFF7FEFF 		bl	DMA_Cmd
+ 656              	.LVL66:
+ 469:.\FatFs/sd_spi_stm32.c **** 
+ 657              		.loc 1 469 0
+ 658 0088 1048     		ldr	r0, .L52+8
+ 659 008a 0121     		movs	r1, #1
+ 660 008c FFF7FEFF 		bl	DMA_Cmd
+ 661              	.LVL67:
+ 472:.\FatFs/sd_spi_stm32.c **** 
+ 662              		.loc 1 472 0
+ 663 0090 0F48     		ldr	r0, .L52+12
+ 664 0092 0321     		movs	r1, #3
+ 665 0094 0122     		movs	r2, #1
+ 666 0096 FFF7FEFF 		bl	SPI_I2S_DMACmd
+ 667              	.LVL68:
+ 477:.\FatFs/sd_spi_stm32.c **** 	// same w/o function-call:
+ 668              		.loc 1 477 0
+ 669 009a 2024     		movs	r4, #32
+ 670              	.L49:
+ 477:.\FatFs/sd_spi_stm32.c **** 	// same w/o function-call:
+ 671              		.loc 1 477 0 is_stmt 0 discriminator 1
+ 672 009c 2046     		mov	r0, r4
+ 673 009e FFF7FEFF 		bl	DMA_GetFlagStatus
+ 674              	.LVL69:
+ 675 00a2 0028     		cmp	r0, #0
+ 676 00a4 FAD0     		beq	.L49
+ 482:.\FatFs/sd_spi_stm32.c **** 	/* Disable DMA TX Channel */
+ 677              		.loc 1 482 0 is_stmt 1
+ 678 00a6 0848     		ldr	r0, .L52+4
+ 679 00a8 0021     		movs	r1, #0
+ 680 00aa FFF7FEFF 		bl	DMA_Cmd
+ 681              	.LVL70:
+ 484:.\FatFs/sd_spi_stm32.c **** 
+ 682              		.loc 1 484 0
+ 683 00ae 0748     		ldr	r0, .L52+8
+ 684 00b0 0021     		movs	r1, #0
+ 685 00b2 FFF7FEFF 		bl	DMA_Cmd
+ 686              	.LVL71:
+ 487:.\FatFs/sd_spi_stm32.c **** }
+ 687              		.loc 1 487 0
+ 688 00b6 0648     		ldr	r0, .L52+12
+ 689 00b8 0321     		movs	r1, #3
+ 690 00ba 0022     		movs	r2, #0
+ 691 00bc FFF7FEFF 		bl	SPI_I2S_DMACmd
+ 692              	.LVL72:
+ 488:.\FatFs/sd_spi_stm32.c **** #endif /* STM32_SD_USE_DMA */
+ 693              		.loc 1 488 0
+ 694 00c0 0DB0     		add	sp, sp, #52
+ 695              	.LCFI13:
+ 696              		.cfi_def_cfa_offset 12
+ 697              		@ sp needed
+ 698 00c2 30BD     		pop	{r4, r5, pc}
+ 699              	.L53:
+ 700              		.align	2
+ 701              	.L52:
+ 702 00c4 0C300140 		.word	1073819660
+ 703 00c8 1C000240 		.word	1073872924
+ 704 00cc 30000240 		.word	1073872944
+ 705 00d0 00300140 		.word	1073819648
+ 706              		.cfi_endproc
+ 707              	.LFE40:
+ 709              		.section	.text.rcvr_datablock,"ax",%progbits
+ 710              		.align	2
+ 711              		.thumb
+ 712              		.thumb_func
+ 714              	rcvr_datablock:
+ 715              	.LFB43:
+ 594:.\FatFs/sd_spi_stm32.c **** 	BYTE token;
+ 716              		.loc 1 594 0
+ 717              		.cfi_startproc
+ 718              		@ args = 0, pretend = 0, frame = 0
+ 719              		@ frame_needed = 0, uses_anonymous_args = 0
+ 720              	.LVL73:
+ 721 0000 70B5     		push	{r4, r5, r6, lr}
+ 722              	.LCFI14:
+ 723              		.cfi_def_cfa_offset 16
+ 724              		.cfi_offset 4, -16
+ 725              		.cfi_offset 5, -12
+ 726              		.cfi_offset 6, -8
+ 727              		.cfi_offset 14, -4
+ 728 0002 0646     		mov	r6, r0
+ 729 0004 0D46     		mov	r5, r1
+ 598:.\FatFs/sd_spi_stm32.c **** 	do {							/* Wait for data packet in timeout of 100ms */
+ 730              		.loc 1 598 0
+ 731 0006 0A22     		movs	r2, #10
+ 732 0008 0D4B     		ldr	r3, .L61
+ 733 000a 1A60     		str	r2, [r3]
+ 601:.\FatFs/sd_spi_stm32.c **** 	if(token != 0xFE) return FALSE;	/* If not valid data token, return with error */
+ 734              		.loc 1 601 0
+ 735 000c 1C46     		mov	r4, r3
+ 736              	.LVL74:
+ 737              	.L56:
+ 600:.\FatFs/sd_spi_stm32.c **** 	} while ((token == 0xFF) && Timer1);
+ 738              		.loc 1 600 0 discriminator 2
+ 739 000e FFF7FEFF 		bl	rcvr_spi
+ 740              	.LVL75:
+ 601:.\FatFs/sd_spi_stm32.c **** 	if(token != 0xFE) return FALSE;	/* If not valid data token, return with error */
+ 741              		.loc 1 601 0 discriminator 2
+ 742 0012 FF28     		cmp	r0, #255
+ 743 0014 04D1     		bne	.L55
+ 601:.\FatFs/sd_spi_stm32.c **** 	if(token != 0xFE) return FALSE;	/* If not valid data token, return with error */
+ 744              		.loc 1 601 0 is_stmt 0 discriminator 1
+ 745 0016 2368     		ldr	r3, [r4]
+ 746 0018 002B     		cmp	r3, #0
+ 747 001a F8D1     		bne	.L56
+ 602:.\FatFs/sd_spi_stm32.c **** 
+ 748              		.loc 1 602 0 is_stmt 1
+ 749 001c 0020     		movs	r0, #0
+ 750              	.LVL76:
+ 751 001e 70BD     		pop	{r4, r5, r6, pc}
+ 752              	.LVL77:
+ 753              	.L55:
+ 754 0020 FE28     		cmp	r0, #254
+ 755 0022 0AD1     		bne	.L58
+ 605:.\FatFs/sd_spi_stm32.c **** #else
+ 756              		.loc 1 605 0
+ 757 0024 0120     		movs	r0, #1
+ 758              	.LVL78:
+ 759 0026 3146     		mov	r1, r6
+ 760 0028 2A46     		mov	r2, r5
+ 761 002a FFF7FEFF 		bl	stm32_dma_transfer
+ 762              	.LVL79:
+ 615:.\FatFs/sd_spi_stm32.c **** 	rcvr_spi();
+ 763              		.loc 1 615 0
+ 764 002e FFF7FEFF 		bl	rcvr_spi
+ 765              	.LVL80:
+ 616:.\FatFs/sd_spi_stm32.c **** 
+ 766              		.loc 1 616 0
+ 767 0032 FFF7FEFF 		bl	rcvr_spi
+ 768              	.LVL81:
+ 618:.\FatFs/sd_spi_stm32.c **** }
+ 769              		.loc 1 618 0
+ 770 0036 0120     		movs	r0, #1
+ 771 0038 70BD     		pop	{r4, r5, r6, pc}
+ 772              	.LVL82:
+ 773              	.L58:
+ 602:.\FatFs/sd_spi_stm32.c **** 
+ 774              		.loc 1 602 0
+ 775 003a 0020     		movs	r0, #0
+ 776              	.LVL83:
+ 619:.\FatFs/sd_spi_stm32.c **** 
+ 777              		.loc 1 619 0
+ 778 003c 70BD     		pop	{r4, r5, r6, pc}
+ 779              	.LVL84:
+ 780              	.L62:
+ 781 003e 00BF     		.align	2
+ 782              	.L61:
+ 783 0040 00000000 		.word	.LANCHOR2
+ 784              		.cfi_endproc
+ 785              	.LFE43:
+ 787              		.section	.text.xmit_datablock,"ax",%progbits
+ 788              		.align	2
+ 789              		.thumb
+ 790              		.thumb_func
+ 792              	xmit_datablock:
+ 793              	.LFB44:
+ 633:.\FatFs/sd_spi_stm32.c **** 	BYTE resp;
+ 794              		.loc 1 633 0
+ 795              		.cfi_startproc
+ 796              		@ args = 0, pretend = 0, frame = 0
+ 797              		@ frame_needed = 0, uses_anonymous_args = 0
+ 798              	.LVL85:
+ 799 0000 38B5     		push	{r3, r4, r5, lr}
+ 800              	.LCFI15:
+ 801              		.cfi_def_cfa_offset 16
+ 802              		.cfi_offset 3, -16
+ 803              		.cfi_offset 4, -12
+ 804              		.cfi_offset 5, -8
+ 805              		.cfi_offset 14, -4
+ 806 0002 0546     		mov	r5, r0
+ 807 0004 0C46     		mov	r4, r1
+ 639:.\FatFs/sd_spi_stm32.c **** 
+ 808              		.loc 1 639 0
+ 809 0006 FFF7FEFF 		bl	wait_ready
+ 810              	.LVL86:
+ 811 000a FF28     		cmp	r0, #255
+ 812 000c 19D1     		bne	.L65
+ 641:.\FatFs/sd_spi_stm32.c **** 	if (token != 0xFD) {	/* Is data token */
+ 813              		.loc 1 641 0
+ 814 000e 2046     		mov	r0, r4
+ 815 0010 FFF7FEFF 		bl	stm32_spi_rw
+ 816              	.LVL87:
+ 642:.\FatFs/sd_spi_stm32.c **** 
+ 817              		.loc 1 642 0
+ 818 0014 FD2C     		cmp	r4, #253
+ 819 0016 16D0     		beq	.L66
+ 645:.\FatFs/sd_spi_stm32.c **** #else
+ 820              		.loc 1 645 0
+ 821 0018 0020     		movs	r0, #0
+ 822 001a 2946     		mov	r1, r5
+ 823 001c 4FF40072 		mov	r2, #512
+ 824 0020 FFF7FEFF 		bl	stm32_dma_transfer
+ 825              	.LVL88:
+ 654:.\FatFs/sd_spi_stm32.c **** 		xmit_spi(0xFF);
+ 826              		.loc 1 654 0
+ 827 0024 FF20     		movs	r0, #255
+ 828 0026 FFF7FEFF 		bl	stm32_spi_rw
+ 829              	.LVL89:
+ 655:.\FatFs/sd_spi_stm32.c **** 		resp = rcvr_spi();				/* Receive data response */
+ 830              		.loc 1 655 0
+ 831 002a FF20     		movs	r0, #255
+ 832 002c FFF7FEFF 		bl	stm32_spi_rw
+ 833              	.LVL90:
+ 656:.\FatFs/sd_spi_stm32.c **** 		if ((resp & 0x1F) != 0x05)		/* If not accepted, return with error */
+ 834              		.loc 1 656 0
+ 835 0030 FFF7FEFF 		bl	rcvr_spi
+ 836              	.LVL91:
+ 657:.\FatFs/sd_spi_stm32.c **** 			return FALSE;
+ 837              		.loc 1 657 0
+ 838 0034 00F01F00 		and	r0, r0, #31
+ 839              	.LVL92:
+ 840 0038 0528     		cmp	r0, #5
+ 841 003a 14BF     		ite	ne
+ 842 003c 0020     		movne	r0, #0
+ 843 003e 0120     		moveq	r0, #1
+ 844 0040 38BD     		pop	{r3, r4, r5, pc}
+ 845              	.LVL93:
+ 846              	.L65:
+ 639:.\FatFs/sd_spi_stm32.c **** 
+ 847              		.loc 1 639 0
+ 848 0042 0020     		movs	r0, #0
+ 849 0044 38BD     		pop	{r3, r4, r5, pc}
+ 850              	.LVL94:
+ 851              	.L66:
+ 661:.\FatFs/sd_spi_stm32.c **** }
+ 852              		.loc 1 661 0
+ 853 0046 0120     		movs	r0, #1
+ 662:.\FatFs/sd_spi_stm32.c **** #endif /* _READONLY */
+ 854              		.loc 1 662 0
+ 855 0048 38BD     		pop	{r3, r4, r5, pc}
+ 856              		.cfi_endproc
+ 857              	.LFE44:
+ 859 004a 00BF     		.section	.text.disk_initialize,"ax",%progbits
+ 860              		.align	2
+ 861              		.global	disk_initialize
+ 862              		.thumb
+ 863              		.thumb_func
+ 865              	disk_initialize:
+ 866              	.LFB46:
+ 714:.\FatFs/sd_spi_stm32.c **** 
+ 715:.\FatFs/sd_spi_stm32.c **** 
+ 716:.\FatFs/sd_spi_stm32.c **** 
+ 717:.\FatFs/sd_spi_stm32.c **** /*--------------------------------------------------------------------------
+ 718:.\FatFs/sd_spi_stm32.c **** 
+ 719:.\FatFs/sd_spi_stm32.c ****    Public Functions
+ 720:.\FatFs/sd_spi_stm32.c **** 
+ 721:.\FatFs/sd_spi_stm32.c **** ---------------------------------------------------------------------------*/
+ 722:.\FatFs/sd_spi_stm32.c **** 
+ 723:.\FatFs/sd_spi_stm32.c **** 
+ 724:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 725:.\FatFs/sd_spi_stm32.c **** /* Initialize Disk Drive                                                 */
+ 726:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 727:.\FatFs/sd_spi_stm32.c **** 
+ 728:.\FatFs/sd_spi_stm32.c **** DSTATUS disk_initialize (
+ 729:.\FatFs/sd_spi_stm32.c **** 	BYTE drv		/* Physical drive number (0) */
+ 730:.\FatFs/sd_spi_stm32.c **** )
+ 731:.\FatFs/sd_spi_stm32.c **** {
+ 867              		.loc 1 731 0
+ 868              		.cfi_startproc
+ 869              		@ args = 0, pretend = 0, frame = 8
+ 870              		@ frame_needed = 0, uses_anonymous_args = 0
+ 871              	.LVL95:
+ 732:.\FatFs/sd_spi_stm32.c **** 	BYTE n, cmd, ty, ocr[4];
+ 733:.\FatFs/sd_spi_stm32.c **** 
+ 734:.\FatFs/sd_spi_stm32.c **** 	if (drv) return STA_NOINIT;			/* Supports only single drive */
+ 872              		.loc 1 734 0
+ 873 0000 0028     		cmp	r0, #0
+ 874 0002 40F09E80 		bne	.L85
+ 735:.\FatFs/sd_spi_stm32.c **** 	if (Stat & STA_NODISK) return Stat;	/* No card in the socket */
+ 875              		.loc 1 735 0
+ 876 0006 544B     		ldr	r3, .L98
+ 877 0008 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 878 000a 13F0020F 		tst	r3, #2
+ 879 000e 03D0     		beq	.L70
+ 880              		.loc 1 735 0 is_stmt 0 discriminator 1
+ 881 0010 514B     		ldr	r3, .L98
+ 882 0012 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 883              	.LVL96:
+ 884 0014 C0B2     		uxtb	r0, r0
+ 736:.\FatFs/sd_spi_stm32.c **** 
+ 737:.\FatFs/sd_spi_stm32.c **** 	power_on();							/* Force socket power on and initialize interface */
+ 738:.\FatFs/sd_spi_stm32.c **** 	interface_speed(INTERFACE_SLOW);
+ 739:.\FatFs/sd_spi_stm32.c **** 	for (n = 10; n; n--) rcvr_spi();	/* 80 dummy clocks */
+ 740:.\FatFs/sd_spi_stm32.c **** 
+ 741:.\FatFs/sd_spi_stm32.c **** 	ty = 0;
+ 742:.\FatFs/sd_spi_stm32.c **** 	if (send_cmd(CMD0, 0) == 1) {			/* Enter Idle state */
+ 743:.\FatFs/sd_spi_stm32.c **** 		Timer1 = 100;						/* Initialization timeout of 1000 milliseconds */
+ 744:.\FatFs/sd_spi_stm32.c **** 		if (send_cmd(CMD8, 0x1AA) == 1) {	/* SDHC */
+ 745:.\FatFs/sd_spi_stm32.c **** 			for (n = 0; n < 4; n++) ocr[n] = rcvr_spi();		/* Get trailing return value of R7 response */
+ 746:.\FatFs/sd_spi_stm32.c **** 			if (ocr[2] == 0x01 && ocr[3] == 0xAA) {				/* The card can work at VDD range of 2.7-3.6V */
+ 747:.\FatFs/sd_spi_stm32.c **** 				while (Timer1 && send_cmd(ACMD41, 1UL << 30));	/* Wait for leaving idle state (ACMD41 with HCS 
+ 748:.\FatFs/sd_spi_stm32.c **** 				if (Timer1 && send_cmd(CMD58, 0) == 0) {		/* Check CCS bit in the OCR */
+ 749:.\FatFs/sd_spi_stm32.c **** 					for (n = 0; n < 4; n++) ocr[n] = rcvr_spi();
+ 750:.\FatFs/sd_spi_stm32.c **** 					ty = (ocr[0] & 0x40) ? CT_SD2 | CT_BLOCK : CT_SD2;
+ 751:.\FatFs/sd_spi_stm32.c **** 				}
+ 752:.\FatFs/sd_spi_stm32.c **** 			}
+ 753:.\FatFs/sd_spi_stm32.c **** 		} else {							/* SDSC or MMC */
+ 754:.\FatFs/sd_spi_stm32.c **** 			if (send_cmd(ACMD41, 0) <= 1) 	{
+ 755:.\FatFs/sd_spi_stm32.c **** 				ty = CT_SD1; cmd = ACMD41;	/* SDSC */
+ 756:.\FatFs/sd_spi_stm32.c **** 			} else {
+ 757:.\FatFs/sd_spi_stm32.c **** 				ty = CT_MMC; cmd = CMD1;	/* MMC */
+ 758:.\FatFs/sd_spi_stm32.c **** 			}
+ 759:.\FatFs/sd_spi_stm32.c **** 			while (Timer1 && send_cmd(cmd, 0));			/* Wait for leaving idle state */
+ 760:.\FatFs/sd_spi_stm32.c **** 			if (!Timer1 || send_cmd(CMD16, 512) != 0)	/* Set R/W block length to 512 */
+ 761:.\FatFs/sd_spi_stm32.c **** 				ty = 0;
+ 762:.\FatFs/sd_spi_stm32.c **** 		}
+ 763:.\FatFs/sd_spi_stm32.c **** 	}
+ 764:.\FatFs/sd_spi_stm32.c **** 	CardType = ty;
+ 765:.\FatFs/sd_spi_stm32.c **** 	release_spi();
+ 766:.\FatFs/sd_spi_stm32.c **** 
+ 767:.\FatFs/sd_spi_stm32.c **** 	if (ty) {			/* Initialization succeeded */
+ 768:.\FatFs/sd_spi_stm32.c **** 		Stat &= ~STA_NOINIT;		/* Clear STA_NOINIT */
+ 769:.\FatFs/sd_spi_stm32.c **** 		interface_speed(INTERFACE_FAST);
+ 770:.\FatFs/sd_spi_stm32.c **** 	} else {			/* Initialization failed */
+ 771:.\FatFs/sd_spi_stm32.c **** 		power_off();
+ 772:.\FatFs/sd_spi_stm32.c **** 	}
+ 773:.\FatFs/sd_spi_stm32.c **** 
+ 774:.\FatFs/sd_spi_stm32.c **** 	return Stat;
+ 775:.\FatFs/sd_spi_stm32.c **** }
+ 885              		.loc 1 775 0 is_stmt 1 discriminator 1
+ 886 0016 7047     		bx	lr
+ 887              	.LVL97:
+ 888              	.L70:
+ 731:.\FatFs/sd_spi_stm32.c **** 	BYTE n, cmd, ty, ocr[4];
+ 889              		.loc 1 731 0
+ 890 0018 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 891              	.LCFI16:
+ 892              		.cfi_def_cfa_offset 24
+ 893              		.cfi_offset 4, -24
+ 894              		.cfi_offset 5, -20
+ 895              		.cfi_offset 6, -16
+ 896              		.cfi_offset 7, -12
+ 897              		.cfi_offset 8, -8
+ 898              		.cfi_offset 14, -4
+ 899 001c 82B0     		sub	sp, sp, #8
+ 900              	.LCFI17:
+ 901              		.cfi_def_cfa_offset 32
+ 737:.\FatFs/sd_spi_stm32.c **** 	interface_speed(INTERFACE_SLOW);
+ 902              		.loc 1 737 0
+ 903 001e FFF7FEFF 		bl	power_on
+ 904              	.LVL98:
+ 905              	.LBB10:
+ 906              	.LBB11:
+ 197:.\FatFs/sd_spi_stm32.c **** 	if ( speed == INTERFACE_SLOW ) {
+ 907              		.loc 1 197 0
+ 908 0022 4E4A     		ldr	r2, .L98+4
+ 909 0024 1388     		ldrh	r3, [r2]
+ 910 0026 9BB2     		uxth	r3, r3
+ 911              	.LVL99:
+ 200:.\FatFs/sd_spi_stm32.c **** 	} else {
+ 912              		.loc 1 200 0
+ 913 0028 43F03803 		orr	r3, r3, #56
+ 914              	.LVL100:
+ 205:.\FatFs/sd_spi_stm32.c **** }
+ 915              		.loc 1 205 0
+ 916 002c 1380     		strh	r3, [r2]	@ movhi
+ 917              	.LVL101:
+ 918 002e 0A24     		movs	r4, #10
+ 919              	.LVL102:
+ 920              	.L71:
+ 921              	.LBE11:
+ 922              	.LBE10:
+ 739:.\FatFs/sd_spi_stm32.c **** 
+ 923              		.loc 1 739 0 discriminator 3
+ 924 0030 FFF7FEFF 		bl	rcvr_spi
+ 925              	.LVL103:
+ 926 0034 631E     		subs	r3, r4, #1
+ 927 0036 13F0FF04 		ands	r4, r3, #255
+ 928              	.LVL104:
+ 929 003a F9D1     		bne	.L71
+ 930              	.LVL105:
+ 742:.\FatFs/sd_spi_stm32.c **** 		Timer1 = 100;						/* Initialization timeout of 1000 milliseconds */
+ 931              		.loc 1 742 0
+ 932 003c 4020     		movs	r0, #64
+ 933 003e 0021     		movs	r1, #0
+ 934 0040 FFF7FEFF 		bl	send_cmd
+ 935              	.LVL106:
+ 936 0044 0128     		cmp	r0, #1
+ 937 0046 7ED1     		bne	.L72
+ 743:.\FatFs/sd_spi_stm32.c **** 		if (send_cmd(CMD8, 0x1AA) == 1) {	/* SDHC */
+ 938              		.loc 1 743 0
+ 939 0048 6422     		movs	r2, #100
+ 940 004a 454B     		ldr	r3, .L98+8
+ 941 004c 1A60     		str	r2, [r3]
+ 744:.\FatFs/sd_spi_stm32.c **** 			for (n = 0; n < 4; n++) ocr[n] = rcvr_spi();		/* Get trailing return value of R7 response */
+ 942              		.loc 1 744 0
+ 943 004e 4820     		movs	r0, #72
+ 944 0050 4FF4D571 		mov	r1, #426
+ 945 0054 FFF7FEFF 		bl	send_cmd
+ 946              	.LVL107:
+ 947 0058 0128     		cmp	r0, #1
+ 948 005a 3CD1     		bne	.L73
+ 949 005c 01AE     		add	r6, sp, #4
+ 950 005e 02AD     		add	r5, sp, #8
+ 951 0060 3446     		mov	r4, r6
+ 952              	.L74:
+ 953              	.LVL108:
+ 745:.\FatFs/sd_spi_stm32.c **** 			if (ocr[2] == 0x01 && ocr[3] == 0xAA) {				/* The card can work at VDD range of 2.7-3.6V */
+ 954              		.loc 1 745 0 discriminator 3
+ 955 0062 FFF7FEFF 		bl	rcvr_spi
+ 956              	.LVL109:
+ 957 0066 04F8010B 		strb	r0, [r4], #1
+ 958              	.LVL110:
+ 959 006a AC42     		cmp	r4, r5
+ 960 006c F9D1     		bne	.L74
+ 746:.\FatFs/sd_spi_stm32.c **** 				while (Timer1 && send_cmd(ACMD41, 1UL << 30));	/* Wait for leaving idle state (ACMD41 with HCS 
+ 961              		.loc 1 746 0
+ 962 006e 9DF80630 		ldrb	r3, [sp, #6]	@ zero_extendqisi2
+ 963 0072 012B     		cmp	r3, #1
+ 964 0074 67D1     		bne	.L72
+ 746:.\FatFs/sd_spi_stm32.c **** 				while (Timer1 && send_cmd(ACMD41, 1UL << 30));	/* Wait for leaving idle state (ACMD41 with HCS 
+ 965              		.loc 1 746 0 is_stmt 0 discriminator 1
+ 966 0076 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
+ 967 007a AA2B     		cmp	r3, #170
+ 968 007c 63D1     		bne	.L72
+ 747:.\FatFs/sd_spi_stm32.c **** 				if (Timer1 && send_cmd(CMD58, 0) == 0) {		/* Check CCS bit in the OCR */
+ 969              		.loc 1 747 0 is_stmt 1 discriminator 2
+ 970 007e DFF8E080 		ldr	r8, .L98+8
+ 971 0082 E927     		movs	r7, #233
+ 972 0084 4FF08044 		mov	r4, #1073741824
+ 973              	.LVL111:
+ 974              	.L89:
+ 975 0088 D8F80030 		ldr	r3, [r8]
+ 976 008c 2BB1     		cbz	r3, .L75
+ 747:.\FatFs/sd_spi_stm32.c **** 				if (Timer1 && send_cmd(CMD58, 0) == 0) {		/* Check CCS bit in the OCR */
+ 977              		.loc 1 747 0 is_stmt 0 discriminator 1
+ 978 008e 3846     		mov	r0, r7
+ 979 0090 2146     		mov	r1, r4
+ 980 0092 FFF7FEFF 		bl	send_cmd
+ 981              	.LVL112:
+ 982 0096 0028     		cmp	r0, #0
+ 983 0098 F6D1     		bne	.L89
+ 984              	.L75:
+ 748:.\FatFs/sd_spi_stm32.c **** 					for (n = 0; n < 4; n++) ocr[n] = rcvr_spi();
+ 985              		.loc 1 748 0 is_stmt 1
+ 986 009a 314B     		ldr	r3, .L98+8
+ 987 009c 1B68     		ldr	r3, [r3]
+ 988 009e 002B     		cmp	r3, #0
+ 989 00a0 51D0     		beq	.L72
+ 748:.\FatFs/sd_spi_stm32.c **** 					for (n = 0; n < 4; n++) ocr[n] = rcvr_spi();
+ 990              		.loc 1 748 0 is_stmt 0 discriminator 1
+ 991 00a2 7A20     		movs	r0, #122
+ 992 00a4 0021     		movs	r1, #0
+ 993 00a6 FFF7FEFF 		bl	send_cmd
+ 994              	.LVL113:
+ 995 00aa 0028     		cmp	r0, #0
+ 996 00ac 4BD1     		bne	.L72
+ 997              	.L88:
+ 998              	.LVL114:
+ 749:.\FatFs/sd_spi_stm32.c **** 					ty = (ocr[0] & 0x40) ? CT_SD2 | CT_BLOCK : CT_SD2;
+ 999              		.loc 1 749 0 is_stmt 1 discriminator 3
+ 1000 00ae FFF7FEFF 		bl	rcvr_spi
+ 1001              	.LVL115:
+ 1002 00b2 06F8010B 		strb	r0, [r6], #1
+ 1003              	.LVL116:
+ 1004 00b6 AE42     		cmp	r6, r5
+ 1005 00b8 F9D1     		bne	.L88
+ 750:.\FatFs/sd_spi_stm32.c **** 				}
+ 1006              		.loc 1 750 0
+ 1007 00ba 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 1008 00be 03F04003 		and	r3, r3, #64
+ 1009 00c2 DBB2     		uxtb	r3, r3
+ 1010 00c4 002B     		cmp	r3, #0
+ 1011 00c6 14BF     		ite	ne
+ 1012 00c8 0C22     		movne	r2, #12
+ 1013 00ca 0422     		moveq	r2, #4
+ 1014              	.LVL117:
+ 764:.\FatFs/sd_spi_stm32.c **** 	release_spi();
+ 1015              		.loc 1 764 0
+ 1016 00cc 254B     		ldr	r3, .L98+12
+ 1017 00ce 1A70     		strb	r2, [r3]
+ 765:.\FatFs/sd_spi_stm32.c **** 
+ 1018              		.loc 1 765 0
+ 1019 00d0 FFF7FEFF 		bl	release_spi
+ 1020              	.LVL118:
+ 1021 00d4 21E0     		b	.L84
+ 1022              	.LVL119:
+ 1023              	.L73:
+ 754:.\FatFs/sd_spi_stm32.c **** 				ty = CT_SD1; cmd = ACMD41;	/* SDSC */
+ 1024              		.loc 1 754 0
+ 1025 00d6 E920     		movs	r0, #233
+ 1026 00d8 0021     		movs	r1, #0
+ 1027 00da FFF7FEFF 		bl	send_cmd
+ 1028              	.LVL120:
+ 757:.\FatFs/sd_spi_stm32.c **** 			}
+ 1029              		.loc 1 757 0
+ 1030 00de 0228     		cmp	r0, #2
+ 1031 00e0 35BF     		itete	cc
+ 1032 00e2 0227     		movcc	r7, #2
+ 1033 00e4 0127     		movcs	r7, #1
+ 1034 00e6 E926     		movcc	r6, #233
+ 1035 00e8 4126     		movcs	r6, #65
+ 759:.\FatFs/sd_spi_stm32.c **** 			if (!Timer1 || send_cmd(CMD16, 512) != 0)	/* Set R/W block length to 512 */
+ 1036              		.loc 1 759 0
+ 1037 00ea 1D4C     		ldr	r4, .L98+8
+ 1038 00ec 0025     		movs	r5, #0
+ 1039              	.LVL121:
+ 1040              	.L81:
+ 759:.\FatFs/sd_spi_stm32.c **** 			if (!Timer1 || send_cmd(CMD16, 512) != 0)	/* Set R/W block length to 512 */
+ 1041              		.loc 1 759 0 is_stmt 0 discriminator 2
+ 1042 00ee 2368     		ldr	r3, [r4]
+ 1043 00f0 2BB1     		cbz	r3, .L80
+ 759:.\FatFs/sd_spi_stm32.c **** 			if (!Timer1 || send_cmd(CMD16, 512) != 0)	/* Set R/W block length to 512 */
+ 1044              		.loc 1 759 0 discriminator 1
+ 1045 00f2 3046     		mov	r0, r6
+ 1046 00f4 2946     		mov	r1, r5
+ 1047 00f6 FFF7FEFF 		bl	send_cmd
+ 1048              	.LVL122:
+ 1049 00fa 0028     		cmp	r0, #0
+ 1050 00fc F7D1     		bne	.L81
+ 1051              	.L80:
+ 760:.\FatFs/sd_spi_stm32.c **** 				ty = 0;
+ 1052              		.loc 1 760 0 is_stmt 1
+ 1053 00fe 184B     		ldr	r3, .L98+8
+ 1054 0100 1B68     		ldr	r3, [r3]
+ 1055 0102 03B3     		cbz	r3, .L72
+ 760:.\FatFs/sd_spi_stm32.c **** 				ty = 0;
+ 1056              		.loc 1 760 0 is_stmt 0 discriminator 1
+ 1057 0104 5020     		movs	r0, #80
+ 1058 0106 4FF40071 		mov	r1, #512
+ 1059 010a FFF7FEFF 		bl	send_cmd
+ 1060              	.LVL123:
+ 1061 010e D0B9     		cbnz	r0, .L72
+ 1062              	.LVL124:
+ 764:.\FatFs/sd_spi_stm32.c **** 	release_spi();
+ 1063              		.loc 1 764 0 is_stmt 1
+ 1064 0110 144B     		ldr	r3, .L98+12
+ 1065 0112 1F70     		strb	r7, [r3]
+ 765:.\FatFs/sd_spi_stm32.c **** 
+ 1066              		.loc 1 765 0
+ 1067 0114 FFF7FEFF 		bl	release_spi
+ 1068              	.LVL125:
+ 767:.\FatFs/sd_spi_stm32.c **** 		Stat &= ~STA_NOINIT;		/* Clear STA_NOINIT */
+ 1069              		.loc 1 767 0
+ 1070 0118 6FB1     		cbz	r7, .L82
+ 1071              	.LVL126:
+ 1072              	.L84:
+ 768:.\FatFs/sd_spi_stm32.c **** 		interface_speed(INTERFACE_FAST);
+ 1073              		.loc 1 768 0
+ 1074 011a 0F4A     		ldr	r2, .L98
+ 1075 011c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 1076 011e 03F0FE03 		and	r3, r3, #254
+ 1077 0122 1370     		strb	r3, [r2]
+ 1078              	.LVL127:
+ 1079              	.LBB12:
+ 1080              	.LBB13:
+ 197:.\FatFs/sd_spi_stm32.c **** 	if ( speed == INTERFACE_SLOW ) {
+ 1081              		.loc 1 197 0
+ 1082 0124 0D4A     		ldr	r2, .L98+4
+ 1083 0126 1388     		ldrh	r3, [r2]
+ 1084 0128 9BB2     		uxth	r3, r3
+ 1085              	.LVL128:
+ 203:.\FatFs/sd_spi_stm32.c **** 	}
+ 1086              		.loc 1 203 0
+ 1087 012a 23F03803 		bic	r3, r3, #56
+ 1088              	.LVL129:
+ 205:.\FatFs/sd_spi_stm32.c **** }
+ 1089              		.loc 1 205 0
+ 1090 012e 43F00803 		orr	r3, r3, #8
+ 1091              	.LVL130:
+ 1092 0132 1380     		strh	r3, [r2]	@ movhi
+ 1093 0134 01E0     		b	.L83
+ 1094              	.LVL131:
+ 1095              	.L82:
+ 1096              	.LBE13:
+ 1097              	.LBE12:
+ 771:.\FatFs/sd_spi_stm32.c **** 	}
+ 1098              		.loc 1 771 0
+ 1099 0136 FFF7FEFF 		bl	power_off
+ 1100              	.LVL132:
+ 1101              	.L83:
+ 774:.\FatFs/sd_spi_stm32.c **** }
+ 1102              		.loc 1 774 0
+ 1103 013a 074B     		ldr	r3, .L98
+ 1104 013c 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 1105 013e C0B2     		uxtb	r0, r0
+ 1106 0140 07E0     		b	.L95
+ 1107              	.LVL133:
+ 1108              	.L85:
+ 1109              	.LCFI18:
+ 1110              		.cfi_def_cfa_offset 0
+ 1111              		.cfi_restore 4
+ 1112              		.cfi_restore 5
+ 1113              		.cfi_restore 6
+ 1114              		.cfi_restore 7
+ 1115              		.cfi_restore 8
+ 1116              		.cfi_restore 14
+ 734:.\FatFs/sd_spi_stm32.c **** 	if (Stat & STA_NODISK) return Stat;	/* No card in the socket */
+ 1117              		.loc 1 734 0
+ 1118 0142 0120     		movs	r0, #1
+ 1119              	.LVL134:
+ 1120 0144 7047     		bx	lr
+ 1121              	.LVL135:
+ 1122              	.L72:
+ 1123              	.LCFI19:
+ 1124              		.cfi_def_cfa_offset 32
+ 1125              		.cfi_offset 4, -24
+ 1126              		.cfi_offset 5, -20
+ 1127              		.cfi_offset 6, -16
+ 1128              		.cfi_offset 7, -12
+ 1129              		.cfi_offset 8, -8
+ 1130              		.cfi_offset 14, -4
+ 764:.\FatFs/sd_spi_stm32.c **** 	release_spi();
+ 1131              		.loc 1 764 0
+ 1132 0146 0022     		movs	r2, #0
+ 1133 0148 064B     		ldr	r3, .L98+12
+ 1134 014a 1A70     		strb	r2, [r3]
+ 765:.\FatFs/sd_spi_stm32.c **** 
+ 1135              		.loc 1 765 0
+ 1136 014c FFF7FEFF 		bl	release_spi
+ 1137              	.LVL136:
+ 1138 0150 F1E7     		b	.L82
+ 1139              	.LVL137:
+ 1140              	.L95:
+ 1141              		.loc 1 775 0
+ 1142 0152 02B0     		add	sp, sp, #8
+ 1143              	.LCFI20:
+ 1144              		.cfi_def_cfa_offset 24
+ 1145              		@ sp needed
+ 1146 0154 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1147              	.L99:
+ 1148              		.align	2
+ 1149              	.L98:
+ 1150 0158 00000000 		.word	.LANCHOR1
+ 1151 015c 00300140 		.word	1073819648
+ 1152 0160 00000000 		.word	.LANCHOR2
+ 1153 0164 00000000 		.word	.LANCHOR3
+ 1154              		.cfi_endproc
+ 1155              	.LFE46:
+ 1157              		.section	.text.disk_status,"ax",%progbits
+ 1158              		.align	2
+ 1159              		.global	disk_status
+ 1160              		.thumb
+ 1161              		.thumb_func
+ 1163              	disk_status:
+ 1164              	.LFB47:
+ 776:.\FatFs/sd_spi_stm32.c **** 
+ 777:.\FatFs/sd_spi_stm32.c **** 
+ 778:.\FatFs/sd_spi_stm32.c **** 
+ 779:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 780:.\FatFs/sd_spi_stm32.c **** /* Get Disk Status                                                       */
+ 781:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 782:.\FatFs/sd_spi_stm32.c **** 
+ 783:.\FatFs/sd_spi_stm32.c **** DSTATUS disk_status (
+ 784:.\FatFs/sd_spi_stm32.c **** 	BYTE drv		/* Physical drive number (0) */
+ 785:.\FatFs/sd_spi_stm32.c **** )
+ 786:.\FatFs/sd_spi_stm32.c **** {
+ 1165              		.loc 1 786 0
+ 1166              		.cfi_startproc
+ 1167              		@ args = 0, pretend = 0, frame = 0
+ 1168              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1169              		@ link register save eliminated.
+ 1170              	.LVL138:
+ 787:.\FatFs/sd_spi_stm32.c **** 	if (drv) return STA_NOINIT;		/* Supports only single drive */
+ 1171              		.loc 1 787 0
+ 1172 0000 18B9     		cbnz	r0, .L102
+ 788:.\FatFs/sd_spi_stm32.c **** 	return Stat;
+ 1173              		.loc 1 788 0
+ 1174 0002 034B     		ldr	r3, .L103
+ 1175 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 1176              	.LVL139:
+ 1177 0006 C0B2     		uxtb	r0, r0
+ 1178 0008 7047     		bx	lr
+ 1179              	.LVL140:
+ 1180              	.L102:
+ 787:.\FatFs/sd_spi_stm32.c **** 	if (drv) return STA_NOINIT;		/* Supports only single drive */
+ 1181              		.loc 1 787 0
+ 1182 000a 0120     		movs	r0, #1
+ 1183              	.LVL141:
+ 789:.\FatFs/sd_spi_stm32.c **** }
+ 1184              		.loc 1 789 0
+ 1185 000c 7047     		bx	lr
+ 1186              	.L104:
+ 1187 000e 00BF     		.align	2
+ 1188              	.L103:
+ 1189 0010 00000000 		.word	.LANCHOR1
+ 1190              		.cfi_endproc
+ 1191              	.LFE47:
+ 1193              		.section	.text.disk_read,"ax",%progbits
+ 1194              		.align	2
+ 1195              		.global	disk_read
+ 1196              		.thumb
+ 1197              		.thumb_func
+ 1199              	disk_read:
+ 1200              	.LFB48:
+ 790:.\FatFs/sd_spi_stm32.c **** 
+ 791:.\FatFs/sd_spi_stm32.c **** 
+ 792:.\FatFs/sd_spi_stm32.c **** 
+ 793:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 794:.\FatFs/sd_spi_stm32.c **** /* Read Sector(s)                                                        */
+ 795:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 796:.\FatFs/sd_spi_stm32.c **** 
+ 797:.\FatFs/sd_spi_stm32.c **** DRESULT disk_read (
+ 798:.\FatFs/sd_spi_stm32.c **** 	BYTE drv,			/* Physical drive number (0) */
+ 799:.\FatFs/sd_spi_stm32.c **** 	BYTE *buff,			/* Pointer to the data buffer to store read data */
+ 800:.\FatFs/sd_spi_stm32.c **** 	DWORD sector,		/* Start sector number (LBA) */
+ 801:.\FatFs/sd_spi_stm32.c **** 	BYTE count			/* Sector count (1..255) */
+ 802:.\FatFs/sd_spi_stm32.c **** )
+ 803:.\FatFs/sd_spi_stm32.c **** {
+ 1201              		.loc 1 803 0
+ 1202              		.cfi_startproc
+ 1203              		@ args = 0, pretend = 0, frame = 0
+ 1204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1205              	.LVL142:
+ 804:.\FatFs/sd_spi_stm32.c **** 	if (drv || !count) return RES_PARERR;
+ 1206              		.loc 1 804 0
+ 1207 0000 0028     		cmp	r0, #0
+ 1208 0002 3BD1     		bne	.L112
+ 803:.\FatFs/sd_spi_stm32.c **** 	if (drv || !count) return RES_PARERR;
+ 1209              		.loc 1 803 0 discriminator 2
+ 1210 0004 70B5     		push	{r4, r5, r6, lr}
+ 1211              	.LCFI21:
+ 1212              		.cfi_def_cfa_offset 16
+ 1213              		.cfi_offset 4, -16
+ 1214              		.cfi_offset 5, -12
+ 1215              		.cfi_offset 6, -8
+ 1216              		.cfi_offset 14, -4
+ 1217 0006 0D46     		mov	r5, r1
+ 1218 0008 1C46     		mov	r4, r3
+ 1219              		.loc 1 804 0 discriminator 2
+ 1220 000a 002B     		cmp	r3, #0
+ 1221 000c 38D0     		beq	.L113
+ 805:.\FatFs/sd_spi_stm32.c **** 	if (Stat & STA_NOINIT) return RES_NOTRDY;
+ 1222              		.loc 1 805 0
+ 1223 000e 1E4B     		ldr	r3, .L118
+ 1224              	.LVL143:
+ 1225 0010 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1226 0012 13F0010F 		tst	r3, #1
+ 1227 0016 35D1     		bne	.L114
+ 806:.\FatFs/sd_spi_stm32.c **** 
+ 807:.\FatFs/sd_spi_stm32.c **** 	if (!(CardType & CT_BLOCK)) sector *= 512;	/* Convert to byte address if needed */
+ 1228              		.loc 1 807 0
+ 1229 0018 1C4B     		ldr	r3, .L118+4
+ 1230 001a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1231 001c 13F0080F 		tst	r3, #8
+ 1232 0020 08BF     		it	eq
+ 1233 0022 5202     		lsleq	r2, r2, #9
+ 1234              	.LVL144:
+ 808:.\FatFs/sd_spi_stm32.c **** 
+ 809:.\FatFs/sd_spi_stm32.c **** 	if (count == 1) {	/* Single block read */
+ 1235              		.loc 1 809 0
+ 1236 0024 012C     		cmp	r4, #1
+ 1237 0026 0DD1     		bne	.L108
+ 810:.\FatFs/sd_spi_stm32.c **** 		if (send_cmd(CMD17, sector) == 0)	{ /* READ_SINGLE_BLOCK */
+ 1238              		.loc 1 810 0
+ 1239 0028 5120     		movs	r0, #81
+ 1240              	.LVL145:
+ 1241 002a 1146     		mov	r1, r2
+ 1242              	.LVL146:
+ 1243 002c FFF7FEFF 		bl	send_cmd
+ 1244              	.LVL147:
+ 1245 0030 F0B9     		cbnz	r0, .L109
+ 811:.\FatFs/sd_spi_stm32.c **** 			if (rcvr_datablock(buff, 512)) {
+ 1246              		.loc 1 811 0
+ 1247 0032 2846     		mov	r0, r5
+ 1248 0034 4FF40071 		mov	r1, #512
+ 1249 0038 FFF7FEFF 		bl	rcvr_datablock
+ 1250              	.LVL148:
+ 1251 003c 80F00100 		eor	r0, r0, #1
+ 1252 0040 C4B2     		uxtb	r4, r0
+ 1253 0042 15E0     		b	.L109
+ 1254              	.LVL149:
+ 1255              	.L108:
+ 812:.\FatFs/sd_spi_stm32.c **** 				count = 0;
+ 813:.\FatFs/sd_spi_stm32.c **** 			}
+ 814:.\FatFs/sd_spi_stm32.c **** 		}
+ 815:.\FatFs/sd_spi_stm32.c **** 	}
+ 816:.\FatFs/sd_spi_stm32.c **** 	else {				/* Multiple block read */
+ 817:.\FatFs/sd_spi_stm32.c **** 		if (send_cmd(CMD18, sector) == 0) {	/* READ_MULTIPLE_BLOCK */
+ 1256              		.loc 1 817 0
+ 1257 0044 5220     		movs	r0, #82
+ 1258              	.LVL150:
+ 1259 0046 1146     		mov	r1, r2
+ 1260              	.LVL151:
+ 1261 0048 FFF7FEFF 		bl	send_cmd
+ 1262              	.LVL152:
+ 1263 004c 80B9     		cbnz	r0, .L109
+ 818:.\FatFs/sd_spi_stm32.c **** 			do {
+ 819:.\FatFs/sd_spi_stm32.c **** 				if (!rcvr_datablock(buff, 512)) {
+ 1264              		.loc 1 819 0
+ 1265 004e 4FF40076 		mov	r6, #512
+ 1266              	.LVL153:
+ 1267              	.L115:
+ 1268 0052 2846     		mov	r0, r5
+ 1269 0054 3146     		mov	r1, r6
+ 1270 0056 FFF7FEFF 		bl	rcvr_datablock
+ 1271              	.LVL154:
+ 1272 005a 28B1     		cbz	r0, .L110
+ 820:.\FatFs/sd_spi_stm32.c **** 					break;
+ 821:.\FatFs/sd_spi_stm32.c **** 				}
+ 822:.\FatFs/sd_spi_stm32.c **** 				buff += 512;
+ 1273              		.loc 1 822 0
+ 1274 005c 05F50075 		add	r5, r5, #512
+ 1275              	.LVL155:
+ 823:.\FatFs/sd_spi_stm32.c **** 			} while (--count);
+ 1276              		.loc 1 823 0
+ 1277 0060 601E     		subs	r0, r4, #1
+ 1278              	.LVL156:
+ 1279 0062 10F0FF04 		ands	r4, r0, #255
+ 1280 0066 F4D1     		bne	.L115
+ 1281              	.LVL157:
+ 1282              	.L110:
+ 824:.\FatFs/sd_spi_stm32.c **** 			send_cmd(CMD12, 0);				/* STOP_TRANSMISSION */
+ 1283              		.loc 1 824 0
+ 1284 0068 4C20     		movs	r0, #76
+ 1285 006a 0021     		movs	r1, #0
+ 1286 006c FFF7FEFF 		bl	send_cmd
+ 1287              	.LVL158:
+ 1288              	.L109:
+ 825:.\FatFs/sd_spi_stm32.c **** 		}
+ 826:.\FatFs/sd_spi_stm32.c **** 	}
+ 827:.\FatFs/sd_spi_stm32.c **** 	release_spi();
+ 1289              		.loc 1 827 0
+ 1290 0070 FFF7FEFF 		bl	release_spi
+ 1291              	.LVL159:
+ 828:.\FatFs/sd_spi_stm32.c **** 
+ 829:.\FatFs/sd_spi_stm32.c **** 	return count ? RES_ERROR : RES_OK;
+ 1292              		.loc 1 829 0
+ 1293 0074 201C     		adds	r0, r4, #0
+ 1294 0076 18BF     		it	ne
+ 1295 0078 0120     		movne	r0, #1
+ 1296 007a 70BD     		pop	{r4, r5, r6, pc}
+ 1297              	.LVL160:
+ 1298              	.L112:
+ 1299              	.LCFI22:
+ 1300              		.cfi_def_cfa_offset 0
+ 1301              		.cfi_restore 4
+ 1302              		.cfi_restore 5
+ 1303              		.cfi_restore 6
+ 1304              		.cfi_restore 14
+ 804:.\FatFs/sd_spi_stm32.c **** 	if (Stat & STA_NOINIT) return RES_NOTRDY;
+ 1305              		.loc 1 804 0
+ 1306 007c 0420     		movs	r0, #4
+ 1307              	.LVL161:
+ 830:.\FatFs/sd_spi_stm32.c **** }
+ 1308              		.loc 1 830 0
+ 1309 007e 7047     		bx	lr
+ 1310              	.LVL162:
+ 1311              	.L113:
+ 1312              	.LCFI23:
+ 1313              		.cfi_def_cfa_offset 16
+ 1314              		.cfi_offset 4, -16
+ 1315              		.cfi_offset 5, -12
+ 1316              		.cfi_offset 6, -8
+ 1317              		.cfi_offset 14, -4
+ 804:.\FatFs/sd_spi_stm32.c **** 	if (Stat & STA_NOINIT) return RES_NOTRDY;
+ 1318              		.loc 1 804 0
+ 1319 0080 0420     		movs	r0, #4
+ 1320              	.LVL163:
+ 1321 0082 70BD     		pop	{r4, r5, r6, pc}
+ 1322              	.LVL164:
+ 1323              	.L114:
+ 805:.\FatFs/sd_spi_stm32.c **** 
+ 1324              		.loc 1 805 0
+ 1325 0084 0320     		movs	r0, #3
+ 1326              	.LVL165:
+ 1327              		.loc 1 830 0
+ 1328 0086 70BD     		pop	{r4, r5, r6, pc}
+ 1329              	.L119:
+ 1330              		.align	2
+ 1331              	.L118:
+ 1332 0088 00000000 		.word	.LANCHOR1
+ 1333 008c 00000000 		.word	.LANCHOR3
+ 1334              		.cfi_endproc
+ 1335              	.LFE48:
+ 1337              		.section	.text.disk_write,"ax",%progbits
+ 1338              		.align	2
+ 1339              		.global	disk_write
+ 1340              		.thumb
+ 1341              		.thumb_func
+ 1343              	disk_write:
+ 1344              	.LFB49:
+ 831:.\FatFs/sd_spi_stm32.c **** 
+ 832:.\FatFs/sd_spi_stm32.c **** 
+ 833:.\FatFs/sd_spi_stm32.c **** 
+ 834:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 835:.\FatFs/sd_spi_stm32.c **** /* Write Sector(s)                                                       */
+ 836:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 837:.\FatFs/sd_spi_stm32.c **** 
+ 838:.\FatFs/sd_spi_stm32.c **** #if _FS_READONLY == 0
+ 839:.\FatFs/sd_spi_stm32.c **** 
+ 840:.\FatFs/sd_spi_stm32.c **** DRESULT disk_write (
+ 841:.\FatFs/sd_spi_stm32.c **** 	BYTE drv,			/* Physical drive number (0) */
+ 842:.\FatFs/sd_spi_stm32.c **** 	const BYTE *buff,	/* Pointer to the data to be written */
+ 843:.\FatFs/sd_spi_stm32.c **** 	DWORD sector,		/* Start sector number (LBA) */
+ 844:.\FatFs/sd_spi_stm32.c **** 	BYTE count			/* Sector count (1..255) */
+ 845:.\FatFs/sd_spi_stm32.c **** )
+ 846:.\FatFs/sd_spi_stm32.c **** {
+ 1345              		.loc 1 846 0
+ 1346              		.cfi_startproc
+ 1347              		@ args = 0, pretend = 0, frame = 0
+ 1348              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1349              	.LVL166:
+ 847:.\FatFs/sd_spi_stm32.c **** 	if (drv || !count) return RES_PARERR;
+ 1350              		.loc 1 847 0
+ 1351 0000 0028     		cmp	r0, #0
+ 1352 0002 49D1     		bne	.L128
+ 846:.\FatFs/sd_spi_stm32.c **** 	if (drv || !count) return RES_PARERR;
+ 1353              		.loc 1 846 0 discriminator 2
+ 1354 0004 70B5     		push	{r4, r5, r6, lr}
+ 1355              	.LCFI24:
+ 1356              		.cfi_def_cfa_offset 16
+ 1357              		.cfi_offset 4, -16
+ 1358              		.cfi_offset 5, -12
+ 1359              		.cfi_offset 6, -8
+ 1360              		.cfi_offset 14, -4
+ 1361 0006 0E46     		mov	r6, r1
+ 1362 0008 1546     		mov	r5, r2
+ 1363 000a 1C46     		mov	r4, r3
+ 1364              		.loc 1 847 0 discriminator 2
+ 1365 000c 002B     		cmp	r3, #0
+ 1366 000e 45D0     		beq	.L129
+ 848:.\FatFs/sd_spi_stm32.c **** 	if (Stat & STA_NOINIT) return RES_NOTRDY;
+ 1367              		.loc 1 848 0
+ 1368 0010 254B     		ldr	r3, .L135
+ 1369              	.LVL167:
+ 1370 0012 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1371 0014 13F0010F 		tst	r3, #1
+ 1372 0018 42D1     		bne	.L130
+ 849:.\FatFs/sd_spi_stm32.c **** 	if (Stat & STA_PROTECT) return RES_WRPRT;
+ 1373              		.loc 1 849 0
+ 1374 001a 234B     		ldr	r3, .L135
+ 1375 001c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1376 001e 13F0040F 		tst	r3, #4
+ 1377 0022 3FD1     		bne	.L131
+ 850:.\FatFs/sd_spi_stm32.c **** 
+ 851:.\FatFs/sd_spi_stm32.c **** 	if (!(CardType & CT_BLOCK)) sector *= 512;	/* Convert to byte address if needed */
+ 1378              		.loc 1 851 0
+ 1379 0024 214B     		ldr	r3, .L135+4
+ 1380 0026 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1381 0028 13F0080F 		tst	r3, #8
+ 1382 002c 08BF     		it	eq
+ 1383 002e 5502     		lsleq	r5, r2, #9
+ 1384              	.LVL168:
+ 852:.\FatFs/sd_spi_stm32.c **** 
+ 853:.\FatFs/sd_spi_stm32.c **** 	if (count == 1) {	/* Single block write */
+ 1385              		.loc 1 853 0
+ 1386 0030 012C     		cmp	r4, #1
+ 1387 0032 0CD1     		bne	.L123
+ 854:.\FatFs/sd_spi_stm32.c **** 		if ((send_cmd(CMD24, sector) == 0)	/* WRITE_BLOCK */
+ 1388              		.loc 1 854 0
+ 1389 0034 5820     		movs	r0, #88
+ 1390              	.LVL169:
+ 1391 0036 2946     		mov	r1, r5
+ 1392              	.LVL170:
+ 1393 0038 FFF7FEFF 		bl	send_cmd
+ 1394              	.LVL171:
+ 1395 003c 30BB     		cbnz	r0, .L124
+ 855:.\FatFs/sd_spi_stm32.c **** 			&& xmit_datablock(buff, 0xFE))
+ 1396              		.loc 1 855 0
+ 1397 003e 3046     		mov	r0, r6
+ 1398 0040 FE21     		movs	r1, #254
+ 1399 0042 FFF7FEFF 		bl	xmit_datablock
+ 1400              	.LVL172:
+ 1401 0046 80F00100 		eor	r0, r0, #1
+ 1402 004a C4B2     		uxtb	r4, r0
+ 1403 004c 1EE0     		b	.L124
+ 1404              	.LVL173:
+ 1405              	.L123:
+ 856:.\FatFs/sd_spi_stm32.c **** 			count = 0;
+ 857:.\FatFs/sd_spi_stm32.c **** 	}
+ 858:.\FatFs/sd_spi_stm32.c **** 	else {				/* Multiple block write */
+ 859:.\FatFs/sd_spi_stm32.c **** 		if (CardType & CT_SDC) send_cmd(ACMD23, count);
+ 1406              		.loc 1 859 0
+ 1407 004e 13F0060F 		tst	r3, #6
+ 1408 0052 03D0     		beq	.L125
+ 1409              		.loc 1 859 0 is_stmt 0 discriminator 1
+ 1410 0054 D720     		movs	r0, #215
+ 1411              	.LVL174:
+ 1412 0056 2146     		mov	r1, r4
+ 1413              	.LVL175:
+ 1414 0058 FFF7FEFF 		bl	send_cmd
+ 1415              	.LVL176:
+ 1416              	.L125:
+ 860:.\FatFs/sd_spi_stm32.c **** 		if (send_cmd(CMD25, sector) == 0) {	/* WRITE_MULTIPLE_BLOCK */
+ 1417              		.loc 1 860 0 is_stmt 1
+ 1418 005c 5920     		movs	r0, #89
+ 1419 005e 2946     		mov	r1, r5
+ 1420 0060 FFF7FEFF 		bl	send_cmd
+ 1421              	.LVL177:
+ 1422 0064 90B9     		cbnz	r0, .L124
+ 861:.\FatFs/sd_spi_stm32.c **** 			do {
+ 862:.\FatFs/sd_spi_stm32.c **** 				if (!xmit_datablock(buff, 0xFC)) break;
+ 1423              		.loc 1 862 0
+ 1424 0066 FC25     		movs	r5, #252
+ 1425              	.LVL178:
+ 1426              	.L132:
+ 1427 0068 3046     		mov	r0, r6
+ 1428 006a 2946     		mov	r1, r5
+ 1429 006c FFF7FEFF 		bl	xmit_datablock
+ 1430              	.LVL179:
+ 1431 0070 28B1     		cbz	r0, .L126
+ 863:.\FatFs/sd_spi_stm32.c **** 				buff += 512;
+ 1432              		.loc 1 863 0
+ 1433 0072 06F50076 		add	r6, r6, #512
+ 1434              	.LVL180:
+ 864:.\FatFs/sd_spi_stm32.c **** 			} while (--count);
+ 1435              		.loc 1 864 0
+ 1436 0076 601E     		subs	r0, r4, #1
+ 1437              	.LVL181:
+ 1438 0078 10F0FF04 		ands	r4, r0, #255
+ 1439 007c F4D1     		bne	.L132
+ 1440              	.LVL182:
+ 1441              	.L126:
+ 865:.\FatFs/sd_spi_stm32.c **** 			if (!xmit_datablock(0, 0xFD))	/* STOP_TRAN token */
+ 1442              		.loc 1 865 0
+ 1443 007e 0020     		movs	r0, #0
+ 1444 0080 FD21     		movs	r1, #253
+ 1445 0082 FFF7FEFF 		bl	xmit_datablock
+ 1446              	.LVL183:
+ 1447 0086 0028     		cmp	r0, #0
+ 866:.\FatFs/sd_spi_stm32.c **** 				count = 1;
+ 1448              		.loc 1 866 0
+ 1449 0088 08BF     		it	eq
+ 1450 008a 0124     		moveq	r4, #1
+ 1451              	.LVL184:
+ 1452              	.L124:
+ 867:.\FatFs/sd_spi_stm32.c **** 		}
+ 868:.\FatFs/sd_spi_stm32.c **** 	}
+ 869:.\FatFs/sd_spi_stm32.c **** 	release_spi();
+ 1453              		.loc 1 869 0
+ 1454 008c FFF7FEFF 		bl	release_spi
+ 1455              	.LVL185:
+ 870:.\FatFs/sd_spi_stm32.c **** 
+ 871:.\FatFs/sd_spi_stm32.c **** 	return count ? RES_ERROR : RES_OK;
+ 1456              		.loc 1 871 0
+ 1457 0090 201C     		adds	r0, r4, #0
+ 1458 0092 18BF     		it	ne
+ 1459 0094 0120     		movne	r0, #1
+ 1460 0096 70BD     		pop	{r4, r5, r6, pc}
+ 1461              	.LVL186:
+ 1462              	.L128:
+ 1463              	.LCFI25:
+ 1464              		.cfi_def_cfa_offset 0
+ 1465              		.cfi_restore 4
+ 1466              		.cfi_restore 5
+ 1467              		.cfi_restore 6
+ 1468              		.cfi_restore 14
+ 847:.\FatFs/sd_spi_stm32.c **** 	if (Stat & STA_NOINIT) return RES_NOTRDY;
+ 1469              		.loc 1 847 0
+ 1470 0098 0420     		movs	r0, #4
+ 1471              	.LVL187:
+ 872:.\FatFs/sd_spi_stm32.c **** }
+ 1472              		.loc 1 872 0
+ 1473 009a 7047     		bx	lr
+ 1474              	.LVL188:
+ 1475              	.L129:
+ 1476              	.LCFI26:
+ 1477              		.cfi_def_cfa_offset 16
+ 1478              		.cfi_offset 4, -16
+ 1479              		.cfi_offset 5, -12
+ 1480              		.cfi_offset 6, -8
+ 1481              		.cfi_offset 14, -4
+ 847:.\FatFs/sd_spi_stm32.c **** 	if (Stat & STA_NOINIT) return RES_NOTRDY;
+ 1482              		.loc 1 847 0
+ 1483 009c 0420     		movs	r0, #4
+ 1484              	.LVL189:
+ 1485 009e 70BD     		pop	{r4, r5, r6, pc}
+ 1486              	.LVL190:
+ 1487              	.L130:
+ 848:.\FatFs/sd_spi_stm32.c **** 	if (Stat & STA_PROTECT) return RES_WRPRT;
+ 1488              		.loc 1 848 0
+ 1489 00a0 0320     		movs	r0, #3
+ 1490              	.LVL191:
+ 1491 00a2 70BD     		pop	{r4, r5, r6, pc}
+ 1492              	.LVL192:
+ 1493              	.L131:
+ 849:.\FatFs/sd_spi_stm32.c **** 
+ 1494              		.loc 1 849 0
+ 1495 00a4 0220     		movs	r0, #2
+ 1496              	.LVL193:
+ 1497              		.loc 1 872 0
+ 1498 00a6 70BD     		pop	{r4, r5, r6, pc}
+ 1499              	.L136:
+ 1500              		.align	2
+ 1501              	.L135:
+ 1502 00a8 00000000 		.word	.LANCHOR1
+ 1503 00ac 00000000 		.word	.LANCHOR3
+ 1504              		.cfi_endproc
+ 1505              	.LFE49:
+ 1507              		.section	.text.disk_ioctl,"ax",%progbits
+ 1508              		.align	2
+ 1509              		.global	disk_ioctl
+ 1510              		.thumb
+ 1511              		.thumb_func
+ 1513              	disk_ioctl:
+ 1514              	.LFB50:
+ 873:.\FatFs/sd_spi_stm32.c **** #endif /* _READONLY == 0 */
+ 874:.\FatFs/sd_spi_stm32.c **** 
+ 875:.\FatFs/sd_spi_stm32.c **** 
+ 876:.\FatFs/sd_spi_stm32.c **** 
+ 877:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 878:.\FatFs/sd_spi_stm32.c **** /* Miscellaneous Functions                                               */
+ 879:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+ 880:.\FatFs/sd_spi_stm32.c **** 
+ 881:.\FatFs/sd_spi_stm32.c **** #if (STM32_SD_DISK_IOCTRL == 1)
+ 882:.\FatFs/sd_spi_stm32.c **** DRESULT disk_ioctl (
+ 883:.\FatFs/sd_spi_stm32.c **** 	BYTE drv,		/* Physical drive number (0) */
+ 884:.\FatFs/sd_spi_stm32.c **** 	BYTE ctrl,		/* Control code */
+ 885:.\FatFs/sd_spi_stm32.c **** 	void *buff		/* Buffer to send/receive control data */
+ 886:.\FatFs/sd_spi_stm32.c **** )
+ 887:.\FatFs/sd_spi_stm32.c **** {
+ 1515              		.loc 1 887 0
+ 1516              		.cfi_startproc
+ 1517              		@ args = 0, pretend = 0, frame = 16
+ 1518              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1519              	.LVL194:
+ 888:.\FatFs/sd_spi_stm32.c **** 	DRESULT res;
+ 889:.\FatFs/sd_spi_stm32.c **** 	BYTE n, csd[16], *ptr = buff;
+ 890:.\FatFs/sd_spi_stm32.c **** 	WORD csize;
+ 891:.\FatFs/sd_spi_stm32.c **** 
+ 892:.\FatFs/sd_spi_stm32.c **** 	if (drv) return RES_PARERR;
+ 1520              		.loc 1 892 0
+ 1521 0000 0028     		cmp	r0, #0
+ 1522 0002 40F03381 		bne	.L159
+ 887:.\FatFs/sd_spi_stm32.c **** 	DRESULT res;
+ 1523              		.loc 1 887 0
+ 1524 0006 30B5     		push	{r4, r5, lr}
+ 1525              	.LCFI27:
+ 1526              		.cfi_def_cfa_offset 12
+ 1527              		.cfi_offset 4, -12
+ 1528              		.cfi_offset 5, -8
+ 1529              		.cfi_offset 14, -4
+ 1530 0008 85B0     		sub	sp, sp, #20
+ 1531              	.LCFI28:
+ 1532              		.cfi_def_cfa_offset 32
+ 1533 000a 1446     		mov	r4, r2
+ 1534              	.LVL195:
+ 893:.\FatFs/sd_spi_stm32.c **** 
+ 894:.\FatFs/sd_spi_stm32.c **** 	res = RES_ERROR;
+ 895:.\FatFs/sd_spi_stm32.c **** 
+ 896:.\FatFs/sd_spi_stm32.c **** 	if (ctrl == CTRL_POWER) {
+ 1535              		.loc 1 896 0
+ 1536 000c 0429     		cmp	r1, #4
+ 1537 000e 12D1     		bne	.L139
+ 897:.\FatFs/sd_spi_stm32.c **** 		switch (*ptr) {
+ 1538              		.loc 1 897 0
+ 1539 0010 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 1540 0012 012B     		cmp	r3, #1
+ 1541 0014 07D0     		beq	.L140
+ 1542 0016 13B1     		cbz	r3, .L141
+ 1543 0018 022B     		cmp	r3, #2
+ 1544 001a 08D0     		beq	.L142
+ 1545 001c 28E1     		b	.L175
+ 1546              	.L141:
+ 898:.\FatFs/sd_spi_stm32.c **** 		case 0:		/* Sub control code == 0 (POWER_OFF) */
+ 899:.\FatFs/sd_spi_stm32.c **** 			if (chk_power())
+ 900:.\FatFs/sd_spi_stm32.c **** 				power_off();		/* Power off */
+ 1547              		.loc 1 900 0
+ 1548 001e FFF7FEFF 		bl	power_off
+ 1549              	.LVL196:
+ 901:.\FatFs/sd_spi_stm32.c **** 			res = RES_OK;
+ 1550              		.loc 1 901 0
+ 1551 0022 0020     		movs	r0, #0
+ 1552 0024 27E1     		b	.L138
+ 1553              	.LVL197:
+ 1554              	.L140:
+ 902:.\FatFs/sd_spi_stm32.c **** 			break;
+ 903:.\FatFs/sd_spi_stm32.c **** 		case 1:		/* Sub control code == 1 (POWER_ON) */
+ 904:.\FatFs/sd_spi_stm32.c **** 			power_on();				/* Power on */
+ 1555              		.loc 1 904 0
+ 1556 0026 FFF7FEFF 		bl	power_on
+ 1557              	.LVL198:
+ 905:.\FatFs/sd_spi_stm32.c **** 			res = RES_OK;
+ 1558              		.loc 1 905 0
+ 1559 002a 0020     		movs	r0, #0
+ 906:.\FatFs/sd_spi_stm32.c **** 			break;
+ 1560              		.loc 1 906 0
+ 1561 002c 23E1     		b	.L138
+ 1562              	.LVL199:
+ 1563              	.L142:
+ 907:.\FatFs/sd_spi_stm32.c **** 		case 2:		/* Sub control code == 2 (POWER_GET) */
+ 908:.\FatFs/sd_spi_stm32.c **** 			*(ptr+1) = (BYTE)chk_power();
+ 1564              		.loc 1 908 0
+ 1565 002e 0123     		movs	r3, #1
+ 1566 0030 5370     		strb	r3, [r2, #1]
+ 1567              	.LVL200:
+ 909:.\FatFs/sd_spi_stm32.c **** 			res = RES_OK;
+ 1568              		.loc 1 909 0
+ 1569 0032 0020     		movs	r0, #0
+ 1570              	.LVL201:
+ 910:.\FatFs/sd_spi_stm32.c **** 			break;
+ 1571              		.loc 1 910 0
+ 1572 0034 1FE1     		b	.L138
+ 1573              	.LVL202:
+ 1574              	.L139:
+ 911:.\FatFs/sd_spi_stm32.c **** 		default :
+ 912:.\FatFs/sd_spi_stm32.c **** 			res = RES_PARERR;
+ 913:.\FatFs/sd_spi_stm32.c **** 		}
+ 914:.\FatFs/sd_spi_stm32.c **** 	}
+ 915:.\FatFs/sd_spi_stm32.c **** 	else {
+ 916:.\FatFs/sd_spi_stm32.c **** 		if (Stat & STA_NOINIT) return RES_NOTRDY;
+ 1575              		.loc 1 916 0
+ 1576 0036 914B     		ldr	r3, .L177
+ 1577 0038 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1578 003a 13F0010F 		tst	r3, #1
+ 1579 003e 40F01981 		bne	.L161
+ 917:.\FatFs/sd_spi_stm32.c **** 
+ 918:.\FatFs/sd_spi_stm32.c **** 		switch (ctrl) {
+ 1580              		.loc 1 918 0
+ 1581 0042 0E29     		cmp	r1, #14
+ 1582 0044 00F2F980 		bhi	.L162
+ 1583 0048 DFE811F0 		tbh	[pc, r1, lsl #1]
+ 1584              	.L145:
+ 1585 004c 0F00     		.2byte	(.L144-.L145)/2
+ 1586 004e 1A00     		.2byte	(.L146-.L145)/2
+ 1587 0050 5D00     		.2byte	(.L147-.L145)/2
+ 1588 0052 6200     		.2byte	(.L148-.L145)/2
+ 1589 0054 F700     		.2byte	(.L162-.L145)/2
+ 1590 0056 F700     		.2byte	(.L162-.L145)/2
+ 1591 0058 F700     		.2byte	(.L162-.L145)/2
+ 1592 005a F700     		.2byte	(.L162-.L145)/2
+ 1593 005c F700     		.2byte	(.L162-.L145)/2
+ 1594 005e F700     		.2byte	(.L162-.L145)/2
+ 1595 0060 BA00     		.2byte	(.L149-.L145)/2
+ 1596 0062 BF00     		.2byte	(.L150-.L145)/2
+ 1597 0064 CD00     		.2byte	(.L151-.L145)/2
+ 1598 0066 DA00     		.2byte	(.L152-.L145)/2
+ 1599 0068 E800     		.2byte	(.L153-.L145)/2
+ 1600              		.p2align 1
+ 1601              	.L144:
+ 919:.\FatFs/sd_spi_stm32.c **** 		case CTRL_SYNC :		/* Make sure that no pending write process */
+ 920:.\FatFs/sd_spi_stm32.c **** 			SELECT();
+ 1602              		.loc 1 920 0
+ 1603 006a 8548     		ldr	r0, .L177+4
+ 1604              	.LVL203:
+ 1605 006c 1021     		movs	r1, #16
+ 1606              	.LVL204:
+ 1607 006e FFF7FEFF 		bl	GPIO_ResetBits
+ 1608              	.LVL205:
+ 921:.\FatFs/sd_spi_stm32.c **** 			if (wait_ready() == 0xFF)
+ 1609              		.loc 1 921 0
+ 1610 0072 FFF7FEFF 		bl	wait_ready
+ 1611              	.LVL206:
+ 922:.\FatFs/sd_spi_stm32.c **** 				res = RES_OK;
+ 1612              		.loc 1 922 0
+ 1613 0076 B0F1FF04 		subs	r4, r0, #255
+ 1614              	.LVL207:
+ 1615 007a 18BF     		it	ne
+ 1616 007c 0124     		movne	r4, #1
+ 1617 007e F1E0     		b	.L143
+ 1618              	.LVL208:
+ 1619              	.L146:
+ 923:.\FatFs/sd_spi_stm32.c **** 			break;
+ 924:.\FatFs/sd_spi_stm32.c **** 
+ 925:.\FatFs/sd_spi_stm32.c **** 		case GET_SECTOR_COUNT :	/* Get number of sectors on the disk (DWORD) */
+ 926:.\FatFs/sd_spi_stm32.c **** 			if ((send_cmd(CMD9, 0) == 0) && rcvr_datablock(csd, 16)) {
+ 1620              		.loc 1 926 0
+ 1621 0080 4920     		movs	r0, #73
+ 1622              	.LVL209:
+ 1623 0082 0021     		movs	r1, #0
+ 1624              	.LVL210:
+ 1625 0084 FFF7FEFF 		bl	send_cmd
+ 1626              	.LVL211:
+ 1627 0088 0028     		cmp	r0, #0
+ 1628 008a 40F0D880 		bne	.L163
+ 1629              		.loc 1 926 0 is_stmt 0 discriminator 1
+ 1630 008e 6846     		mov	r0, sp
+ 1631 0090 1021     		movs	r1, #16
+ 1632 0092 FFF7FEFF 		bl	rcvr_datablock
+ 1633              	.LVL212:
+ 1634 0096 0028     		cmp	r0, #0
+ 1635 0098 00F0D380 		beq	.L164
+ 927:.\FatFs/sd_spi_stm32.c **** 				if ((csd[0] >> 6) == 1) {	/* SDC version 2.00 */
+ 1636              		.loc 1 927 0 is_stmt 1
+ 1637 009c 9DF80030 		ldrb	r3, [sp]	@ zero_extendqisi2
+ 1638 00a0 9B09     		lsrs	r3, r3, #6
+ 1639 00a2 012B     		cmp	r3, #1
+ 1640 00a4 0BD1     		bne	.L154
+ 1641              	.LVL213:
+ 928:.\FatFs/sd_spi_stm32.c **** 					csize = csd[9] + ((WORD)csd[8] << 8) + 1;
+ 1642              		.loc 1 928 0
+ 1643 00a6 9DF80930 		ldrb	r3, [sp, #9]	@ zero_extendqisi2
+ 1644 00aa 0133     		adds	r3, r3, #1
+ 1645 00ac 9DF80820 		ldrb	r2, [sp, #8]	@ zero_extendqisi2
+ 1646 00b0 03EB0223 		add	r3, r3, r2, lsl #8
+ 929:.\FatFs/sd_spi_stm32.c **** 					*(DWORD*)buff = (DWORD)csize << 10;
+ 1647              		.loc 1 929 0
+ 1648 00b4 9BB2     		uxth	r3, r3
+ 1649 00b6 9B02     		lsls	r3, r3, #10
+ 1650 00b8 2360     		str	r3, [r4]
+ 930:.\FatFs/sd_spi_stm32.c **** 				} else {					/* SDC version 1.XX or MMC*/
+ 931:.\FatFs/sd_spi_stm32.c **** 					n = (csd[5] & 15) + ((csd[10] & 128) >> 7) + ((csd[9] & 3) << 1) + 2;
+ 932:.\FatFs/sd_spi_stm32.c **** 					csize = (csd[8] >> 6) + ((WORD)csd[7] << 2) + ((WORD)(csd[6] & 3) << 10) + 1;
+ 933:.\FatFs/sd_spi_stm32.c **** 					*(DWORD*)buff = (DWORD)csize << (n - 9);
+ 934:.\FatFs/sd_spi_stm32.c **** 				}
+ 935:.\FatFs/sd_spi_stm32.c **** 				res = RES_OK;
+ 1651              		.loc 1 935 0
+ 1652 00ba 0024     		movs	r4, #0
+ 1653              	.LVL214:
+ 1654 00bc D2E0     		b	.L143
+ 1655              	.LVL215:
+ 1656              	.L154:
+ 932:.\FatFs/sd_spi_stm32.c **** 					*(DWORD*)buff = (DWORD)csize << (n - 9);
+ 1657              		.loc 1 932 0
+ 1658 00be 9DF80820 		ldrb	r2, [sp, #8]	@ zero_extendqisi2
+ 1659 00c2 9DF80730 		ldrb	r3, [sp, #7]	@ zero_extendqisi2
+ 1660 00c6 9B00     		lsls	r3, r3, #2
+ 1661 00c8 03EB9213 		add	r3, r3, r2, lsr #6
+ 1662 00cc 0133     		adds	r3, r3, #1
+ 1663 00ce 9DF80620 		ldrb	r2, [sp, #6]	@ zero_extendqisi2
+ 1664 00d2 02F00302 		and	r2, r2, #3
+ 1665 00d6 03EB8223 		add	r3, r3, r2, lsl #10
+ 933:.\FatFs/sd_spi_stm32.c **** 				}
+ 1666              		.loc 1 933 0
+ 1667 00da 9BB2     		uxth	r3, r3
+ 931:.\FatFs/sd_spi_stm32.c **** 					csize = (csd[8] >> 6) + ((WORD)csd[7] << 2) + ((WORD)(csd[6] & 3) << 10) + 1;
+ 1668              		.loc 1 931 0
+ 1669 00dc 9DF80520 		ldrb	r2, [sp, #5]	@ zero_extendqisi2
+ 1670 00e0 02F00F02 		and	r2, r2, #15
+ 1671 00e4 9DF80A10 		ldrb	r1, [sp, #10]	@ zero_extendqisi2
+ 1672 00e8 02EBD112 		add	r2, r2, r1, lsr #7
+ 1673 00ec 0232     		adds	r2, r2, #2
+ 1674 00ee 9DF80910 		ldrb	r1, [sp, #9]	@ zero_extendqisi2
+ 1675 00f2 01F00301 		and	r1, r1, #3
+ 1676 00f6 02EB4102 		add	r2, r2, r1, lsl #1
+ 933:.\FatFs/sd_spi_stm32.c **** 				}
+ 1677              		.loc 1 933 0
+ 1678 00fa D2B2     		uxtb	r2, r2
+ 1679 00fc 093A     		subs	r2, r2, #9
+ 1680 00fe 9340     		lsls	r3, r3, r2
+ 1681 0100 2360     		str	r3, [r4]
+ 1682              		.loc 1 935 0
+ 1683 0102 0024     		movs	r4, #0
+ 1684              	.LVL216:
+ 1685 0104 AEE0     		b	.L143
+ 1686              	.LVL217:
+ 1687              	.L147:
+ 936:.\FatFs/sd_spi_stm32.c **** 			}
+ 937:.\FatFs/sd_spi_stm32.c **** 			break;
+ 938:.\FatFs/sd_spi_stm32.c **** 
+ 939:.\FatFs/sd_spi_stm32.c **** 		case GET_SECTOR_SIZE :	/* Get R/W sector size (WORD) */
+ 940:.\FatFs/sd_spi_stm32.c **** 			*(WORD*)buff = 512;
+ 1688              		.loc 1 940 0
+ 1689 0106 4FF40073 		mov	r3, #512
+ 1690 010a 1380     		strh	r3, [r2]	@ movhi
+ 1691              	.LVL218:
+ 941:.\FatFs/sd_spi_stm32.c **** 			res = RES_OK;
+ 1692              		.loc 1 941 0
+ 1693 010c 0024     		movs	r4, #0
+ 942:.\FatFs/sd_spi_stm32.c **** 			break;
+ 1694              		.loc 1 942 0
+ 1695 010e A9E0     		b	.L143
+ 1696              	.LVL219:
+ 1697              	.L148:
+ 943:.\FatFs/sd_spi_stm32.c **** 
+ 944:.\FatFs/sd_spi_stm32.c **** 		case GET_BLOCK_SIZE :	/* Get erase block size in unit of sector (DWORD) */
+ 945:.\FatFs/sd_spi_stm32.c **** 			if (CardType & CT_SD2) {	/* SDC version 2.00 */
+ 1698              		.loc 1 945 0
+ 1699 0110 5C4B     		ldr	r3, .L177+8
+ 1700 0112 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1701 0114 13F0040F 		tst	r3, #4
+ 1702 0118 1ED0     		beq	.L155
+ 946:.\FatFs/sd_spi_stm32.c **** 				if (send_cmd(ACMD13, 0) == 0) {	/* Read SD status */
+ 1703              		.loc 1 946 0
+ 1704 011a CD20     		movs	r0, #205
+ 1705              	.LVL220:
+ 1706 011c 0021     		movs	r1, #0
+ 1707              	.LVL221:
+ 1708 011e FFF7FEFF 		bl	send_cmd
+ 1709              	.LVL222:
+ 1710 0122 0028     		cmp	r0, #0
+ 1711 0124 40F08F80 		bne	.L165
+ 947:.\FatFs/sd_spi_stm32.c **** 					rcvr_spi();
+ 1712              		.loc 1 947 0
+ 1713 0128 FFF7FEFF 		bl	rcvr_spi
+ 1714              	.LVL223:
+ 948:.\FatFs/sd_spi_stm32.c **** 					if (rcvr_datablock(csd, 16)) {				/* Read partial block */
+ 1715              		.loc 1 948 0
+ 1716 012c 6846     		mov	r0, sp
+ 1717 012e 1021     		movs	r1, #16
+ 1718 0130 FFF7FEFF 		bl	rcvr_datablock
+ 1719              	.LVL224:
+ 1720 0134 0028     		cmp	r0, #0
+ 1721 0136 00F08880 		beq	.L166
+ 1722 013a 3025     		movs	r5, #48
+ 1723              	.L156:
+ 1724              	.LVL225:
+ 949:.\FatFs/sd_spi_stm32.c **** 						for (n = 64 - 16; n; n--) rcvr_spi();	/* Purge trailing data */
+ 1725              		.loc 1 949 0 discriminator 3
+ 1726 013c FFF7FEFF 		bl	rcvr_spi
+ 1727              	.LVL226:
+ 1728 0140 6B1E     		subs	r3, r5, #1
+ 1729 0142 13F0FF05 		ands	r5, r3, #255
+ 1730              	.LVL227:
+ 1731 0146 F9D1     		bne	.L156
+ 950:.\FatFs/sd_spi_stm32.c **** 						*(DWORD*)buff = 16UL << (csd[10] >> 4);
+ 1732              		.loc 1 950 0
+ 1733 0148 9DF80A20 		ldrb	r2, [sp, #10]	@ zero_extendqisi2
+ 1734 014c 1209     		lsrs	r2, r2, #4
+ 1735 014e 1023     		movs	r3, #16
+ 1736 0150 9340     		lsls	r3, r3, r2
+ 1737 0152 2360     		str	r3, [r4]
+ 1738              	.LVL228:
+ 951:.\FatFs/sd_spi_stm32.c **** 						res = RES_OK;
+ 1739              		.loc 1 951 0
+ 1740 0154 0024     		movs	r4, #0
+ 1741              	.LVL229:
+ 1742 0156 85E0     		b	.L143
+ 1743              	.LVL230:
+ 1744              	.L155:
+ 952:.\FatFs/sd_spi_stm32.c **** 					}
+ 953:.\FatFs/sd_spi_stm32.c **** 				}
+ 954:.\FatFs/sd_spi_stm32.c **** 			} else {					/* SDC version 1.XX or MMC */
+ 955:.\FatFs/sd_spi_stm32.c **** 				if ((send_cmd(CMD9, 0) == 0) && rcvr_datablock(csd, 16)) {	/* Read CSD */
+ 1745              		.loc 1 955 0
+ 1746 0158 4920     		movs	r0, #73
+ 1747              	.LVL231:
+ 1748 015a 0021     		movs	r1, #0
+ 1749              	.LVL232:
+ 1750 015c FFF7FEFF 		bl	send_cmd
+ 1751              	.LVL233:
+ 1752 0160 0028     		cmp	r0, #0
+ 1753 0162 74D1     		bne	.L167
+ 1754              		.loc 1 955 0 is_stmt 0 discriminator 1
+ 1755 0164 6846     		mov	r0, sp
+ 1756 0166 1021     		movs	r1, #16
+ 1757 0168 FFF7FEFF 		bl	rcvr_datablock
+ 1758              	.LVL234:
+ 1759 016c 0028     		cmp	r0, #0
+ 1760 016e 70D0     		beq	.L168
+ 956:.\FatFs/sd_spi_stm32.c **** 					if (CardType & CT_SD1) {	/* SDC version 1.XX */
+ 1761              		.loc 1 956 0 is_stmt 1
+ 1762 0170 444B     		ldr	r3, .L177+8
+ 1763 0172 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1764 0174 13F0020F 		tst	r3, #2
+ 1765 0178 11D0     		beq	.L157
+ 957:.\FatFs/sd_spi_stm32.c **** 						*(DWORD*)buff = (((csd[10] & 63) << 1) + ((WORD)(csd[11] & 128) >> 7) + 1) << ((csd[13] >> 6)
+ 1766              		.loc 1 957 0
+ 1767 017a 9DF80A30 		ldrb	r3, [sp, #10]	@ zero_extendqisi2
+ 1768 017e 03F03F02 		and	r2, r3, #63
+ 1769 0182 9DF80B30 		ldrb	r3, [sp, #11]	@ zero_extendqisi2
+ 1770 0186 DB09     		lsrs	r3, r3, #7
+ 1771 0188 03EB4203 		add	r3, r3, r2, lsl #1
+ 1772 018c 0133     		adds	r3, r3, #1
+ 1773 018e 9DF80D20 		ldrb	r2, [sp, #13]	@ zero_extendqisi2
+ 1774 0192 9209     		lsrs	r2, r2, #6
+ 1775 0194 013A     		subs	r2, r2, #1
+ 1776 0196 9340     		lsls	r3, r3, r2
+ 1777 0198 2360     		str	r3, [r4]
+ 958:.\FatFs/sd_spi_stm32.c **** 					} else {					/* MMC */
+ 959:.\FatFs/sd_spi_stm32.c **** 						*(DWORD*)buff = ((WORD)((csd[10] & 124) >> 2) + 1) * (((csd[11] & 3) << 3) + ((csd[11] & 224)
+ 960:.\FatFs/sd_spi_stm32.c **** 					}
+ 961:.\FatFs/sd_spi_stm32.c **** 					res = RES_OK;
+ 1778              		.loc 1 961 0
+ 1779 019a 0024     		movs	r4, #0
+ 1780              	.LVL235:
+ 1781 019c 62E0     		b	.L143
+ 1782              	.LVL236:
+ 1783              	.L157:
+ 959:.\FatFs/sd_spi_stm32.c **** 					}
+ 1784              		.loc 1 959 0
+ 1785 019e 9DF80B30 		ldrb	r3, [sp, #11]	@ zero_extendqisi2
+ 1786 01a2 9DF80A10 		ldrb	r1, [sp, #10]	@ zero_extendqisi2
+ 1787 01a6 C1F38401 		ubfx	r1, r1, #2, #5
+ 1788 01aa 03F00300 		and	r0, r3, #3
+ 1789 01ae 5A09     		lsrs	r2, r3, #5
+ 1790 01b0 02EBC002 		add	r2, r2, r0, lsl #3
+ 1791 01b4 531C     		adds	r3, r2, #1
+ 1792 01b6 01FB0333 		mla	r3, r1, r3, r3
+ 1793 01ba 2360     		str	r3, [r4]
+ 1794              		.loc 1 961 0
+ 1795 01bc 0024     		movs	r4, #0
+ 1796              	.LVL237:
+ 1797 01be 51E0     		b	.L143
+ 1798              	.LVL238:
+ 1799              	.L149:
+ 962:.\FatFs/sd_spi_stm32.c **** 				}
+ 963:.\FatFs/sd_spi_stm32.c **** 			}
+ 964:.\FatFs/sd_spi_stm32.c **** 			break;
+ 965:.\FatFs/sd_spi_stm32.c **** 
+ 966:.\FatFs/sd_spi_stm32.c **** 		case MMC_GET_TYPE :		/* Get card type flags (1 byte) */
+ 967:.\FatFs/sd_spi_stm32.c **** 			*ptr = CardType;
+ 1800              		.loc 1 967 0
+ 1801 01c0 304B     		ldr	r3, .L177+8
+ 1802 01c2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1803 01c4 1370     		strb	r3, [r2]
+ 1804              	.LVL239:
+ 968:.\FatFs/sd_spi_stm32.c **** 			res = RES_OK;
+ 1805              		.loc 1 968 0
+ 1806 01c6 0024     		movs	r4, #0
+ 969:.\FatFs/sd_spi_stm32.c **** 			break;
+ 1807              		.loc 1 969 0
+ 1808 01c8 4CE0     		b	.L143
+ 1809              	.LVL240:
+ 1810              	.L150:
+ 970:.\FatFs/sd_spi_stm32.c **** 
+ 971:.\FatFs/sd_spi_stm32.c **** 		case MMC_GET_CSD :		/* Receive CSD as a data block (16 bytes) */
+ 972:.\FatFs/sd_spi_stm32.c **** 			if (send_cmd(CMD9, 0) == 0		/* READ_CSD */
+ 1811              		.loc 1 972 0
+ 1812 01ca 4920     		movs	r0, #73
+ 1813              	.LVL241:
+ 1814 01cc 0021     		movs	r1, #0
+ 1815              	.LVL242:
+ 1816 01ce FFF7FEFF 		bl	send_cmd
+ 1817              	.LVL243:
+ 1818 01d2 0028     		cmp	r0, #0
+ 1819 01d4 3FD1     		bne	.L169
+ 973:.\FatFs/sd_spi_stm32.c **** 				&& rcvr_datablock(ptr, 16))
+ 1820              		.loc 1 973 0
+ 1821 01d6 2046     		mov	r0, r4
+ 1822 01d8 1021     		movs	r1, #16
+ 1823 01da FFF7FEFF 		bl	rcvr_datablock
+ 1824              	.LVL244:
+ 1825 01de 80F00100 		eor	r0, r0, #1
+ 922:.\FatFs/sd_spi_stm32.c **** 			break;
+ 1826              		.loc 1 922 0
+ 1827 01e2 C4B2     		uxtb	r4, r0
+ 1828              	.LVL245:
+ 1829 01e4 3EE0     		b	.L143
+ 1830              	.LVL246:
+ 1831              	.L151:
+ 974:.\FatFs/sd_spi_stm32.c **** 				res = RES_OK;
+ 975:.\FatFs/sd_spi_stm32.c **** 			break;
+ 976:.\FatFs/sd_spi_stm32.c **** 
+ 977:.\FatFs/sd_spi_stm32.c **** 		case MMC_GET_CID :		/* Receive CID as a data block (16 bytes) */
+ 978:.\FatFs/sd_spi_stm32.c **** 			if (send_cmd(CMD10, 0) == 0		/* READ_CID */
+ 1832              		.loc 1 978 0
+ 1833 01e6 4A20     		movs	r0, #74
+ 1834              	.LVL247:
+ 1835 01e8 0021     		movs	r1, #0
+ 1836              	.LVL248:
+ 1837 01ea FFF7FEFF 		bl	send_cmd
+ 1838              	.LVL249:
+ 1839 01ee A0BB     		cbnz	r0, .L170
+ 979:.\FatFs/sd_spi_stm32.c **** 				&& rcvr_datablock(ptr, 16))
+ 1840              		.loc 1 979 0
+ 1841 01f0 2046     		mov	r0, r4
+ 1842 01f2 1021     		movs	r1, #16
+ 1843 01f4 FFF7FEFF 		bl	rcvr_datablock
+ 1844              	.LVL250:
+ 1845 01f8 80F00100 		eor	r0, r0, #1
+ 922:.\FatFs/sd_spi_stm32.c **** 			break;
+ 1846              		.loc 1 922 0
+ 1847 01fc C4B2     		uxtb	r4, r0
+ 1848              	.LVL251:
+ 1849 01fe 31E0     		b	.L143
+ 1850              	.LVL252:
+ 1851              	.L152:
+ 980:.\FatFs/sd_spi_stm32.c **** 				res = RES_OK;
+ 981:.\FatFs/sd_spi_stm32.c **** 			break;
+ 982:.\FatFs/sd_spi_stm32.c **** 
+ 983:.\FatFs/sd_spi_stm32.c **** 		case MMC_GET_OCR :		/* Receive OCR as an R3 resp (4 bytes) */
+ 984:.\FatFs/sd_spi_stm32.c **** 			if (send_cmd(CMD58, 0) == 0) {	/* READ_OCR */
+ 1852              		.loc 1 984 0
+ 1853 0200 7A20     		movs	r0, #122
+ 1854              	.LVL253:
+ 1855 0202 0021     		movs	r1, #0
+ 1856              	.LVL254:
+ 1857 0204 FFF7FEFF 		bl	send_cmd
+ 1858              	.LVL255:
+ 1859 0208 48BB     		cbnz	r0, .L171
+ 1860 020a 251D     		adds	r5, r4, #4
+ 1861              	.LVL256:
+ 1862              	.L158:
+ 985:.\FatFs/sd_spi_stm32.c **** 				for (n = 4; n; n--) *ptr++ = rcvr_spi();
+ 1863              		.loc 1 985 0 discriminator 3
+ 1864 020c FFF7FEFF 		bl	rcvr_spi
+ 1865              	.LVL257:
+ 1866 0210 04F8010B 		strb	r0, [r4], #1
+ 1867              	.LVL258:
+ 1868 0214 AC42     		cmp	r4, r5
+ 1869 0216 F9D1     		bne	.L158
+ 986:.\FatFs/sd_spi_stm32.c **** 				res = RES_OK;
+ 1870              		.loc 1 986 0
+ 1871 0218 0024     		movs	r4, #0
+ 1872              	.LVL259:
+ 1873 021a 23E0     		b	.L143
+ 1874              	.LVL260:
+ 1875              	.L153:
+ 987:.\FatFs/sd_spi_stm32.c **** 			}
+ 988:.\FatFs/sd_spi_stm32.c **** 			break;
+ 989:.\FatFs/sd_spi_stm32.c **** 
+ 990:.\FatFs/sd_spi_stm32.c **** 		case MMC_GET_SDSTAT :	/* Receive SD status as a data block (64 bytes) */
+ 991:.\FatFs/sd_spi_stm32.c **** 			if (send_cmd(ACMD13, 0) == 0) {	/* SD_STATUS */
+ 1876              		.loc 1 991 0
+ 1877 021c CD20     		movs	r0, #205
+ 1878              	.LVL261:
+ 1879 021e 0021     		movs	r1, #0
+ 1880              	.LVL262:
+ 1881 0220 FFF7FEFF 		bl	send_cmd
+ 1882              	.LVL263:
+ 1883 0224 E8B9     		cbnz	r0, .L172
+ 992:.\FatFs/sd_spi_stm32.c **** 				rcvr_spi();
+ 1884              		.loc 1 992 0
+ 1885 0226 FFF7FEFF 		bl	rcvr_spi
+ 1886              	.LVL264:
+ 993:.\FatFs/sd_spi_stm32.c **** 				if (rcvr_datablock(ptr, 64))
+ 1887              		.loc 1 993 0
+ 1888 022a 2046     		mov	r0, r4
+ 1889 022c 4021     		movs	r1, #64
+ 1890 022e FFF7FEFF 		bl	rcvr_datablock
+ 1891              	.LVL265:
+ 1892 0232 80F00100 		eor	r0, r0, #1
+ 922:.\FatFs/sd_spi_stm32.c **** 			break;
+ 1893              		.loc 1 922 0
+ 1894 0236 C4B2     		uxtb	r4, r0
+ 1895              	.LVL266:
+ 1896 0238 14E0     		b	.L143
+ 1897              	.LVL267:
+ 1898              	.L162:
+ 994:.\FatFs/sd_spi_stm32.c **** 					res = RES_OK;
+ 995:.\FatFs/sd_spi_stm32.c **** 			}
+ 996:.\FatFs/sd_spi_stm32.c **** 			break;
+ 997:.\FatFs/sd_spi_stm32.c **** 
+ 998:.\FatFs/sd_spi_stm32.c **** 		default:
+ 999:.\FatFs/sd_spi_stm32.c **** 			res = RES_PARERR;
+ 1899              		.loc 1 999 0
+ 1900 023a 0424     		movs	r4, #4
+ 1901 023c 12E0     		b	.L143
+ 1902              	.LVL268:
+ 1903              	.L163:
+ 894:.\FatFs/sd_spi_stm32.c **** 
+ 1904              		.loc 1 894 0
+ 1905 023e 0124     		movs	r4, #1
+ 1906              	.LVL269:
+ 1907 0240 10E0     		b	.L143
+ 1908              	.LVL270:
+ 1909              	.L164:
+ 1910 0242 0124     		movs	r4, #1
+ 1911              	.LVL271:
+ 1912 0244 0EE0     		b	.L143
+ 1913              	.LVL272:
+ 1914              	.L165:
+ 1915 0246 0124     		movs	r4, #1
+ 1916              	.LVL273:
+ 1917 0248 0CE0     		b	.L143
+ 1918              	.LVL274:
+ 1919              	.L166:
+ 1920 024a 0124     		movs	r4, #1
+ 1921              	.LVL275:
+ 1922 024c 0AE0     		b	.L143
+ 1923              	.LVL276:
+ 1924              	.L167:
+ 1925 024e 0124     		movs	r4, #1
+ 1926              	.LVL277:
+ 1927 0250 08E0     		b	.L143
+ 1928              	.LVL278:
+ 1929              	.L168:
+ 1930 0252 0124     		movs	r4, #1
+ 1931              	.LVL279:
+ 1932 0254 06E0     		b	.L143
+ 1933              	.LVL280:
+ 1934              	.L169:
+ 1935 0256 0124     		movs	r4, #1
+ 1936              	.LVL281:
+ 1937 0258 04E0     		b	.L143
+ 1938              	.LVL282:
+ 1939              	.L170:
+ 1940 025a 0124     		movs	r4, #1
+ 1941              	.LVL283:
+ 1942 025c 02E0     		b	.L143
+ 1943              	.LVL284:
+ 1944              	.L171:
+ 1945 025e 0124     		movs	r4, #1
+ 1946              	.LVL285:
+ 1947 0260 00E0     		b	.L143
+ 1948              	.LVL286:
+ 1949              	.L172:
+ 1950 0262 0124     		movs	r4, #1
+ 1951              	.LVL287:
+ 1952              	.L143:
+1000:.\FatFs/sd_spi_stm32.c **** 		}
+1001:.\FatFs/sd_spi_stm32.c **** 
+1002:.\FatFs/sd_spi_stm32.c **** 		release_spi();
+ 1953              		.loc 1 1002 0
+ 1954 0264 FFF7FEFF 		bl	release_spi
+ 1955              	.LVL288:
+ 1956 0268 2046     		mov	r0, r4
+ 1957 026a 04E0     		b	.L138
+ 1958              	.LVL289:
+ 1959              	.L159:
+ 1960              	.LCFI29:
+ 1961              		.cfi_def_cfa_offset 0
+ 1962              		.cfi_restore 4
+ 1963              		.cfi_restore 5
+ 1964              		.cfi_restore 14
+ 892:.\FatFs/sd_spi_stm32.c **** 
+ 1965              		.loc 1 892 0
+ 1966 026c 0420     		movs	r0, #4
+ 1967              	.LVL290:
+1003:.\FatFs/sd_spi_stm32.c **** 	}
+1004:.\FatFs/sd_spi_stm32.c **** 
+1005:.\FatFs/sd_spi_stm32.c **** 	return res;
+1006:.\FatFs/sd_spi_stm32.c **** }
+ 1968              		.loc 1 1006 0
+ 1969 026e 7047     		bx	lr
+ 1970              	.LVL291:
+ 1971              	.L175:
+ 1972              	.LCFI30:
+ 1973              		.cfi_def_cfa_offset 32
+ 1974              		.cfi_offset 4, -12
+ 1975              		.cfi_offset 5, -8
+ 1976              		.cfi_offset 14, -4
+ 912:.\FatFs/sd_spi_stm32.c **** 		}
+ 1977              		.loc 1 912 0
+ 1978 0270 0420     		movs	r0, #4
+ 1979              	.LVL292:
+ 1980 0272 00E0     		b	.L138
+ 1981              	.LVL293:
+ 1982              	.L161:
+ 916:.\FatFs/sd_spi_stm32.c **** 
+ 1983              		.loc 1 916 0
+ 1984 0274 0320     		movs	r0, #3
+ 1985              	.LVL294:
+ 1986              	.L138:
+ 1987              		.loc 1 1006 0
+ 1988 0276 05B0     		add	sp, sp, #20
+ 1989              	.LCFI31:
+ 1990              		.cfi_def_cfa_offset 12
+ 1991              		@ sp needed
+ 1992 0278 30BD     		pop	{r4, r5, pc}
+ 1993              	.L178:
+ 1994 027a 00BF     		.align	2
+ 1995              	.L177:
+ 1996 027c 00000000 		.word	.LANCHOR1
+ 1997 0280 00080140 		.word	1073809408
+ 1998 0284 00000000 		.word	.LANCHOR3
+ 1999              		.cfi_endproc
+ 2000              	.LFE50:
+ 2002              		.section	.text.disk_timerproc,"ax",%progbits
+ 2003              		.align	2
+ 2004              		.global	disk_timerproc
+ 2005              		.thumb
+ 2006              		.thumb_func
+ 2008              	disk_timerproc:
+ 2009              	.LFB51:
+1007:.\FatFs/sd_spi_stm32.c **** #endif /* _USE_IOCTL != 0 */
+1008:.\FatFs/sd_spi_stm32.c **** 
+1009:.\FatFs/sd_spi_stm32.c **** 
+1010:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+1011:.\FatFs/sd_spi_stm32.c **** /* Device Timer Interrupt Procedure  (Platform dependent)                */
+1012:.\FatFs/sd_spi_stm32.c **** /*-----------------------------------------------------------------------*/
+1013:.\FatFs/sd_spi_stm32.c **** /* This function must be called in period of 10ms                        */
+1014:.\FatFs/sd_spi_stm32.c **** 
+1015:.\FatFs/sd_spi_stm32.c **** RAMFUNC void disk_timerproc (void)
+1016:.\FatFs/sd_spi_stm32.c **** {
+ 2010              		.loc 1 1016 0
+ 2011              		.cfi_startproc
+ 2012              		@ args = 0, pretend = 0, frame = 0
+ 2013              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2014              		@ link register save eliminated.
+1017:.\FatFs/sd_spi_stm32.c **** 	static DWORD pv;
+1018:.\FatFs/sd_spi_stm32.c **** 	DWORD ns;
+1019:.\FatFs/sd_spi_stm32.c **** 	BYTE n, s;
+1020:.\FatFs/sd_spi_stm32.c **** 
+1021:.\FatFs/sd_spi_stm32.c **** 
+1022:.\FatFs/sd_spi_stm32.c **** 	n = Timer1;                /* 100Hz decrement timers */
+ 2015              		.loc 1 1022 0
+ 2016 0000 0E4B     		ldr	r3, .L183
+ 2017 0002 1B68     		ldr	r3, [r3]
+ 2018              	.LVL295:
+1023:.\FatFs/sd_spi_stm32.c **** 	if (n) Timer1 = --n;
+ 2019              		.loc 1 1023 0
+ 2020 0004 13F0FF03 		ands	r3, r3, #255
+ 2021              	.LVL296:
+ 2022 0008 03D0     		beq	.L180
+ 2023              	.LVL297:
+ 2024              		.loc 1 1023 0 is_stmt 0 discriminator 1
+ 2025 000a 013B     		subs	r3, r3, #1
+ 2026              	.LVL298:
+ 2027 000c DBB2     		uxtb	r3, r3
+ 2028              	.LVL299:
+ 2029 000e 0B4A     		ldr	r2, .L183
+ 2030 0010 1360     		str	r3, [r2]
+ 2031              	.L180:
+1024:.\FatFs/sd_spi_stm32.c **** 	n = Timer2;
+ 2032              		.loc 1 1024 0 is_stmt 1
+ 2033 0012 0B4B     		ldr	r3, .L183+4
+ 2034 0014 1B68     		ldr	r3, [r3]
+ 2035              	.LVL300:
+1025:.\FatFs/sd_spi_stm32.c **** 	if (n) Timer2 = --n;
+ 2036              		.loc 1 1025 0
+ 2037 0016 13F0FF03 		ands	r3, r3, #255
+ 2038              	.LVL301:
+ 2039 001a 03D0     		beq	.L181
+ 2040              	.LVL302:
+ 2041              		.loc 1 1025 0 is_stmt 0 discriminator 1
+ 2042 001c 013B     		subs	r3, r3, #1
+ 2043              	.LVL303:
+ 2044 001e DBB2     		uxtb	r3, r3
+ 2045              	.LVL304:
+ 2046 0020 074A     		ldr	r2, .L183+4
+ 2047 0022 1360     		str	r3, [r2]
+ 2048              	.L181:
+1026:.\FatFs/sd_spi_stm32.c **** 
+1027:.\FatFs/sd_spi_stm32.c **** 	ns = pv;
+ 2049              		.loc 1 1027 0 is_stmt 1
+ 2050 0024 074B     		ldr	r3, .L183+8
+ 2051 0026 1A68     		ldr	r2, [r3]
+ 2052              	.LVL305:
+1028:.\FatFs/sd_spi_stm32.c **** 	pv = socket_is_empty() | socket_is_write_protected();	/* Sample socket switch */
+ 2053              		.loc 1 1028 0
+ 2054 0028 0021     		movs	r1, #0
+ 2055 002a 1960     		str	r1, [r3]
+1029:.\FatFs/sd_spi_stm32.c **** 
+1030:.\FatFs/sd_spi_stm32.c **** 	if (ns == pv) {                         /* Have contacts stabled? */
+ 2056              		.loc 1 1030 0
+ 2057 002c 22B9     		cbnz	r2, .L179
+1031:.\FatFs/sd_spi_stm32.c **** 		s = Stat;
+ 2058              		.loc 1 1031 0
+ 2059 002e 064A     		ldr	r2, .L183+12
+ 2060              	.LVL306:
+ 2061 0030 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 2062              	.LVL307:
+1032:.\FatFs/sd_spi_stm32.c **** 
+1033:.\FatFs/sd_spi_stm32.c **** 		if (pv & socket_state_mask_wp)      /* WP is H (write protected) */
+1034:.\FatFs/sd_spi_stm32.c **** 			s |= STA_PROTECT;
+1035:.\FatFs/sd_spi_stm32.c **** 		else                                /* WP is L (write enabled) */
+1036:.\FatFs/sd_spi_stm32.c **** 			s &= ~STA_PROTECT;
+1037:.\FatFs/sd_spi_stm32.c **** 
+1038:.\FatFs/sd_spi_stm32.c **** 		if (pv & socket_state_mask_cp)      /* INS = H (Socket empty) */
+1039:.\FatFs/sd_spi_stm32.c **** 			s |= (STA_NODISK | STA_NOINIT);
+1040:.\FatFs/sd_spi_stm32.c **** 		else                                /* INS = L (Card inserted) */
+1041:.\FatFs/sd_spi_stm32.c **** 			s &= ~STA_NODISK;
+ 2063              		.loc 1 1041 0
+ 2064 0032 03F0F903 		and	r3, r3, #249
+ 2065              	.LVL308:
+1042:.\FatFs/sd_spi_stm32.c **** 
+1043:.\FatFs/sd_spi_stm32.c **** 		Stat = s;
+ 2066              		.loc 1 1043 0
+ 2067 0036 1370     		strb	r3, [r2]
+ 2068              	.LVL309:
+ 2069              	.L179:
+ 2070 0038 7047     		bx	lr
+ 2071              	.L184:
+ 2072 003a 00BF     		.align	2
+ 2073              	.L183:
+ 2074 003c 00000000 		.word	.LANCHOR2
+ 2075 0040 00000000 		.word	.LANCHOR0
+ 2076 0044 00000000 		.word	.LANCHOR4
+ 2077 0048 00000000 		.word	.LANCHOR1
+ 2078              		.cfi_endproc
+ 2079              	.LFE51:
+ 2081              		.section	.bss.Timer1,"aw",%nobits
+ 2082              		.align	2
+ 2083              		.set	.LANCHOR2,. + 0
+ 2086              	Timer1:
+ 2087 0000 00000000 		.space	4
+ 2088              		.section	.bss.Timer2,"aw",%nobits
+ 2089              		.align	2
+ 2090              		.set	.LANCHOR0,. + 0
+ 2093              	Timer2:
+ 2094 0000 00000000 		.space	4
+ 2095              		.section	.bss.pv.6527,"aw",%nobits
+ 2096              		.align	2
+ 2097              		.set	.LANCHOR4,. + 0
+ 2100              	pv.6527:
+ 2101 0000 00000000 		.space	4
+ 2102              		.section	.bss.CardType,"aw",%nobits
+ 2103              		.set	.LANCHOR3,. + 0
+ 2106              	CardType:
+ 2107 0000 00       		.space	1
+ 2108              		.section	.data.Stat,"aw",%progbits
+ 2109              		.set	.LANCHOR1,. + 0
+ 2112              	Stat:
+ 2113 0000 01       		.byte	1
+ 2114              		.text
+ 2115              	.Letext0:
+ 2116              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
+ 2117              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 2118              		.file 4 ".\\CMSIS/stm32f10x.h"
+ 2119              		.file 5 ".\\StdPeriphLib\\inc/stm32f10x_dma.h"
+ 2120              		.file 6 ".\\StdPeriphLib\\inc/stm32f10x_gpio.h"
+ 2121              		.file 7 ".\\StdPeriphLib\\inc/stm32f10x_spi.h"
+ 2122              		.file 8 ".\\FatFs/integer.h"
+ 2123              		.file 9 ".\\FatFs/diskio.h"
+ 2124              		.file 10 ".\\StdPeriphLib\\inc/stm32f10x_rcc.h"
+ 2125              		.file 11 ".\\CMSIS/core_cm3.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 sd_spi_stm32.c
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:19     .text.power_on:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:23     .text.power_on:00000000 power_on
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:162    .text.power_on:000000d8 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:168    .text.stm32_spi_rw:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:172    .text.stm32_spi_rw:00000000 stm32_spi_rw
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:213    .text.stm32_spi_rw:00000024 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:218    .text.rcvr_spi:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:222    .text.rcvr_spi:00000000 rcvr_spi
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:243    .text.wait_ready:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:247    .text.wait_ready:00000000 wait_ready
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:284    .text.wait_ready:00000020 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:289    .text.release_spi:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:293    .text.release_spi:00000000 release_spi
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:316    .text.release_spi:00000010 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:321    .text.send_cmd:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:325    .text.send_cmd:00000000 send_cmd
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:454    .text.send_cmd:0000009c $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:459    .text.power_off:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:463    .text.power_off:00000000 power_off
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:534    .text.power_off:0000005c $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:541    .text.stm32_dma_transfer:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:545    .text.stm32_dma_transfer:00000000 stm32_dma_transfer
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:702    .text.stm32_dma_transfer:000000c4 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:710    .text.rcvr_datablock:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:714    .text.rcvr_datablock:00000000 rcvr_datablock
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:783    .text.rcvr_datablock:00000040 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:788    .text.xmit_datablock:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:792    .text.xmit_datablock:00000000 xmit_datablock
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:860    .text.disk_initialize:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:865    .text.disk_initialize:00000000 disk_initialize
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1150   .text.disk_initialize:00000158 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1158   .text.disk_status:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1163   .text.disk_status:00000000 disk_status
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1189   .text.disk_status:00000010 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1194   .text.disk_read:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1199   .text.disk_read:00000000 disk_read
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1332   .text.disk_read:00000088 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1338   .text.disk_write:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1343   .text.disk_write:00000000 disk_write
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1502   .text.disk_write:000000a8 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1508   .text.disk_ioctl:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1513   .text.disk_ioctl:00000000 disk_ioctl
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1585   .text.disk_ioctl:0000004c $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1600   .text.disk_ioctl:0000006a $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1996   .text.disk_ioctl:0000027c $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2003   .text.disk_timerproc:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2008   .text.disk_timerproc:00000000 disk_timerproc
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2074   .text.disk_timerproc:0000003c $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2082   .bss.Timer1:00000000 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2086   .bss.Timer1:00000000 Timer1
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2089   .bss.Timer2:00000000 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2093   .bss.Timer2:00000000 Timer2
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2096   .bss.pv.6527:00000000 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2100   .bss.pv.6527:00000000 pv.6527
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2106   .bss.CardType:00000000 CardType
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2107   .bss.CardType:00000000 $d
+C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2112   .data.Stat:00000000 Stat
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphClockCmd
+GPIO_Init
+GPIO_SetBits
+SPI_Init
+SPI_CalculateCRC
+SPI_Cmd
+SPI_I2S_GetFlagStatus
+SPI_I2S_ReceiveData
+RCC_AHBPeriphClockCmd
+SPI_I2S_SendData
+GPIO_ResetBits
+SPI_I2S_DeInit
+DMA_DeInit
+DMA_Init
+DMA_Cmd
+SPI_I2S_DMACmd
+DMA_GetFlagStatus

@@ -1,0 +1,1341 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"ccsbcs.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.ff_convert,"ax",%progbits
+  19              		.align	2
+  20              		.global	ff_convert
+  21              		.thumb
+  22              		.thumb_func
+  24              	ff_convert:
+  25              	.LFB29:
+  26              		.file 1 ".\\FatFs/ccsbcs.c"
+   1:.\FatFs/ccsbcs.c **** /*------------------------------------------------------------------------*/
+   2:.\FatFs/ccsbcs.c **** /* Unicode - Local code bidirectional converter  (C)ChaN, 2009            */
+   3:.\FatFs/ccsbcs.c **** /* (SBCS code pages)                                                      */
+   4:.\FatFs/ccsbcs.c **** /*------------------------------------------------------------------------*/
+   5:.\FatFs/ccsbcs.c **** /*  437   U.S. (OEM)
+   6:.\FatFs/ccsbcs.c **** /   720   Arabic (OEM)
+   7:.\FatFs/ccsbcs.c **** /   1256  Arabic (Windows)
+   8:.\FatFs/ccsbcs.c **** /   737   Greek (OEM)
+   9:.\FatFs/ccsbcs.c **** /   1253  Greek (Windows)
+  10:.\FatFs/ccsbcs.c **** /   1250  Central Europe (Windows)
+  11:.\FatFs/ccsbcs.c **** /   775   Baltic (OEM)
+  12:.\FatFs/ccsbcs.c **** /   1257  Baltic (Windows)
+  13:.\FatFs/ccsbcs.c **** /   850   Multilingual Latin 1 (OEM)
+  14:.\FatFs/ccsbcs.c **** /   852   Latin 2 (OEM)
+  15:.\FatFs/ccsbcs.c **** /   1252  Latin 1 (Windows)
+  16:.\FatFs/ccsbcs.c **** /   855   Cyrillic (OEM)
+  17:.\FatFs/ccsbcs.c **** /   1251  Cyrillic (Windows)
+  18:.\FatFs/ccsbcs.c **** /   866   Russian (OEM)
+  19:.\FatFs/ccsbcs.c **** /   857   Turkish (OEM)
+  20:.\FatFs/ccsbcs.c **** /   1254  Turkish (Windows)
+  21:.\FatFs/ccsbcs.c **** /   858   Multilingual Latin 1 + Euro (OEM)
+  22:.\FatFs/ccsbcs.c **** /   862   Hebrew (OEM)
+  23:.\FatFs/ccsbcs.c **** /   1255  Hebrew (Windows)
+  24:.\FatFs/ccsbcs.c **** /   874   Thai (OEM, Windows)
+  25:.\FatFs/ccsbcs.c **** /   1258  Vietnam (OEM, Windows)
+  26:.\FatFs/ccsbcs.c **** */
+  27:.\FatFs/ccsbcs.c **** 
+  28:.\FatFs/ccsbcs.c **** #include "ff.h"
+  29:.\FatFs/ccsbcs.c **** 
+  30:.\FatFs/ccsbcs.c **** 
+  31:.\FatFs/ccsbcs.c **** #if _CODE_PAGE == 437
+  32:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+  33:.\FatFs/ccsbcs.c **** static
+  34:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP437(0x80-0xFF) to Unicode conversion table */
+  35:.\FatFs/ccsbcs.c **** 	0x00C7, 0x00FC, 0x00E9, 0x00E2, 0x00E4, 0x00E0, 0x00E5, 0x00E7,
+  36:.\FatFs/ccsbcs.c **** 	0x00EA, 0x00EB, 0x00E8, 0x00EF, 0x00EE, 0x00EC, 0x00C4, 0x00C5,
+  37:.\FatFs/ccsbcs.c **** 	0x00C9, 0x00E6, 0x00C6, 0x00F4, 0x00F6, 0x00F2, 0x00FB, 0x00F9,
+  38:.\FatFs/ccsbcs.c **** 	0x00FF, 0x00D6, 0x00DC, 0x00A2, 0x00A3, 0x00A5, 0x20A7, 0x0192,
+  39:.\FatFs/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x00F1, 0x00D1, 0x00AA, 0x00BA,
+  40:.\FatFs/ccsbcs.c **** 	0x00BF, 0x2310, 0x00AC, 0x00BD, 0x00BC, 0x00A1, 0x00AB, 0x00BB,
+  41:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+  42:.\FatFs/ccsbcs.c **** 	0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+  43:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+  44:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+  45:.\FatFs/ccsbcs.c **** 	0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+  46:.\FatFs/ccsbcs.c **** 	0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+  47:.\FatFs/ccsbcs.c **** 	0x03B1, 0x00DF, 0x0393, 0x03C0, 0x03A3, 0x03C3, 0x00B5, 0x03C4,
+  48:.\FatFs/ccsbcs.c **** 	0x03A6, 0x0398, 0x03A9, 0x03B4, 0x221E, 0x03C6, 0x03B5, 0x2229,
+  49:.\FatFs/ccsbcs.c **** 	0x2261, 0x00B1, 0x2265, 0x2264, 0x2320, 0x2321, 0x00F7, 0x2248,
+  50:.\FatFs/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x221A, 0x207F, 0x00B2, 0x25A0, 0x00A0
+  51:.\FatFs/ccsbcs.c **** };
+  52:.\FatFs/ccsbcs.c **** 
+  53:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 720
+  54:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+  55:.\FatFs/ccsbcs.c **** static
+  56:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP720(0x80-0xFF) to Unicode conversion table */
+  57:.\FatFs/ccsbcs.c **** 	0x0000, 0x0000, 0x00E9, 0x00E2, 0x0000, 0x00E0, 0x0000, 0x00E7,
+  58:.\FatFs/ccsbcs.c **** 	0x00EA, 0x00EB, 0x00E8, 0x00EF, 0x00EE, 0x0000, 0x0000, 0x0000,
+  59:.\FatFs/ccsbcs.c **** 	0x0000, 0x0651, 0x0652, 0x00F4, 0x00A4, 0x0640, 0x00FB, 0x00F9,
+  60:.\FatFs/ccsbcs.c **** 	0x0621, 0x0622, 0x0623, 0x0624, 0x00A3, 0x0625, 0x0626, 0x0627,
+  61:.\FatFs/ccsbcs.c **** 	0x0628, 0x0629, 0x062A, 0x062B, 0x062C, 0x062D, 0x062E, 0x062F,
+  62:.\FatFs/ccsbcs.c **** 	0x0630, 0x0631, 0x0632, 0x0633, 0x0634, 0x0635, 0x00AB, 0x00BB,
+  63:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+  64:.\FatFs/ccsbcs.c **** 	0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+  65:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+  66:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+  67:.\FatFs/ccsbcs.c **** 	0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+  68:.\FatFs/ccsbcs.c **** 	0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+  69:.\FatFs/ccsbcs.c **** 	0x0636, 0x0637, 0x0638, 0x0639, 0x063A, 0x0641, 0x00B5, 0x0642,
+  70:.\FatFs/ccsbcs.c **** 	0x0643, 0x0644, 0x0645, 0x0646, 0x0647, 0x0648, 0x0649, 0x064A,
+  71:.\FatFs/ccsbcs.c **** 	0x2261, 0x064B, 0x064C, 0x064D, 0x064E, 0x064F, 0xO650, 0x2248,
+  72:.\FatFs/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x221A, 0x207F, 0x00B2, 0x25A0, 0x00A0
+  73:.\FatFs/ccsbcs.c **** };
+  74:.\FatFs/ccsbcs.c **** 
+  75:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 737
+  76:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+  77:.\FatFs/ccsbcs.c **** static
+  78:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP737(0x80-0xFF) to Unicode conversion table */
+  79:.\FatFs/ccsbcs.c **** 	0x0391, 0x0392, 0x0393, 0x0394, 0x0395, 0x0396, 0x0397, 0x0398,
+  80:.\FatFs/ccsbcs.c **** 	0x0399, 0x039A, 0x039B, 0x039C, 0x039D, 0x039E, 0x039F, 0x03A0,
+  81:.\FatFs/ccsbcs.c **** 	0x03A1, 0x03A3, 0x03A4, 0x03A5, 0x03A6, 0x03A7, 0x03A8, 0x03A9,
+  82:.\FatFs/ccsbcs.c **** 	0x03B1, 0x03B2, 0x03B3, 0x03B4, 0x03B5, 0x03B6, 0x03B7, 0x03B8,
+  83:.\FatFs/ccsbcs.c **** 	0x03B9, 0x03BA, 0x03BB, 0x03BC, 0x03BD, 0x03BE, 0x03BF, 0x03C0,
+  84:.\FatFs/ccsbcs.c **** 	0x03C1, 0x03C3, 0x03C2, 0x03C4, 0x03C5, 0x03C6, 0x03C7, 0x03C8,
+  85:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+  86:.\FatFs/ccsbcs.c **** 	0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+  87:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+  88:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+  89:.\FatFs/ccsbcs.c **** 	0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+  90:.\FatFs/ccsbcs.c **** 	0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+  91:.\FatFs/ccsbcs.c **** 	0x03C9, 0x03AC, 0x03AD, 0x03AE, 0x03CA, 0x03AF, 0x03CC, 0x03CD,
+  92:.\FatFs/ccsbcs.c **** 	0x03CB, 0x03CE, 0x0386, 0x0388, 0x0389, 0x038A, 0x038C, 0x038E,
+  93:.\FatFs/ccsbcs.c **** 	0x038F, 0x00B1, 0x2265, 0x2264, 0x03AA, 0x03AB, 0x00F7, 0x2248,
+  94:.\FatFs/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x221A, 0x207F, 0x00B2, 0x25A0, 0x00A0
+  95:.\FatFs/ccsbcs.c **** };
+  96:.\FatFs/ccsbcs.c **** 
+  97:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 775
+  98:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+  99:.\FatFs/ccsbcs.c **** static
+ 100:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP775(0x80-0xFF) to Unicode conversion table */
+ 101:.\FatFs/ccsbcs.c **** 	0x0106, 0x00FC, 0x00E9, 0x0101, 0x00E4, 0x0123, 0x00E5, 0x0107,
+ 102:.\FatFs/ccsbcs.c **** 	0x0142, 0x0113, 0x0156, 0x0157, 0x012B, 0x0179, 0x00C4, 0x00C5,
+ 103:.\FatFs/ccsbcs.c **** 	0x00C9, 0x00E6, 0x00C6, 0x014D, 0x00F6, 0x0122, 0x00A2, 0x015A,
+ 104:.\FatFs/ccsbcs.c **** 	0x015B, 0x00D6, 0x00DC, 0x00F8, 0x00A3, 0x00D8, 0x00D7, 0x00A4,
+ 105:.\FatFs/ccsbcs.c **** 	0x0100, 0x012A, 0x00F3, 0x017B, 0x017C, 0x017A, 0x201D, 0x00A6,
+ 106:.\FatFs/ccsbcs.c **** 	0x00A9, 0x00AE, 0x00AC, 0x00BD, 0x00BC, 0x0141, 0x00AB, 0x00BB,
+ 107:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x0104, 0x010C, 0x0118,
+ 108:.\FatFs/ccsbcs.c **** 	0x0116, 0x2563, 0x2551, 0x2557, 0x255D, 0x012E, 0x0160, 0x2510,
+ 109:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x0172, 0x016A,
+ 110:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x017D,
+ 111:.\FatFs/ccsbcs.c **** 	0x0105, 0x010D, 0x0119, 0x0117, 0x012F, 0x0161, 0x0173, 0x016B,
+ 112:.\FatFs/ccsbcs.c **** 	0x017E, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+ 113:.\FatFs/ccsbcs.c **** 	0x00D3, 0x00DF, 0x014C, 0x0143, 0x00F5, 0x00D5, 0x00B5, 0x0144,
+ 114:.\FatFs/ccsbcs.c **** 	0x0136, 0x0137, 0x013B, 0x013C, 0x0146, 0x0112, 0x0145, 0x2019,
+ 115:.\FatFs/ccsbcs.c **** 	0x00AD, 0x00B1, 0x201C, 0x00BE, 0x00B6, 0x00A7, 0x00F7, 0x201E,
+ 116:.\FatFs/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x00B9, 0x00B3, 0x00B2, 0x25A0, 0x00A0
+ 117:.\FatFs/ccsbcs.c **** };
+ 118:.\FatFs/ccsbcs.c **** 
+ 119:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 850
+ 120:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 121:.\FatFs/ccsbcs.c **** static
+ 122:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP850(0x80-0xFF) to Unicode conversion table */
+ 123:.\FatFs/ccsbcs.c **** 	0x00C7, 0x00FC, 0x00E9, 0x00E2, 0x00E4, 0x00E0, 0x00E5, 0x00E7,
+ 124:.\FatFs/ccsbcs.c **** 	0x00EA, 0x00EB, 0x00E8, 0x00EF, 0x00EE, 0x00EC, 0x00C4, 0x00C5,
+ 125:.\FatFs/ccsbcs.c **** 	0x00C9, 0x00E6, 0x00C6, 0x00F4, 0x00F6, 0x00F2, 0x00FB, 0x00F9,
+ 126:.\FatFs/ccsbcs.c **** 	0x00FF, 0x00D6, 0x00DC, 0x00F8, 0x00A3, 0x00D8, 0x00D7, 0x0192,
+ 127:.\FatFs/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x00F1, 0x00D1, 0x00AA, 0x00BA,
+ 128:.\FatFs/ccsbcs.c **** 	0x00BF, 0x00AE, 0x00AC, 0x00BD, 0x00BC, 0x00A1, 0x00AB, 0x00BB,
+ 129:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x00C1, 0x00C2, 0x00C0,
+ 130:.\FatFs/ccsbcs.c **** 	0x00A9, 0x2563, 0x2551, 0x2557, 0x255D, 0x00A2, 0x00A5, 0x2510,
+ 131:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x00E3, 0x00C3,
+ 132:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x00A4,
+ 133:.\FatFs/ccsbcs.c **** 	0x00F0, 0x00D0, 0x00CA, 0x00CB, 0x00C8, 0x0131, 0x00CD, 0x00CE,
+ 134:.\FatFs/ccsbcs.c **** 	0x00CF, 0x2518, 0x250C, 0x2588, 0x2584, 0x00A6, 0x00CC, 0x2580,
+ 135:.\FatFs/ccsbcs.c **** 	0x00D3, 0x00DF, 0x00D4, 0x00D2, 0x00F5, 0x00D5, 0x00B5, 0x00FE,
+ 136:.\FatFs/ccsbcs.c **** 	0x00DE, 0x00DA, 0x00DB, 0x00D9, 0x00FD, 0x00DD, 0x00AF, 0x00B4,
+ 137:.\FatFs/ccsbcs.c **** 	0x00AD, 0x00B1, 0x2017, 0x00BE, 0x00B6, 0x00A7, 0x00F7, 0x00B8,
+ 138:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00A8, 0x00B7, 0x00B9, 0x00B3, 0x00B2, 0x25A0, 0x00A0
+ 139:.\FatFs/ccsbcs.c **** };
+ 140:.\FatFs/ccsbcs.c **** 
+ 141:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 852
+ 142:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 143:.\FatFs/ccsbcs.c **** static
+ 144:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP852(0x80-0xFF) to Unicode conversion table */
+ 145:.\FatFs/ccsbcs.c **** 	0x00C7, 0x00FC, 0x00E9, 0x00E2, 0x00E4, 0x016F, 0x0107, 0x00E7,
+ 146:.\FatFs/ccsbcs.c **** 	0x0142, 0x00EB, 0x0150, 0x0151, 0x00EE, 0x0179, 0x00C4, 0x0106,
+ 147:.\FatFs/ccsbcs.c **** 	0x00C9, 0x0139, 0x013A, 0x00F4, 0x00F6, 0x013D, 0x013E, 0x015A,
+ 148:.\FatFs/ccsbcs.c **** 	0x015B, 0x00D6, 0x00DC, 0x0164, 0x0165, 0x0141, 0x00D7, 0x010D,
+ 149:.\FatFs/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x0104, 0x0105, 0x017D, 0x017E,
+ 150:.\FatFs/ccsbcs.c **** 	0x0118, 0x0119, 0x00AC, 0x017A, 0x010C, 0x015F, 0x00AB, 0x00BB,
+ 151:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x00C1, 0x00C2, 0x011A,
+ 152:.\FatFs/ccsbcs.c **** 	0x015E, 0x2563, 0x2551, 0x2557, 0x255D, 0x017B, 0x017C, 0x2510,
+ 153:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x0102, 0x0103,
+ 154:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x00A4,
+ 155:.\FatFs/ccsbcs.c **** 	0x0111, 0x0110, 0x010E, 0x00CB, 0x010F, 0x0147, 0x00CD, 0x00CE,
+ 156:.\FatFs/ccsbcs.c **** 	0x011B, 0x2518, 0x250C, 0x2588, 0x2584, 0x0162, 0x016E, 0x2580,
+ 157:.\FatFs/ccsbcs.c **** 	0x00D3, 0x00DF, 0x00D4, 0x0143, 0x0144, 0x0148, 0x0160, 0x0161,
+ 158:.\FatFs/ccsbcs.c **** 	0x0154, 0x00DA, 0x0155, 0x0170, 0x00FD, 0x00DD, 0x0163, 0x00B4,
+ 159:.\FatFs/ccsbcs.c **** 	0x00AD, 0x02DD, 0x02DB, 0x02C7, 0x02D8, 0x00A7, 0x00F7, 0x00B8,
+ 160:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00A8, 0x02D9, 0x0171, 0x0158, 0x0159, 0x25A0, 0x00A0
+ 161:.\FatFs/ccsbcs.c **** };
+ 162:.\FatFs/ccsbcs.c **** 
+ 163:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 855
+ 164:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 165:.\FatFs/ccsbcs.c **** static
+ 166:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP855(0x80-0xFF) to Unicode conversion table */
+ 167:.\FatFs/ccsbcs.c **** 	0x0452, 0x0402, 0x0453, 0x0403, 0x0451, 0x0401, 0x0454, 0x0404,
+ 168:.\FatFs/ccsbcs.c **** 	0x0455, 0x0405, 0x0456, 0x0406, 0x0457, 0x0407, 0x0458, 0x0408,
+ 169:.\FatFs/ccsbcs.c **** 	0x0459, 0x0409, 0x045A, 0x040A, 0x045B, 0x040B, 0x045C, 0x040C,
+ 170:.\FatFs/ccsbcs.c **** 	0x045E, 0x040E, 0x045F, 0x040F, 0x044E, 0x042E, 0x044A, 0x042A,
+ 171:.\FatFs/ccsbcs.c **** 	0x0430, 0x0410, 0x0431, 0x0411, 0x0446, 0x0426, 0x0434, 0x0414,
+ 172:.\FatFs/ccsbcs.c **** 	0x0435, 0x0415, 0x0444, 0x0424, 0x0433, 0x0413, 0x00AB, 0x00BB,
+ 173:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x0445, 0x0425, 0x0438,
+ 174:.\FatFs/ccsbcs.c **** 	0x0418, 0x2563, 0x2551, 0x2557, 0x255D, 0x0439, 0x0419, 0x2510,
+ 175:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x043A, 0x041A,
+ 176:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x00A4,
+ 177:.\FatFs/ccsbcs.c **** 	0x043B, 0x041B, 0x043C, 0x041C, 0x043D, 0x041D, 0x043E, 0x041E,
+ 178:.\FatFs/ccsbcs.c **** 	0x043F, 0x2518, 0x250C, 0x2588, 0x2584, 0x041F, 0x044F, 0x2580,
+ 179:.\FatFs/ccsbcs.c **** 	0x042F, 0x0440, 0x0420, 0x0441, 0x0421, 0x0442, 0x0422, 0x0443,
+ 180:.\FatFs/ccsbcs.c **** 	0x0423, 0x0436, 0x0416, 0x0432, 0x0412, 0x044C, 0x042C, 0x2116,
+ 181:.\FatFs/ccsbcs.c **** 	0x00AD, 0x044B, 0x042B, 0x0437, 0x0417, 0x0448, 0x0428, 0x044D,
+ 182:.\FatFs/ccsbcs.c **** 	0x042D, 0x0449, 0x0429, 0x0447, 0x0427, 0x00A7, 0x25A0, 0x00A0
+ 183:.\FatFs/ccsbcs.c **** };
+ 184:.\FatFs/ccsbcs.c **** 
+ 185:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 857
+ 186:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 187:.\FatFs/ccsbcs.c **** static
+ 188:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP857(0x80-0xFF) to Unicode conversion table */
+ 189:.\FatFs/ccsbcs.c **** 	0x00C7, 0x00FC, 0x00E9, 0x00E2, 0x00E4, 0x00E0, 0x00E5, 0x00E7,
+ 190:.\FatFs/ccsbcs.c **** 	0x00EA, 0x00EB, 0x00E8, 0x00EF, 0x00EE, 0x0131, 0x00C4, 0x00C5,
+ 191:.\FatFs/ccsbcs.c **** 	0x00C9, 0x00E6, 0x00C6, 0x00F4, 0x00F6, 0x00F2, 0x00FB, 0x00F9,
+ 192:.\FatFs/ccsbcs.c **** 	0x0130, 0x00D6, 0x00DC, 0x00F8, 0x00A3, 0x00D8, 0x015E, 0x015F,
+ 193:.\FatFs/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x00F1, 0x00D1, 0x011E, 0x011F,
+ 194:.\FatFs/ccsbcs.c **** 	0x00BF, 0x00AE, 0x00AC, 0x00BD, 0x00BC, 0x00A1, 0x00AB, 0x00BB,
+ 195:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x00C1, 0x00C2, 0x00C0,
+ 196:.\FatFs/ccsbcs.c **** 	0x00A9, 0x2563, 0x2551, 0x2557, 0x255D, 0x00A2, 0x00A5, 0x2510,
+ 197:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x00E3, 0x00C3,
+ 198:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x00A4,
+ 199:.\FatFs/ccsbcs.c **** 	0x00BA, 0x00AA, 0x00CA, 0x00CB, 0x00C8, 0x0000, 0x00CD, 0x00CE,
+ 200:.\FatFs/ccsbcs.c **** 	0x00CF, 0x2518, 0x250C, 0x2588, 0x2584, 0x00A6, 0x00CC, 0x2580,
+ 201:.\FatFs/ccsbcs.c **** 	0x00D3, 0x00DF, 0x00D4, 0x00D2, 0x00F5, 0x00D5, 0x00B5, 0x0000,
+ 202:.\FatFs/ccsbcs.c **** 	0x00D7, 0x00DA, 0x00DB, 0x00D9, 0x00EC, 0x00FF, 0x00AF, 0x00B4,
+ 203:.\FatFs/ccsbcs.c **** 	0x00AD, 0x00B1, 0x0000, 0x00BE, 0x00B6, 0x00A7, 0x00F7, 0x00B8,
+ 204:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00A8, 0x00B7, 0x00B9, 0x00B3, 0x00B2, 0x25A0, 0x00A0
+ 205:.\FatFs/ccsbcs.c **** };
+ 206:.\FatFs/ccsbcs.c **** 
+ 207:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 858
+ 208:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 209:.\FatFs/ccsbcs.c **** static
+ 210:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP858(0x80-0xFF) to Unicode conversion table */
+ 211:.\FatFs/ccsbcs.c **** 	0x00C7, 0x00FC, 0x00E9, 0x00E2, 0x00E4, 0x00E0, 0x00E5, 0x00E7,
+ 212:.\FatFs/ccsbcs.c **** 	0x00EA, 0x00EB, 0x00E8, 0x00EF, 0x00EE, 0x00EC, 0x00C4, 0x00C5,
+ 213:.\FatFs/ccsbcs.c **** 	0x00C9, 0x00E6, 0x00C6, 0x00F4, 0x00F6, 0x00F2, 0x00FB, 0x00F9,
+ 214:.\FatFs/ccsbcs.c **** 	0x00FF, 0x00D6, 0x00DC, 0x00F8, 0x00A3, 0x00D8, 0x00D7, 0x0192,
+ 215:.\FatFs/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x00F1, 0x00D1, 0x00AA, 0x00BA,
+ 216:.\FatFs/ccsbcs.c **** 	0x00BF, 0x00AE, 0x00AC, 0x00BD, 0x00BC, 0x00A1, 0x00AB, 0x00BB,
+ 217:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x00C1, 0x00C2, 0x00C0,
+ 218:.\FatFs/ccsbcs.c **** 	0x00A9, 0x2563, 0x2551, 0x2557, 0x2550, 0x00A2, 0x00A5, 0x2510,
+ 219:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x00E3, 0x00C3,
+ 220:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x00A4,
+ 221:.\FatFs/ccsbcs.c **** 	0x00F0, 0x00D0, 0x00CA, 0x00CB, 0x00C8, 0x20AC, 0x00CD, 0x00CE,
+ 222:.\FatFs/ccsbcs.c **** 	0x00CF, 0x2518, 0x250C, 0x2588, 0x2584, 0x00C6, 0x00CC, 0x2580,
+ 223:.\FatFs/ccsbcs.c **** 	0x00D3, 0x00DF, 0x00D4, 0x00D2, 0x00F5, 0x00D5, 0x00B5, 0x00FE,
+ 224:.\FatFs/ccsbcs.c **** 	0x00DE, 0x00DA, 0x00DB, 0x00D9, 0x00FD, 0x00DD, 0x00AF, 0x00B4,
+ 225:.\FatFs/ccsbcs.c **** 	0x00AD, 0x00B1, 0x2017, 0x00BE, 0x00B6, 0x00A7, 0x00F7, 0x00B8,
+ 226:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00A8, 0x00B7, 0x00B9, 0x00B3, 0x00B2, 0x25A0, 0x00A0
+ 227:.\FatFs/ccsbcs.c **** };
+ 228:.\FatFs/ccsbcs.c **** 
+ 229:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 862
+ 230:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 231:.\FatFs/ccsbcs.c **** static
+ 232:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP862(0x80-0xFF) to Unicode conversion table */
+ 233:.\FatFs/ccsbcs.c **** 	0x05D0, 0x05D1, 0x05D2, 0x05D3, 0x05D4, 0x05D5, 0x05D6, 0x05D7,
+ 234:.\FatFs/ccsbcs.c **** 	0x05D8, 0x05D9, 0x05DA, 0x05DB, 0x05DC, 0x05DD, 0x05DE, 0x05DF,
+ 235:.\FatFs/ccsbcs.c **** 	0x05E0, 0x05E1, 0x05E2, 0x05E3, 0x05E4, 0x05E5, 0x05E6, 0x05E7,
+ 236:.\FatFs/ccsbcs.c **** 	0x05E8, 0x05E9, 0x05EA, 0x00A2, 0x00A3, 0x00A5, 0x20A7, 0x0192,
+ 237:.\FatFs/ccsbcs.c **** 	0x00E1, 0x00ED, 0x00F3, 0x00FA, 0x00F1, 0x00D1, 0x00AA, 0x00BA,
+ 238:.\FatFs/ccsbcs.c **** 	0x00BF, 0x2310, 0x00AC, 0x00BD, 0x00BC, 0x00A1, 0x00AB, 0x00BB,
+ 239:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+ 240:.\FatFs/ccsbcs.c **** 	0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+ 241:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+ 242:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+ 243:.\FatFs/ccsbcs.c **** 	0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+ 244:.\FatFs/ccsbcs.c **** 	0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+ 245:.\FatFs/ccsbcs.c **** 	0x03B1, 0x00DF, 0x0393, 0x03C0, 0x03A3, 0x03C3, 0x00B5, 0x03C4,
+ 246:.\FatFs/ccsbcs.c **** 	0x03A6, 0x0398, 0x03A9, 0x03B4, 0x221E, 0x03C6, 0x03B5, 0x2229,
+ 247:.\FatFs/ccsbcs.c **** 	0x2261, 0x00B1, 0x2265, 0x2264, 0x2320, 0x2321, 0x00F7, 0x2248,
+ 248:.\FatFs/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x221A, 0x207F, 0x00B2, 0x25A0, 0x00A0
+ 249:.\FatFs/ccsbcs.c **** };
+ 250:.\FatFs/ccsbcs.c **** 
+ 251:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 866
+ 252:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 253:.\FatFs/ccsbcs.c **** static
+ 254:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP866(0x80-0xFF) to Unicode conversion table */
+ 255:.\FatFs/ccsbcs.c **** 	0x0410, 0x0411, 0x0412, 0x0413, 0x0414, 0x0415, 0x0416, 0x0417,
+ 256:.\FatFs/ccsbcs.c **** 	0x0418, 0x0419, 0x041A, 0x041B, 0x041C, 0x041D, 0x041E, 0x041F,
+ 257:.\FatFs/ccsbcs.c **** 	0x0420, 0x0421, 0x0422, 0x0423, 0x0424, 0x0425, 0x0426, 0x0427,
+ 258:.\FatFs/ccsbcs.c **** 	0x0428, 0x0429, 0x042A, 0x042B, 0x042C, 0x042D, 0x042E, 0x042F,
+ 259:.\FatFs/ccsbcs.c **** 	0x0430, 0x0431, 0x0432, 0x0433, 0x0434, 0x0435, 0x0436, 0x0437,
+ 260:.\FatFs/ccsbcs.c **** 	0x0438, 0x0439, 0x043A, 0x043B, 0x043C, 0x043D, 0x043E, 0x043F,
+ 261:.\FatFs/ccsbcs.c **** 	0x2591, 0x2592, 0x2593, 0x2502, 0x2524, 0x2561, 0x2562, 0x2556,
+ 262:.\FatFs/ccsbcs.c **** 	0x2555, 0x2563, 0x2551, 0x2557, 0x255D, 0x255C, 0x255B, 0x2510,
+ 263:.\FatFs/ccsbcs.c **** 	0x2514, 0x2534, 0x252C, 0x251C, 0x2500, 0x253C, 0x255E, 0x255F,
+ 264:.\FatFs/ccsbcs.c **** 	0x255A, 0x2554, 0x2569, 0x2566, 0x2560, 0x2550, 0x256C, 0x2567,
+ 265:.\FatFs/ccsbcs.c **** 	0x2568, 0x2564, 0x2565, 0x2559, 0x2558, 0x2552, 0x2553, 0x256B,
+ 266:.\FatFs/ccsbcs.c **** 	0x256A, 0x2518, 0x250C, 0x2588, 0x2584, 0x258C, 0x2590, 0x2580,
+ 267:.\FatFs/ccsbcs.c **** 	0x0440, 0x0441, 0x0442, 0x0443, 0x0444, 0x0445, 0x0446, 0x0447,
+ 268:.\FatFs/ccsbcs.c **** 	0x0448, 0x0449, 0x044A, 0x044B, 0x044C, 0x044D, 0x044E, 0x044F,
+ 269:.\FatFs/ccsbcs.c **** 	0x0401, 0x0451, 0x0404, 0x0454, 0x0407, 0x0457, 0x040E, 0x045E,
+ 270:.\FatFs/ccsbcs.c **** 	0x00B0, 0x2219, 0x00B7, 0x221A, 0x2116, 0x00A4, 0x25A0, 0x00A0
+ 271:.\FatFs/ccsbcs.c **** };
+ 272:.\FatFs/ccsbcs.c **** 
+ 273:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 874
+ 274:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 275:.\FatFs/ccsbcs.c **** static
+ 276:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP874(0x80-0xFF) to Unicode conversion table */
+ 277:.\FatFs/ccsbcs.c **** 	0x20AC, 0x0000, 0x0000, 0x0000, 0x0000, 0x2026, 0x0000, 0x0000,
+ 278:.\FatFs/ccsbcs.c **** 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 279:.\FatFs/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 280:.\FatFs/ccsbcs.c **** 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 281:.\FatFs/ccsbcs.c **** 	0x00A0, 0x0E01, 0x0E02, 0x0E03, 0x0E04, 0x0E05, 0x0E06, 0x0E07,
+ 282:.\FatFs/ccsbcs.c **** 	0x0E08, 0x0E09, 0x0E0A, 0x0E0B, 0x0E0C, 0x0E0D, 0x0E0E, 0x0E0F,
+ 283:.\FatFs/ccsbcs.c **** 	0x0E10, 0x0E11, 0x0E12, 0x0E13, 0x0E14, 0x0E15, 0x0E16, 0x0E17,
+ 284:.\FatFs/ccsbcs.c **** 	0x0E18, 0x0E19, 0x0E1A, 0x0E1B, 0x0E1C, 0x0E1D, 0x0E1E, 0x0E1F,
+ 285:.\FatFs/ccsbcs.c **** 	0x0E20, 0x0E21, 0x0E22, 0x0E23, 0x0E24, 0x0E25, 0x0E26, 0x0E27,
+ 286:.\FatFs/ccsbcs.c **** 	0x0E28, 0x0E29, 0x0E2A, 0x0E2B, 0x0E2C, 0x0E2D, 0x0E2E, 0x0E2F,
+ 287:.\FatFs/ccsbcs.c **** 	0x0E30, 0x0E31, 0x0E32, 0x0E33, 0x0E34, 0x0E35, 0x0E36, 0x0E37,
+ 288:.\FatFs/ccsbcs.c **** 	0x0E38, 0x0E39, 0x0E3A, 0x0000, 0x0000, 0x0000, 0x0000, 0x0E3F,
+ 289:.\FatFs/ccsbcs.c **** 	0x0E40, 0x0E41, 0x0E42, 0x0E43, 0x0E44, 0x0E45, 0x0E46, 0x0E47,
+ 290:.\FatFs/ccsbcs.c **** 	0x0E48, 0x0E49, 0x0E4A, 0x0E4B, 0x0E4C, 0x0E4D, 0x0E4E, 0x0E4F,
+ 291:.\FatFs/ccsbcs.c **** 	0x0E50, 0x0E51, 0x0E52, 0x0E53, 0x0E54, 0x0E55, 0x0E56, 0x0E57,
+ 292:.\FatFs/ccsbcs.c **** 	0x0E58, 0x0E59, 0x0E5A, 0x0E5B, 0x0000, 0x0000, 0x0000, 0x0000
+ 293:.\FatFs/ccsbcs.c **** };
+ 294:.\FatFs/ccsbcs.c **** 
+ 295:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 1250
+ 296:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 297:.\FatFs/ccsbcs.c **** static
+ 298:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1250(0x80-0xFF) to Unicode conversion table */
+ 299:.\FatFs/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0000, 0x201E, 0x2026, 0x2020, 0x2021,
+ 300:.\FatFs/ccsbcs.c **** 	0x0000, 0x2030, 0x0160, 0x2039, 0x015A, 0x0164, 0x017D, 0x0179,
+ 301:.\FatFs/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 302:.\FatFs/ccsbcs.c **** 	0x0000, 0x2122, 0x0161, 0x203A, 0x015B, 0x0165, 0x017E, 0x017A,
+ 303:.\FatFs/ccsbcs.c **** 	0x00A0, 0x02C7, 0x02D8, 0x0141, 0x00A4, 0x0104, 0x00A6, 0x00A7,
+ 304:.\FatFs/ccsbcs.c **** 	0x00A8, 0x00A9, 0x015E, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x017B,
+ 305:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00B1, 0x02DB, 0x0142, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 306:.\FatFs/ccsbcs.c **** 	0x00B8, 0x0105, 0x015F, 0x00BB, 0x013D, 0x02DD, 0x013E, 0x017C,
+ 307:.\FatFs/ccsbcs.c **** 	0x0154, 0x00C1, 0x00C2, 0x0102, 0x00C4, 0x0139, 0x0106, 0x00C7,
+ 308:.\FatFs/ccsbcs.c **** 	0x010C, 0x00C9, 0x0118, 0x00CB, 0x011A, 0x00CD, 0x00CE, 0x010E,
+ 309:.\FatFs/ccsbcs.c **** 	0x0110, 0x0143, 0x0147, 0x00D3, 0x00D4, 0x0150, 0x00D6, 0x00D7,
+ 310:.\FatFs/ccsbcs.c **** 	0x0158, 0x016E, 0x00DA, 0x0170, 0x00DC, 0x00DD, 0x0162, 0x00DF,
+ 311:.\FatFs/ccsbcs.c **** 	0x0155, 0x00E1, 0x00E2, 0x0103, 0x00E4, 0x013A, 0x0107, 0x00E7,
+ 312:.\FatFs/ccsbcs.c **** 	0x010D, 0x00E9, 0x0119, 0x00EB, 0x011B, 0x00ED, 0x00EE, 0x010F,
+ 313:.\FatFs/ccsbcs.c **** 	0x0111, 0x0144, 0x0148, 0x00F3, 0x00F4, 0x0151, 0x00F6, 0x00F7,
+ 314:.\FatFs/ccsbcs.c **** 	0x0159, 0x016F, 0x00FA, 0x0171, 0x00FC, 0x00FD, 0x0163, 0x02D9
+ 315:.\FatFs/ccsbcs.c **** };
+ 316:.\FatFs/ccsbcs.c **** 
+ 317:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 1251
+ 318:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 319:.\FatFs/ccsbcs.c **** static
+ 320:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1251(0x80-0xFF) to Unicode conversion table */
+ 321:.\FatFs/ccsbcs.c **** 	0x0402, 0x0403, 0x201A, 0x0453, 0x201E, 0x2026, 0x2020, 0x2021,
+ 322:.\FatFs/ccsbcs.c **** 	0x20AC, 0x2030, 0x0409, 0x2039, 0x040A, 0x040C, 0x040B, 0x040F,
+ 323:.\FatFs/ccsbcs.c **** 	0x0452, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 324:.\FatFs/ccsbcs.c **** 	0x0000, 0x2111, 0x0459, 0x203A, 0x045A, 0x045C, 0x045B, 0x045F,
+ 325:.\FatFs/ccsbcs.c **** 	0x00A0, 0x040E, 0x045E, 0x0408, 0x00A4, 0x0490, 0x00A6, 0x00A7,
+ 326:.\FatFs/ccsbcs.c **** 	0x0401, 0x00A9, 0x0404, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x0407,
+ 327:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00B1, 0x0406, 0x0456, 0x0491, 0x00B5, 0x00B6, 0x00B7,
+ 328:.\FatFs/ccsbcs.c **** 	0x0451, 0x2116, 0x0454, 0x00BB, 0x0458, 0x0405, 0x0455, 0x0457,
+ 329:.\FatFs/ccsbcs.c **** 	0x0410, 0x0411, 0x0412, 0x0413, 0x0414, 0x0415, 0x0416, 0x0417,
+ 330:.\FatFs/ccsbcs.c **** 	0x0418, 0x0419, 0x041A, 0x041B, 0x041C, 0x041D, 0x041E, 0x041F,
+ 331:.\FatFs/ccsbcs.c **** 	0x0420, 0x0421, 0x0422, 0x0423, 0x0424, 0x0425, 0x0426, 0x0427,
+ 332:.\FatFs/ccsbcs.c **** 	0x0428, 0x0429, 0x042A, 0x042D, 0x042C, 0x042D, 0x042E, 0x042F,
+ 333:.\FatFs/ccsbcs.c **** 	0x0430, 0x0431, 0x0432, 0x0433, 0x0434, 0x0435, 0x0436, 0x0437,
+ 334:.\FatFs/ccsbcs.c **** 	0x0438, 0x0439, 0x043A, 0x043B, 0x043C, 0x043D, 0x043E, 0x043F,
+ 335:.\FatFs/ccsbcs.c **** 	0x0440, 0x0441, 0x0442, 0x0443, 0x0444, 0x0445, 0x0446, 0x0447,
+ 336:.\FatFs/ccsbcs.c **** 	0x0448, 0x0449, 0x044A, 0x044B, 0x044C, 0x044D, 0x044E, 0x044F
+ 337:.\FatFs/ccsbcs.c **** };
+ 338:.\FatFs/ccsbcs.c **** 
+ 339:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 1252
+ 340:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 341:.\FatFs/ccsbcs.c **** static
+ 342:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1252(0x80-0xFF) to Unicode conversion table */
+ 343:.\FatFs/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 344:.\FatFs/ccsbcs.c **** 	0x02C6, 0x2030, 0x0160, 0x2039, 0x0152, 0x0000, 0x017D, 0x0000,
+ 345:.\FatFs/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 346:.\FatFs/ccsbcs.c **** 	0x02DC, 0x2122, 0x0161, 0x203A, 0x0153, 0x0000, 0x017E, 0x0178,
+ 347:.\FatFs/ccsbcs.c **** 	0x00A0, 0x00A1, 0x00A2, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 348:.\FatFs/ccsbcs.c **** 	0x00A8, 0x00A9, 0x00AA, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 349:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 350:.\FatFs/ccsbcs.c **** 	0x00B8, 0x00B9, 0x00BA, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x00BF,
+ 351:.\FatFs/ccsbcs.c **** 	0x00C0, 0x00C1, 0x00C2, 0x00C3, 0x00C4, 0x00C5, 0x00C6, 0x00C7,
+ 352:.\FatFs/ccsbcs.c **** 	0x00C8, 0x00C9, 0x00CA, 0x00CB, 0x00CC, 0x00CD, 0x00CE, 0x00CF,
+ 353:.\FatFs/ccsbcs.c **** 	0x00D0, 0x00D1, 0x00D2, 0x00D3, 0x00D4, 0x00D5, 0x00D6, 0x00D7,
+ 354:.\FatFs/ccsbcs.c **** 	0x00D8, 0x00D9, 0x00DA, 0x00BD, 0x00DC, 0x00DD, 0x00DE, 0x00DF,
+ 355:.\FatFs/ccsbcs.c **** 	0x00E0, 0x00E1, 0x00E2, 0x00E3, 0x00E4, 0x00E5, 0x00E6, 0x00E7,
+ 356:.\FatFs/ccsbcs.c **** 	0x00E8, 0x00E9, 0x00EA, 0x00EB, 0x00EC, 0x00ED, 0x00EE, 0x00EF,
+ 357:.\FatFs/ccsbcs.c **** 	0x00F0, 0x00F1, 0x00F2, 0x00F3, 0x00F4, 0x00F5, 0x00F6, 0x00F7,
+ 358:.\FatFs/ccsbcs.c **** 	0x00F8, 0x00F9, 0x00FA, 0x00FB, 0x00FC, 0x00FD, 0x00FE, 0x00FF
+ 359:.\FatFs/ccsbcs.c **** };
+ 360:.\FatFs/ccsbcs.c **** 
+ 361:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 1253
+ 362:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 363:.\FatFs/ccsbcs.c **** static
+ 364:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1253(0x80-0xFF) to Unicode conversion table */
+ 365:.\FatFs/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 366:.\FatFs/ccsbcs.c **** 	0x0000, 0x2030, 0x0000, 0x2039, 0x000C, 0x0000, 0x0000, 0x0000,
+ 367:.\FatFs/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 368:.\FatFs/ccsbcs.c **** 	0x0000, 0x2122, 0x0000, 0x203A, 0x0000, 0x0000, 0x0000, 0x0000,
+ 369:.\FatFs/ccsbcs.c **** 	0x00A0, 0x0385, 0x0386, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 370:.\FatFs/ccsbcs.c **** 	0x00A8, 0x00A9, 0x0000, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x2015,
+ 371:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x0384, 0x00B5, 0x00B6, 0x00B7,
+ 372:.\FatFs/ccsbcs.c **** 	0x0388, 0x0389, 0x038A, 0x00BB, 0x038C, 0x00BD, 0x038E, 0x038F,
+ 373:.\FatFs/ccsbcs.c **** 	0x0390, 0x0391, 0x0392, 0x0393, 0x0394, 0x0395, 0x0396, 0x0397,
+ 374:.\FatFs/ccsbcs.c **** 	0x0398, 0x0399, 0x039A, 0x039B, 0x039C, 0x039D, 0x039E, 0x039F,
+ 375:.\FatFs/ccsbcs.c **** 	0x03A0, 0x03A1, 0x0000, 0x03A3, 0x03A4, 0x03A5, 0x03A6, 0x03A7,
+ 376:.\FatFs/ccsbcs.c **** 	0x03A8, 0x03A9, 0x03AA, 0x03AD, 0x03AC, 0x03AD, 0x03AE, 0x03AF,
+ 377:.\FatFs/ccsbcs.c **** 	0x03B0, 0x03B1, 0x03B2, 0x03B3, 0x03B4, 0x03B5, 0x03B6, 0x03B7,
+ 378:.\FatFs/ccsbcs.c **** 	0x03B8, 0x03B9, 0x03BA, 0x03BB, 0x03BC, 0x03BD, 0x03BE, 0x03BF,
+ 379:.\FatFs/ccsbcs.c **** 	0x03C0, 0x03C1, 0x03C2, 0x03C3, 0x03C4, 0x03C5, 0x03C6, 0x03C7,
+ 380:.\FatFs/ccsbcs.c **** 	0x03C8, 0x03C9, 0x03CA, 0x03CB, 0x03CC, 0x03CD, 0x03CE, 0x0000
+ 381:.\FatFs/ccsbcs.c **** };
+ 382:.\FatFs/ccsbcs.c **** 
+ 383:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 1254
+ 384:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 385:.\FatFs/ccsbcs.c **** static
+ 386:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1254(0x80-0xFF) to Unicode conversion table */
+ 387:.\FatFs/ccsbcs.c **** 	0x20AC, 0x0000, 0x210A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 388:.\FatFs/ccsbcs.c **** 	0x02C6, 0x2030, 0x0160, 0x2039, 0x0152, 0x0000, 0x0000, 0x0000,
+ 389:.\FatFs/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 390:.\FatFs/ccsbcs.c **** 	0x02DC, 0x2122, 0x0161, 0x203A, 0x0153, 0x0000, 0x0000, 0x0178,
+ 391:.\FatFs/ccsbcs.c **** 	0x00A0, 0x00A1, 0x00A2, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 392:.\FatFs/ccsbcs.c **** 	0x00A8, 0x00A9, 0x00AA, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 393:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 394:.\FatFs/ccsbcs.c **** 	0x00B8, 0x00B9, 0x00BA, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x00BF,
+ 395:.\FatFs/ccsbcs.c **** 	0x00C0, 0x00C1, 0x00C2, 0x00C3, 0x00C4, 0x00C5, 0x00C6, 0x00C7,
+ 396:.\FatFs/ccsbcs.c **** 	0x00C8, 0x00C9, 0x00CA, 0x00CB, 0x00CC, 0x00CD, 0x00CE, 0x00CF,
+ 397:.\FatFs/ccsbcs.c **** 	0x011E, 0x00D1, 0x00D2, 0x00D3, 0x00D4, 0x00D5, 0x00D6, 0x00D7,
+ 398:.\FatFs/ccsbcs.c **** 	0x00D8, 0x00D9, 0x00DA, 0x00BD, 0x00DC, 0x0130, 0x015E, 0x00DF,
+ 399:.\FatFs/ccsbcs.c **** 	0x00E0, 0x00E1, 0x00E2, 0x00E3, 0x00E4, 0x00E5, 0x00E6, 0x00E7,
+ 400:.\FatFs/ccsbcs.c **** 	0x00E8, 0x00E9, 0x00EA, 0x00EB, 0x00EC, 0x00ED, 0x00EE, 0x00EF,
+ 401:.\FatFs/ccsbcs.c **** 	0x011F, 0x00F1, 0x00F2, 0x00F3, 0x00F4, 0x00F5, 0x00F6, 0x00F7,
+ 402:.\FatFs/ccsbcs.c **** 	0x00F8, 0x00F9, 0x00FA, 0x00FB, 0x00FC, 0x0131, 0x015F, 0x00FF
+ 403:.\FatFs/ccsbcs.c **** };
+ 404:.\FatFs/ccsbcs.c **** 
+ 405:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 1255
+ 406:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 407:.\FatFs/ccsbcs.c **** static
+ 408:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1255(0x80-0xFF) to Unicode conversion table */
+ 409:.\FatFs/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 410:.\FatFs/ccsbcs.c **** 	0x02C6, 0x2030, 0x0000, 0x2039, 0x0000, 0x0000, 0x0000, 0x0000,
+ 411:.\FatFs/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 412:.\FatFs/ccsbcs.c **** 	0x02DC, 0x2122, 0x0000, 0x203A, 0x0000, 0x0000, 0x0000, 0x0000,
+ 413:.\FatFs/ccsbcs.c **** 	0x00A0, 0x00A1, 0x00A2, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 414:.\FatFs/ccsbcs.c **** 	0x00A8, 0x00A9, 0x00D7, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 415:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 416:.\FatFs/ccsbcs.c **** 	0x00B8, 0x00B9, 0x00F7, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x00BF,
+ 417:.\FatFs/ccsbcs.c **** 	0x05B0, 0x05B1, 0x05B2, 0x05B3, 0x05B4, 0x05B5, 0x05B6, 0x05B7,
+ 418:.\FatFs/ccsbcs.c **** 	0x05B8, 0x05B9, 0x0000, 0x05BB, 0x05BC, 0x05BD, 0x05BE, 0x05BF,
+ 419:.\FatFs/ccsbcs.c **** 	0x05C0, 0x05C1, 0x05C2, 0x05C3, 0x05F0, 0x05F1, 0x05F2, 0x05F3,
+ 420:.\FatFs/ccsbcs.c **** 	0x05F4, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 421:.\FatFs/ccsbcs.c **** 	0x05D0, 0x05D1, 0x05D2, 0x05D3, 0x05D4, 0x05D5, 0x05D6, 0x05D7,
+ 422:.\FatFs/ccsbcs.c **** 	0x05D8, 0x05D9, 0x05DA, 0x05DB, 0x05DC, 0x05DD, 0x05DE, 0x05DF,
+ 423:.\FatFs/ccsbcs.c **** 	0x05E0, 0x05E1, 0x05E2, 0x05E3, 0x05E4, 0x05E5, 0x05E6, 0x05E7,
+ 424:.\FatFs/ccsbcs.c **** 	0x05E8, 0x05E9, 0x05EA, 0x0000, 0x0000, 0x200E, 0x200F, 0x0000
+ 425:.\FatFs/ccsbcs.c **** };
+ 426:.\FatFs/ccsbcs.c **** 
+ 427:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 1256
+ 428:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 429:.\FatFs/ccsbcs.c **** static
+ 430:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1256(0x80-0xFF) to Unicode conversion table */
+ 431:.\FatFs/ccsbcs.c **** 	0x20AC, 0x067E, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 432:.\FatFs/ccsbcs.c **** 	0x02C6, 0x2030, 0x0679, 0x2039, 0x0152, 0x0686, 0x0698, 0x0688,
+ 433:.\FatFs/ccsbcs.c **** 	0x06AF, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 434:.\FatFs/ccsbcs.c **** 	0x06A9, 0x2122, 0x0691, 0x203A, 0x0153, 0x200C, 0x200D, 0x06BA,
+ 435:.\FatFs/ccsbcs.c **** 	0x00A0, 0x060C, 0x00A2, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 436:.\FatFs/ccsbcs.c **** 	0x00A8, 0x00A9, 0x06BE, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 437:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 438:.\FatFs/ccsbcs.c **** 	0x00B8, 0x00B9, 0x061B, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x061F,
+ 439:.\FatFs/ccsbcs.c **** 	0x06C1, 0x0621, 0x0622, 0x0623, 0x0624, 0x0625, 0x0626, 0x0627,
+ 440:.\FatFs/ccsbcs.c **** 	0x0628, 0x0629, 0x062A, 0x062B, 0x062C, 0x062D, 0x062E, 0x062F,
+ 441:.\FatFs/ccsbcs.c **** 	0x0630, 0x0631, 0x0632, 0x0633, 0x0634, 0x0635, 0x0636, 0x00D7,
+ 442:.\FatFs/ccsbcs.c **** 	0x0637, 0x0638, 0x0639, 0x063A, 0x0640, 0x0640, 0x0642, 0x0643,
+ 443:.\FatFs/ccsbcs.c **** 	0x00E0, 0x0644, 0x00E2, 0x0645, 0x0646, 0x0647, 0x0648, 0x00E7,
+ 444:.\FatFs/ccsbcs.c **** 	0x00E8, 0x00E9, 0x00EA, 0x00EB, 0x0649, 0x064A, 0x00EE, 0x00EF,
+ 445:.\FatFs/ccsbcs.c **** 	0x064B, 0x064C, 0x064D, 0x064E, 0x00F4, 0x064F, 0x0650, 0x00F7,
+ 446:.\FatFs/ccsbcs.c **** 	0x0651, 0x00F9, 0x0652, 0x00FB, 0x00FC, 0x200E, 0x200F, 0x06D2
+ 447:.\FatFs/ccsbcs.c **** }
+ 448:.\FatFs/ccsbcs.c **** 
+ 449:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 1257
+ 450:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 451:.\FatFs/ccsbcs.c **** static
+ 452:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1257(0x80-0xFF) to Unicode conversion table */
+ 453:.\FatFs/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0000, 0x201E, 0x2026, 0x2020, 0x2021,
+ 454:.\FatFs/ccsbcs.c **** 	0x0000, 0x2030, 0x0000, 0x2039, 0x0000, 0x00A8, 0x02C7, 0x00B8,
+ 455:.\FatFs/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 456:.\FatFs/ccsbcs.c **** 	0x0000, 0x2122, 0x0000, 0x203A, 0x0000, 0x00AF, 0x02DB, 0x0000,
+ 457:.\FatFs/ccsbcs.c **** 	0x00A0, 0x0000, 0x00A2, 0x00A3, 0x00A4, 0x0000, 0x00A6, 0x00A7,
+ 458:.\FatFs/ccsbcs.c **** 	0x00D8, 0x00A9, 0x0156, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 459:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 460:.\FatFs/ccsbcs.c **** 	0x00B8, 0x00B9, 0x0157, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x00E6,
+ 461:.\FatFs/ccsbcs.c **** 	0x0104, 0x012E, 0x0100, 0x0106, 0x00C4, 0x00C5, 0x0118, 0x0112,
+ 462:.\FatFs/ccsbcs.c **** 	0x010C, 0x00C9, 0x0179, 0x0116, 0x0122, 0x0136, 0x012A, 0x013B,
+ 463:.\FatFs/ccsbcs.c **** 	0x0160, 0x0143, 0x0145, 0x00D3, 0x014C, 0x00D5, 0x00D6, 0x00D7,
+ 464:.\FatFs/ccsbcs.c **** 	0x0172, 0x0141, 0x015A, 0x016A, 0x00DC, 0x017B, 0x017D, 0x00DF,
+ 465:.\FatFs/ccsbcs.c **** 	0x0105, 0x012F, 0x0101, 0x0107, 0x00E4, 0x00E5, 0x0119, 0x0113,
+ 466:.\FatFs/ccsbcs.c **** 	0x010D, 0x00E9, 0x017A, 0x0117, 0x0123, 0x0137, 0x012B, 0x013C,
+ 467:.\FatFs/ccsbcs.c **** 	0x0161, 0x0144, 0x0146, 0x00F3, 0x014D, 0x00F5, 0x00F6, 0x00F7,
+ 468:.\FatFs/ccsbcs.c **** 	0x0173, 0x014E, 0x015B, 0x016B, 0x00FC, 0x017C, 0x017E, 0x02D9
+ 469:.\FatFs/ccsbcs.c **** };
+ 470:.\FatFs/ccsbcs.c **** 
+ 471:.\FatFs/ccsbcs.c **** #elif _CODE_PAGE == 1258
+ 472:.\FatFs/ccsbcs.c **** #define _TBLDEF 1
+ 473:.\FatFs/ccsbcs.c **** static
+ 474:.\FatFs/ccsbcs.c **** const WCHAR Tbl[] = {	/*  CP1258(0x80-0xFF) to Unicode conversion table */
+ 475:.\FatFs/ccsbcs.c **** 	0x20AC, 0x0000, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021,
+ 476:.\FatFs/ccsbcs.c **** 	0x02C6, 0x2030, 0x0000, 0x2039, 0x0152, 0x0000, 0x0000, 0x0000,
+ 477:.\FatFs/ccsbcs.c **** 	0x0000, 0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
+ 478:.\FatFs/ccsbcs.c **** 	0x02DC, 0x2122, 0x0000, 0x203A, 0x0153, 0x0000, 0x0000, 0x0178,
+ 479:.\FatFs/ccsbcs.c **** 	0x00A0, 0x00A1, 0x00A2, 0x00A3, 0x00A4, 0x00A5, 0x00A6, 0x00A7,
+ 480:.\FatFs/ccsbcs.c **** 	0x00A8, 0x00A9, 0x00AA, 0x00AB, 0x00AC, 0x00AD, 0x00AE, 0x00AF,
+ 481:.\FatFs/ccsbcs.c **** 	0x00B0, 0x00B1, 0x00B2, 0x00B3, 0x00B4, 0x00B5, 0x00B6, 0x00B7,
+ 482:.\FatFs/ccsbcs.c **** 	0x00B8, 0x00B9, 0x00BA, 0x00BB, 0x00BC, 0x00BD, 0x00BE, 0x00BF,
+ 483:.\FatFs/ccsbcs.c **** 	0x00C0, 0x00C1, 0x00C2, 0x0102, 0x00C4, 0x00C5, 0x00C6, 0x00C7,
+ 484:.\FatFs/ccsbcs.c **** 	0x00C8, 0x00C9, 0x00CA, 0x00CB, 0x0300, 0x00CD, 0x00CE, 0x00CF,
+ 485:.\FatFs/ccsbcs.c **** 	0x0110, 0x00D1, 0x0309, 0x00D3, 0x00D4, 0x01A0, 0x00D6, 0x00D7,
+ 486:.\FatFs/ccsbcs.c **** 	0x00D8, 0x00D9, 0x00DA, 0x00DB, 0x00DC, 0x01AF, 0x0303, 0x00DF,
+ 487:.\FatFs/ccsbcs.c **** 	0x00E0, 0x00E1, 0x00E2, 0x0103, 0x00E4, 0x00E5, 0x00E6, 0x00E7,
+ 488:.\FatFs/ccsbcs.c **** 	0x00E8, 0x00E9, 0x00EA, 0x00EB, 0x0301, 0x00ED, 0x00EE, 0x00EF,
+ 489:.\FatFs/ccsbcs.c **** 	0x0111, 0x00F1, 0x0323, 0x00F3, 0x00F4, 0x01A1, 0x00F6, 0x00F7,
+ 490:.\FatFs/ccsbcs.c **** 	0x00F8, 0x00F9, 0x00FA, 0x00FB, 0x00FC, 0x01B0, 0x20AB, 0x00FF
+ 491:.\FatFs/ccsbcs.c **** };
+ 492:.\FatFs/ccsbcs.c **** 
+ 493:.\FatFs/ccsbcs.c **** #endif
+ 494:.\FatFs/ccsbcs.c **** 
+ 495:.\FatFs/ccsbcs.c **** 
+ 496:.\FatFs/ccsbcs.c **** #if !_TBLDEF || !_USE_LFN
+ 497:.\FatFs/ccsbcs.c **** #error This file is not needed in current configuration
+ 498:.\FatFs/ccsbcs.c **** #endif
+ 499:.\FatFs/ccsbcs.c **** 
+ 500:.\FatFs/ccsbcs.c **** 
+ 501:.\FatFs/ccsbcs.c **** WCHAR ff_convert (	/* Converted character, Returns zero on error */
+ 502:.\FatFs/ccsbcs.c **** 	WCHAR	src,	/* Character code to be converted */
+ 503:.\FatFs/ccsbcs.c **** 	UINT	dir		/* 0: Unicode to OEMCP, 1: OEMCP to Unicode */
+ 504:.\FatFs/ccsbcs.c **** )
+ 505:.\FatFs/ccsbcs.c **** {
+  27              		.loc 1 505 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+ 506:.\FatFs/ccsbcs.c **** 	WCHAR c;
+ 507:.\FatFs/ccsbcs.c **** 
+ 508:.\FatFs/ccsbcs.c **** 
+ 509:.\FatFs/ccsbcs.c **** 	if (src < 0x80) {	/* ASCII */
+  33              		.loc 1 509 0
+  34 0000 7F28     		cmp	r0, #127
+  35 0002 1DD9     		bls	.L2
+ 510:.\FatFs/ccsbcs.c **** 		c = src;
+ 511:.\FatFs/ccsbcs.c **** 
+ 512:.\FatFs/ccsbcs.c **** 	} else {
+ 513:.\FatFs/ccsbcs.c **** 		if (dir) {		/* OEMCP to Unicode */
+  36              		.loc 1 513 0
+  37 0004 21B9     		cbnz	r1, .L3
+  38              	.LVL1:
+ 514:.\FatFs/ccsbcs.c **** 			c = (src >= 0x100) ? 0 : Tbl[src - 0x80];
+ 515:.\FatFs/ccsbcs.c **** 
+ 516:.\FatFs/ccsbcs.c **** 		} else {		/* Unicode to OEMCP */
+ 517:.\FatFs/ccsbcs.c **** 			for (c = 0; c < 0x80; c++) {
+ 518:.\FatFs/ccsbcs.c **** 				if (src == Tbl[c]) break;
+  39              		.loc 1 518 0 discriminator 1
+  40 0006 42F2AC03 		movw	r3, #8364
+  41 000a 9842     		cmp	r0, r3
+  42 000c 08D1     		bne	.L10
+  43 000e 12E0     		b	.L7
+  44              	.LVL2:
+  45              	.L3:
+ 514:.\FatFs/ccsbcs.c **** 			c = (src >= 0x100) ? 0 : Tbl[src - 0x80];
+  46              		.loc 1 514 0
+  47 0010 FF28     		cmp	r0, #255
+  48 0012 14D8     		bhi	.L8
+ 514:.\FatFs/ccsbcs.c **** 			c = (src >= 0x100) ? 0 : Tbl[src - 0x80];
+  49              		.loc 1 514 0 is_stmt 0 discriminator 1
+  50 0014 A0F18003 		sub	r3, r0, #128
+  51 0018 0A4A     		ldr	r2, .L11
+  52 001a 32F81300 		ldrh	r0, [r2, r3, lsl #1]
+  53              	.LVL3:
+  54 001e 7047     		bx	lr
+  55              	.LVL4:
+  56              	.L10:
+  57 0020 084A     		ldr	r2, .L11
+ 517:.\FatFs/ccsbcs.c **** 				if (src == Tbl[c]) break;
+  58              		.loc 1 517 0 is_stmt 1
+  59 0022 0123     		movs	r3, #1
+  60              	.LVL5:
+  61              	.L6:
+  62              		.loc 1 518 0
+  63 0024 32F8021F 		ldrh	r1, [r2, #2]!
+  64 0028 8142     		cmp	r1, r0
+  65 002a 05D0     		beq	.L4
+ 517:.\FatFs/ccsbcs.c **** 				if (src == Tbl[c]) break;
+  66              		.loc 1 517 0 discriminator 2
+  67 002c 0133     		adds	r3, r3, #1
+  68              	.LVL6:
+  69 002e 9BB2     		uxth	r3, r3
+  70              	.LVL7:
+  71 0030 802B     		cmp	r3, #128
+  72 0032 F7D1     		bne	.L6
+  73 0034 00E0     		b	.L4
+  74              	.LVL8:
+  75              	.L7:
+  76              		.loc 1 518 0
+  77 0036 0023     		movs	r3, #0
+  78              	.LVL9:
+  79              	.L4:
+ 519:.\FatFs/ccsbcs.c **** 			}
+ 520:.\FatFs/ccsbcs.c **** 			c = (c + 0x80) & 0xFF;
+  80              		.loc 1 520 0
+  81 0038 8033     		adds	r3, r3, #128
+  82 003a D8B2     		uxtb	r0, r3
+  83              	.LVL10:
+  84 003c 7047     		bx	lr
+  85              	.LVL11:
+  86              	.L8:
+ 514:.\FatFs/ccsbcs.c **** 
+  87              		.loc 1 514 0
+  88 003e 0020     		movs	r0, #0
+  89              	.LVL12:
+  90              	.L2:
+ 521:.\FatFs/ccsbcs.c **** 		}
+ 522:.\FatFs/ccsbcs.c **** 	}
+ 523:.\FatFs/ccsbcs.c **** 
+ 524:.\FatFs/ccsbcs.c **** 	return c;
+ 525:.\FatFs/ccsbcs.c **** }
+  91              		.loc 1 525 0
+  92 0040 7047     		bx	lr
+  93              	.L12:
+  94 0042 00BF     		.align	2
+  95              	.L11:
+  96 0044 00000000 		.word	.LANCHOR0
+  97              		.cfi_endproc
+  98              	.LFE29:
+ 100              		.section	.text.ff_wtoupper,"ax",%progbits
+ 101              		.align	2
+ 102              		.global	ff_wtoupper
+ 103              		.thumb
+ 104              		.thumb_func
+ 106              	ff_wtoupper:
+ 107              	.LFB30:
+ 526:.\FatFs/ccsbcs.c **** 
+ 527:.\FatFs/ccsbcs.c **** 
+ 528:.\FatFs/ccsbcs.c **** WCHAR ff_wtoupper (	/* Upper converted character */
+ 529:.\FatFs/ccsbcs.c **** 	WCHAR chr		/* Input character */
+ 530:.\FatFs/ccsbcs.c **** )
+ 531:.\FatFs/ccsbcs.c **** {
+ 108              		.loc 1 531 0
+ 109              		.cfi_startproc
+ 110              		@ args = 0, pretend = 0, frame = 0
+ 111              		@ frame_needed = 0, uses_anonymous_args = 0
+ 112              		@ link register save eliminated.
+ 113              	.LVL13:
+ 532:.\FatFs/ccsbcs.c **** 	static const WCHAR tbl_lower[] = { 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6
+ 533:.\FatFs/ccsbcs.c **** 	static const WCHAR tbl_upper[] = { 0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4
+ 534:.\FatFs/ccsbcs.c **** 	int i;
+ 535:.\FatFs/ccsbcs.c **** 
+ 536:.\FatFs/ccsbcs.c **** 
+ 537:.\FatFs/ccsbcs.c **** 	for (i = 0; tbl_lower[i] && chr != tbl_lower[i]; i++) ;
+ 114              		.loc 1 537 0
+ 115 0000 6128     		cmp	r0, #97
+ 116 0002 09D0     		beq	.L17
+ 117 0004 0849     		ldr	r1, .L21
+ 118 0006 0022     		movs	r2, #0
+ 119              	.LVL14:
+ 120              	.L16:
+ 121              		.loc 1 537 0 is_stmt 0 discriminator 4
+ 122 0008 0132     		adds	r2, r2, #1
+ 123              	.LVL15:
+ 124 000a 31F8023F 		ldrh	r3, [r1, #2]!
+ 125 000e 4BB1     		cbz	r3, .L15
+ 126              		.loc 1 537 0 discriminator 3
+ 127 0010 8342     		cmp	r3, r0
+ 128 0012 F9D1     		bne	.L16
+ 538:.\FatFs/ccsbcs.c **** 
+ 539:.\FatFs/ccsbcs.c **** 	return tbl_lower[i] ? tbl_upper[i] : chr;
+ 129              		.loc 1 539 0 is_stmt 1
+ 130 0014 08B9     		cbnz	r0, .L14
+ 131 0016 04E0     		b	.L19
+ 132              	.LVL16:
+ 133              	.L17:
+ 537:.\FatFs/ccsbcs.c **** 
+ 134              		.loc 1 537 0
+ 135 0018 0022     		movs	r2, #0
+ 136              	.LVL17:
+ 137              	.L14:
+ 138              		.loc 1 539 0 discriminator 1
+ 139 001a 044B     		ldr	r3, .L21+4
+ 140 001c 33F81200 		ldrh	r0, [r3, r2, lsl #1]
+ 141              	.LVL18:
+ 142 0020 7047     		bx	lr
+ 143              	.LVL19:
+ 144              	.L19:
+ 145              		.loc 1 539 0 is_stmt 0
+ 146 0022 0020     		movs	r0, #0
+ 147              	.LVL20:
+ 148              	.L15:
+ 540:.\FatFs/ccsbcs.c **** }
+ 149              		.loc 1 540 0 is_stmt 1 discriminator 4
+ 150 0024 7047     		bx	lr
+ 151              	.L22:
+ 152 0026 00BF     		.align	2
+ 153              	.L21:
+ 154 0028 00000000 		.word	.LANCHOR1
+ 155 002c 00000000 		.word	.LANCHOR2
+ 156              		.cfi_endproc
+ 157              	.LFE30:
+ 159              		.section	.rodata.tbl_upper.6503,"a",%progbits
+ 160              		.align	2
+ 161              		.set	.LANCHOR2,. + 0
+ 164              	tbl_upper.6503:
+ 165 0000 4100     		.short	65
+ 166 0002 4200     		.short	66
+ 167 0004 4300     		.short	67
+ 168 0006 4400     		.short	68
+ 169 0008 4500     		.short	69
+ 170 000a 4600     		.short	70
+ 171 000c 4700     		.short	71
+ 172 000e 4800     		.short	72
+ 173 0010 4900     		.short	73
+ 174 0012 4A00     		.short	74
+ 175 0014 4B00     		.short	75
+ 176 0016 4C00     		.short	76
+ 177 0018 4D00     		.short	77
+ 178 001a 4E00     		.short	78
+ 179 001c 4F00     		.short	79
+ 180 001e 5000     		.short	80
+ 181 0020 5100     		.short	81
+ 182 0022 5200     		.short	82
+ 183 0024 5300     		.short	83
+ 184 0026 5400     		.short	84
+ 185 0028 5500     		.short	85
+ 186 002a 5600     		.short	86
+ 187 002c 5700     		.short	87
+ 188 002e 5800     		.short	88
+ 189 0030 5900     		.short	89
+ 190 0032 5A00     		.short	90
+ 191 0034 2100     		.short	33
+ 192 0036 E0FF     		.short	-32
+ 193 0038 E1FF     		.short	-31
+ 194 003a E5FF     		.short	-27
+ 195 003c E2FF     		.short	-30
+ 196 003e E3FF     		.short	-29
+ 197 0040 C000     		.short	192
+ 198 0042 C100     		.short	193
+ 199 0044 C200     		.short	194
+ 200 0046 C300     		.short	195
+ 201 0048 C400     		.short	196
+ 202 004a C500     		.short	197
+ 203 004c C600     		.short	198
+ 204 004e C700     		.short	199
+ 205 0050 C800     		.short	200
+ 206 0052 C900     		.short	201
+ 207 0054 CA00     		.short	202
+ 208 0056 CB00     		.short	203
+ 209 0058 CC00     		.short	204
+ 210 005a CD00     		.short	205
+ 211 005c CE00     		.short	206
+ 212 005e CF00     		.short	207
+ 213 0060 D000     		.short	208
+ 214 0062 D100     		.short	209
+ 215 0064 D200     		.short	210
+ 216 0066 D300     		.short	211
+ 217 0068 D400     		.short	212
+ 218 006a D500     		.short	213
+ 219 006c D600     		.short	214
+ 220 006e D800     		.short	216
+ 221 0070 D900     		.short	217
+ 222 0072 DA00     		.short	218
+ 223 0074 DB00     		.short	219
+ 224 0076 DC00     		.short	220
+ 225 0078 DD00     		.short	221
+ 226 007a DE00     		.short	222
+ 227 007c 7801     		.short	376
+ 228 007e 0001     		.short	256
+ 229 0080 0201     		.short	258
+ 230 0082 0401     		.short	260
+ 231 0084 0601     		.short	262
+ 232 0086 0801     		.short	264
+ 233 0088 0A01     		.short	266
+ 234 008a 0C01     		.short	268
+ 235 008c 0E01     		.short	270
+ 236 008e 1001     		.short	272
+ 237 0090 1201     		.short	274
+ 238 0092 1401     		.short	276
+ 239 0094 1601     		.short	278
+ 240 0096 1801     		.short	280
+ 241 0098 1A01     		.short	282
+ 242 009a 1C01     		.short	284
+ 243 009c 1E01     		.short	286
+ 244 009e 2001     		.short	288
+ 245 00a0 2201     		.short	290
+ 246 00a2 2401     		.short	292
+ 247 00a4 2601     		.short	294
+ 248 00a6 2801     		.short	296
+ 249 00a8 2A01     		.short	298
+ 250 00aa 2C01     		.short	300
+ 251 00ac 2E01     		.short	302
+ 252 00ae 3001     		.short	304
+ 253 00b0 3201     		.short	306
+ 254 00b2 3401     		.short	308
+ 255 00b4 3601     		.short	310
+ 256 00b6 3901     		.short	313
+ 257 00b8 3B01     		.short	315
+ 258 00ba 3D01     		.short	317
+ 259 00bc 3F01     		.short	319
+ 260 00be 4101     		.short	321
+ 261 00c0 4301     		.short	323
+ 262 00c2 4501     		.short	325
+ 263 00c4 4701     		.short	327
+ 264 00c6 4A01     		.short	330
+ 265 00c8 4C01     		.short	332
+ 266 00ca 4E01     		.short	334
+ 267 00cc 5001     		.short	336
+ 268 00ce 5201     		.short	338
+ 269 00d0 5401     		.short	340
+ 270 00d2 5601     		.short	342
+ 271 00d4 5801     		.short	344
+ 272 00d6 5A01     		.short	346
+ 273 00d8 5C01     		.short	348
+ 274 00da 5E01     		.short	350
+ 275 00dc 6001     		.short	352
+ 276 00de 6201     		.short	354
+ 277 00e0 6401     		.short	356
+ 278 00e2 6601     		.short	358
+ 279 00e4 6801     		.short	360
+ 280 00e6 6A01     		.short	362
+ 281 00e8 6C01     		.short	364
+ 282 00ea 6E01     		.short	366
+ 283 00ec 7001     		.short	368
+ 284 00ee 7201     		.short	370
+ 285 00f0 7401     		.short	372
+ 286 00f2 7601     		.short	374
+ 287 00f4 7901     		.short	377
+ 288 00f6 7B01     		.short	379
+ 289 00f8 7D01     		.short	381
+ 290 00fa 9101     		.short	401
+ 291 00fc 9103     		.short	913
+ 292 00fe 9203     		.short	914
+ 293 0100 9303     		.short	915
+ 294 0102 9403     		.short	916
+ 295 0104 9503     		.short	917
+ 296 0106 9603     		.short	918
+ 297 0108 9703     		.short	919
+ 298 010a 9803     		.short	920
+ 299 010c 9903     		.short	921
+ 300 010e 9A03     		.short	922
+ 301 0110 9B03     		.short	923
+ 302 0112 9C03     		.short	924
+ 303 0114 9D03     		.short	925
+ 304 0116 9E03     		.short	926
+ 305 0118 9F03     		.short	927
+ 306 011a A003     		.short	928
+ 307 011c A103     		.short	929
+ 308 011e A303     		.short	931
+ 309 0120 A403     		.short	932
+ 310 0122 A503     		.short	933
+ 311 0124 A603     		.short	934
+ 312 0126 A703     		.short	935
+ 313 0128 A803     		.short	936
+ 314 012a A903     		.short	937
+ 315 012c AA03     		.short	938
+ 316 012e 1004     		.short	1040
+ 317 0130 1104     		.short	1041
+ 318 0132 1204     		.short	1042
+ 319 0134 1304     		.short	1043
+ 320 0136 1404     		.short	1044
+ 321 0138 1504     		.short	1045
+ 322 013a 1604     		.short	1046
+ 323 013c 1704     		.short	1047
+ 324 013e 1804     		.short	1048
+ 325 0140 1904     		.short	1049
+ 326 0142 1A04     		.short	1050
+ 327 0144 1B04     		.short	1051
+ 328 0146 1C04     		.short	1052
+ 329 0148 1D04     		.short	1053
+ 330 014a 1E04     		.short	1054
+ 331 014c 1F04     		.short	1055
+ 332 014e 2004     		.short	1056
+ 333 0150 2104     		.short	1057
+ 334 0152 2204     		.short	1058
+ 335 0154 2304     		.short	1059
+ 336 0156 2404     		.short	1060
+ 337 0158 2504     		.short	1061
+ 338 015a 2604     		.short	1062
+ 339 015c 2704     		.short	1063
+ 340 015e 2804     		.short	1064
+ 341 0160 2904     		.short	1065
+ 342 0162 2A04     		.short	1066
+ 343 0164 2B04     		.short	1067
+ 344 0166 2C04     		.short	1068
+ 345 0168 2D04     		.short	1069
+ 346 016a 2E04     		.short	1070
+ 347 016c 2F04     		.short	1071
+ 348 016e 0104     		.short	1025
+ 349 0170 0204     		.short	1026
+ 350 0172 0304     		.short	1027
+ 351 0174 0404     		.short	1028
+ 352 0176 0504     		.short	1029
+ 353 0178 0604     		.short	1030
+ 354 017a 0704     		.short	1031
+ 355 017c 0804     		.short	1032
+ 356 017e 0904     		.short	1033
+ 357 0180 0A04     		.short	1034
+ 358 0182 0B04     		.short	1035
+ 359 0184 0C04     		.short	1036
+ 360 0186 0E04     		.short	1038
+ 361 0188 0F04     		.short	1039
+ 362 018a 6021     		.short	8544
+ 363 018c 6121     		.short	8545
+ 364 018e 6221     		.short	8546
+ 365 0190 6321     		.short	8547
+ 366 0192 6421     		.short	8548
+ 367 0194 6521     		.short	8549
+ 368 0196 6621     		.short	8550
+ 369 0198 6721     		.short	8551
+ 370 019a 6821     		.short	8552
+ 371 019c 6921     		.short	8553
+ 372 019e 6A21     		.short	8554
+ 373 01a0 6B21     		.short	8555
+ 374 01a2 6C21     		.short	8556
+ 375 01a4 6D21     		.short	8557
+ 376 01a6 6E21     		.short	8558
+ 377 01a8 6F21     		.short	8559
+ 378 01aa 21FF     		.short	-223
+ 379 01ac 22FF     		.short	-222
+ 380 01ae 23FF     		.short	-221
+ 381 01b0 24FF     		.short	-220
+ 382 01b2 25FF     		.short	-219
+ 383 01b4 26FF     		.short	-218
+ 384 01b6 27FF     		.short	-217
+ 385 01b8 28FF     		.short	-216
+ 386 01ba 29FF     		.short	-215
+ 387 01bc 2AFF     		.short	-214
+ 388 01be 2BFF     		.short	-213
+ 389 01c0 2CFF     		.short	-212
+ 390 01c2 2DFF     		.short	-211
+ 391 01c4 2EFF     		.short	-210
+ 392 01c6 2FFF     		.short	-209
+ 393 01c8 30FF     		.short	-208
+ 394 01ca 31FF     		.short	-207
+ 395 01cc 32FF     		.short	-206
+ 396 01ce 33FF     		.short	-205
+ 397 01d0 34FF     		.short	-204
+ 398 01d2 35FF     		.short	-203
+ 399 01d4 36FF     		.short	-202
+ 400 01d6 37FF     		.short	-201
+ 401 01d8 38FF     		.short	-200
+ 402 01da 39FF     		.short	-199
+ 403 01dc 3AFF     		.short	-198
+ 404 01de 0000     		.short	0
+ 405              		.section	.rodata.Tbl,"a",%progbits
+ 406              		.align	2
+ 407              		.set	.LANCHOR0,. + 0
+ 410              	Tbl:
+ 411 0000 AC20     		.short	8364
+ 412 0002 0000     		.short	0
+ 413 0004 1A20     		.short	8218
+ 414 0006 9201     		.short	402
+ 415 0008 1E20     		.short	8222
+ 416 000a 2620     		.short	8230
+ 417 000c 2020     		.short	8224
+ 418 000e 2120     		.short	8225
+ 419 0010 C602     		.short	710
+ 420 0012 3020     		.short	8240
+ 421 0014 6001     		.short	352
+ 422 0016 3920     		.short	8249
+ 423 0018 5201     		.short	338
+ 424 001a 0000     		.short	0
+ 425 001c 7D01     		.short	381
+ 426 001e 0000     		.short	0
+ 427 0020 0000     		.short	0
+ 428 0022 1820     		.short	8216
+ 429 0024 1920     		.short	8217
+ 430 0026 1C20     		.short	8220
+ 431 0028 1D20     		.short	8221
+ 432 002a 2220     		.short	8226
+ 433 002c 1320     		.short	8211
+ 434 002e 1420     		.short	8212
+ 435 0030 DC02     		.short	732
+ 436 0032 2221     		.short	8482
+ 437 0034 6101     		.short	353
+ 438 0036 3A20     		.short	8250
+ 439 0038 5301     		.short	339
+ 440 003a 0000     		.short	0
+ 441 003c 7E01     		.short	382
+ 442 003e 7801     		.short	376
+ 443 0040 A000     		.short	160
+ 444 0042 A100     		.short	161
+ 445 0044 A200     		.short	162
+ 446 0046 A300     		.short	163
+ 447 0048 A400     		.short	164
+ 448 004a A500     		.short	165
+ 449 004c A600     		.short	166
+ 450 004e A700     		.short	167
+ 451 0050 A800     		.short	168
+ 452 0052 A900     		.short	169
+ 453 0054 AA00     		.short	170
+ 454 0056 AB00     		.short	171
+ 455 0058 AC00     		.short	172
+ 456 005a AD00     		.short	173
+ 457 005c AE00     		.short	174
+ 458 005e AF00     		.short	175
+ 459 0060 B000     		.short	176
+ 460 0062 B100     		.short	177
+ 461 0064 B200     		.short	178
+ 462 0066 B300     		.short	179
+ 463 0068 B400     		.short	180
+ 464 006a B500     		.short	181
+ 465 006c B600     		.short	182
+ 466 006e B700     		.short	183
+ 467 0070 B800     		.short	184
+ 468 0072 B900     		.short	185
+ 469 0074 BA00     		.short	186
+ 470 0076 BB00     		.short	187
+ 471 0078 BC00     		.short	188
+ 472 007a BD00     		.short	189
+ 473 007c BE00     		.short	190
+ 474 007e BF00     		.short	191
+ 475 0080 C000     		.short	192
+ 476 0082 C100     		.short	193
+ 477 0084 C200     		.short	194
+ 478 0086 C300     		.short	195
+ 479 0088 C400     		.short	196
+ 480 008a C500     		.short	197
+ 481 008c C600     		.short	198
+ 482 008e C700     		.short	199
+ 483 0090 C800     		.short	200
+ 484 0092 C900     		.short	201
+ 485 0094 CA00     		.short	202
+ 486 0096 CB00     		.short	203
+ 487 0098 CC00     		.short	204
+ 488 009a CD00     		.short	205
+ 489 009c CE00     		.short	206
+ 490 009e CF00     		.short	207
+ 491 00a0 D000     		.short	208
+ 492 00a2 D100     		.short	209
+ 493 00a4 D200     		.short	210
+ 494 00a6 D300     		.short	211
+ 495 00a8 D400     		.short	212
+ 496 00aa D500     		.short	213
+ 497 00ac D600     		.short	214
+ 498 00ae D700     		.short	215
+ 499 00b0 D800     		.short	216
+ 500 00b2 D900     		.short	217
+ 501 00b4 DA00     		.short	218
+ 502 00b6 BD00     		.short	189
+ 503 00b8 DC00     		.short	220
+ 504 00ba DD00     		.short	221
+ 505 00bc DE00     		.short	222
+ 506 00be DF00     		.short	223
+ 507 00c0 E000     		.short	224
+ 508 00c2 E100     		.short	225
+ 509 00c4 E200     		.short	226
+ 510 00c6 E300     		.short	227
+ 511 00c8 E400     		.short	228
+ 512 00ca E500     		.short	229
+ 513 00cc E600     		.short	230
+ 514 00ce E700     		.short	231
+ 515 00d0 E800     		.short	232
+ 516 00d2 E900     		.short	233
+ 517 00d4 EA00     		.short	234
+ 518 00d6 EB00     		.short	235
+ 519 00d8 EC00     		.short	236
+ 520 00da ED00     		.short	237
+ 521 00dc EE00     		.short	238
+ 522 00de EF00     		.short	239
+ 523 00e0 F000     		.short	240
+ 524 00e2 F100     		.short	241
+ 525 00e4 F200     		.short	242
+ 526 00e6 F300     		.short	243
+ 527 00e8 F400     		.short	244
+ 528 00ea F500     		.short	245
+ 529 00ec F600     		.short	246
+ 530 00ee F700     		.short	247
+ 531 00f0 F800     		.short	248
+ 532 00f2 F900     		.short	249
+ 533 00f4 FA00     		.short	250
+ 534 00f6 FB00     		.short	251
+ 535 00f8 FC00     		.short	252
+ 536 00fa FD00     		.short	253
+ 537 00fc FE00     		.short	254
+ 538 00fe FF00     		.short	255
+ 539              		.section	.rodata.tbl_lower.6502,"a",%progbits
+ 540              		.align	2
+ 541              		.set	.LANCHOR1,. + 0
+ 544              	tbl_lower.6502:
+ 545 0000 6100     		.short	97
+ 546 0002 6200     		.short	98
+ 547 0004 6300     		.short	99
+ 548 0006 6400     		.short	100
+ 549 0008 6500     		.short	101
+ 550 000a 6600     		.short	102
+ 551 000c 6700     		.short	103
+ 552 000e 6800     		.short	104
+ 553 0010 6900     		.short	105
+ 554 0012 6A00     		.short	106
+ 555 0014 6B00     		.short	107
+ 556 0016 6C00     		.short	108
+ 557 0018 6D00     		.short	109
+ 558 001a 6E00     		.short	110
+ 559 001c 6F00     		.short	111
+ 560 001e 7000     		.short	112
+ 561 0020 7100     		.short	113
+ 562 0022 7200     		.short	114
+ 563 0024 7300     		.short	115
+ 564 0026 7400     		.short	116
+ 565 0028 7500     		.short	117
+ 566 002a 7600     		.short	118
+ 567 002c 7700     		.short	119
+ 568 002e 7800     		.short	120
+ 569 0030 7900     		.short	121
+ 570 0032 7A00     		.short	122
+ 571 0034 A100     		.short	161
+ 572 0036 A200     		.short	162
+ 573 0038 A300     		.short	163
+ 574 003a A500     		.short	165
+ 575 003c AC00     		.short	172
+ 576 003e AF00     		.short	175
+ 577 0040 E000     		.short	224
+ 578 0042 E100     		.short	225
+ 579 0044 E200     		.short	226
+ 580 0046 E300     		.short	227
+ 581 0048 E400     		.short	228
+ 582 004a E500     		.short	229
+ 583 004c E600     		.short	230
+ 584 004e E700     		.short	231
+ 585 0050 E800     		.short	232
+ 586 0052 E900     		.short	233
+ 587 0054 EA00     		.short	234
+ 588 0056 EB00     		.short	235
+ 589 0058 EC00     		.short	236
+ 590 005a ED00     		.short	237
+ 591 005c EE00     		.short	238
+ 592 005e EF00     		.short	239
+ 593 0060 F000     		.short	240
+ 594 0062 F100     		.short	241
+ 595 0064 F200     		.short	242
+ 596 0066 F300     		.short	243
+ 597 0068 F400     		.short	244
+ 598 006a F500     		.short	245
+ 599 006c F600     		.short	246
+ 600 006e F800     		.short	248
+ 601 0070 F900     		.short	249
+ 602 0072 FA00     		.short	250
+ 603 0074 FB00     		.short	251
+ 604 0076 FC00     		.short	252
+ 605 0078 FD00     		.short	253
+ 606 007a FE00     		.short	254
+ 607 007c FF00     		.short	255
+ 608 007e 0101     		.short	257
+ 609 0080 0301     		.short	259
+ 610 0082 0501     		.short	261
+ 611 0084 0701     		.short	263
+ 612 0086 0901     		.short	265
+ 613 0088 0B01     		.short	267
+ 614 008a 0D01     		.short	269
+ 615 008c 0F01     		.short	271
+ 616 008e 1101     		.short	273
+ 617 0090 1301     		.short	275
+ 618 0092 1501     		.short	277
+ 619 0094 1701     		.short	279
+ 620 0096 1901     		.short	281
+ 621 0098 1B01     		.short	283
+ 622 009a 1D01     		.short	285
+ 623 009c 1F01     		.short	287
+ 624 009e 2101     		.short	289
+ 625 00a0 2301     		.short	291
+ 626 00a2 2501     		.short	293
+ 627 00a4 2701     		.short	295
+ 628 00a6 2901     		.short	297
+ 629 00a8 2B01     		.short	299
+ 630 00aa 2D01     		.short	301
+ 631 00ac 2F01     		.short	303
+ 632 00ae 3101     		.short	305
+ 633 00b0 3301     		.short	307
+ 634 00b2 3501     		.short	309
+ 635 00b4 3701     		.short	311
+ 636 00b6 3A01     		.short	314
+ 637 00b8 3C01     		.short	316
+ 638 00ba 3E01     		.short	318
+ 639 00bc 4001     		.short	320
+ 640 00be 4201     		.short	322
+ 641 00c0 4401     		.short	324
+ 642 00c2 4601     		.short	326
+ 643 00c4 4801     		.short	328
+ 644 00c6 4B01     		.short	331
+ 645 00c8 4D01     		.short	333
+ 646 00ca 4F01     		.short	335
+ 647 00cc 5101     		.short	337
+ 648 00ce 5301     		.short	339
+ 649 00d0 5501     		.short	341
+ 650 00d2 5701     		.short	343
+ 651 00d4 5901     		.short	345
+ 652 00d6 5B01     		.short	347
+ 653 00d8 5D01     		.short	349
+ 654 00da 5F01     		.short	351
+ 655 00dc 6101     		.short	353
+ 656 00de 6301     		.short	355
+ 657 00e0 6501     		.short	357
+ 658 00e2 6701     		.short	359
+ 659 00e4 6901     		.short	361
+ 660 00e6 6B01     		.short	363
+ 661 00e8 6D01     		.short	365
+ 662 00ea 6F01     		.short	367
+ 663 00ec 7101     		.short	369
+ 664 00ee 7301     		.short	371
+ 665 00f0 7501     		.short	373
+ 666 00f2 7701     		.short	375
+ 667 00f4 7A01     		.short	378
+ 668 00f6 7C01     		.short	380
+ 669 00f8 7E01     		.short	382
+ 670 00fa 9201     		.short	402
+ 671 00fc B103     		.short	945
+ 672 00fe B203     		.short	946
+ 673 0100 B303     		.short	947
+ 674 0102 B403     		.short	948
+ 675 0104 B503     		.short	949
+ 676 0106 B603     		.short	950
+ 677 0108 B703     		.short	951
+ 678 010a B803     		.short	952
+ 679 010c B903     		.short	953
+ 680 010e BA03     		.short	954
+ 681 0110 BB03     		.short	955
+ 682 0112 BC03     		.short	956
+ 683 0114 BD03     		.short	957
+ 684 0116 BE03     		.short	958
+ 685 0118 BF03     		.short	959
+ 686 011a C003     		.short	960
+ 687 011c C103     		.short	961
+ 688 011e C303     		.short	963
+ 689 0120 C403     		.short	964
+ 690 0122 C503     		.short	965
+ 691 0124 C603     		.short	966
+ 692 0126 C703     		.short	967
+ 693 0128 C803     		.short	968
+ 694 012a C903     		.short	969
+ 695 012c CA03     		.short	970
+ 696 012e 3004     		.short	1072
+ 697 0130 3104     		.short	1073
+ 698 0132 3204     		.short	1074
+ 699 0134 3304     		.short	1075
+ 700 0136 3404     		.short	1076
+ 701 0138 3504     		.short	1077
+ 702 013a 3604     		.short	1078
+ 703 013c 3704     		.short	1079
+ 704 013e 3804     		.short	1080
+ 705 0140 3904     		.short	1081
+ 706 0142 3A04     		.short	1082
+ 707 0144 3B04     		.short	1083
+ 708 0146 3C04     		.short	1084
+ 709 0148 3D04     		.short	1085
+ 710 014a 3E04     		.short	1086
+ 711 014c 3F04     		.short	1087
+ 712 014e 4004     		.short	1088
+ 713 0150 4104     		.short	1089
+ 714 0152 4204     		.short	1090
+ 715 0154 4304     		.short	1091
+ 716 0156 4404     		.short	1092
+ 717 0158 4504     		.short	1093
+ 718 015a 4604     		.short	1094
+ 719 015c 4704     		.short	1095
+ 720 015e 4804     		.short	1096
+ 721 0160 4904     		.short	1097
+ 722 0162 4A04     		.short	1098
+ 723 0164 4B04     		.short	1099
+ 724 0166 4C04     		.short	1100
+ 725 0168 4D04     		.short	1101
+ 726 016a 4E04     		.short	1102
+ 727 016c 4F04     		.short	1103
+ 728 016e 5104     		.short	1105
+ 729 0170 5204     		.short	1106
+ 730 0172 5304     		.short	1107
+ 731 0174 5404     		.short	1108
+ 732 0176 5504     		.short	1109
+ 733 0178 5604     		.short	1110
+ 734 017a 5704     		.short	1111
+ 735 017c 5804     		.short	1112
+ 736 017e 5904     		.short	1113
+ 737 0180 5A04     		.short	1114
+ 738 0182 5B04     		.short	1115
+ 739 0184 5C04     		.short	1116
+ 740 0186 5E04     		.short	1118
+ 741 0188 5F04     		.short	1119
+ 742 018a 7021     		.short	8560
+ 743 018c 7121     		.short	8561
+ 744 018e 7221     		.short	8562
+ 745 0190 7321     		.short	8563
+ 746 0192 7421     		.short	8564
+ 747 0194 7521     		.short	8565
+ 748 0196 7621     		.short	8566
+ 749 0198 7721     		.short	8567
+ 750 019a 7821     		.short	8568
+ 751 019c 7921     		.short	8569
+ 752 019e 7A21     		.short	8570
+ 753 01a0 7B21     		.short	8571
+ 754 01a2 7C21     		.short	8572
+ 755 01a4 7D21     		.short	8573
+ 756 01a6 7E21     		.short	8574
+ 757 01a8 7F21     		.short	8575
+ 758 01aa 41FF     		.short	-191
+ 759 01ac 42FF     		.short	-190
+ 760 01ae 43FF     		.short	-189
+ 761 01b0 44FF     		.short	-188
+ 762 01b2 45FF     		.short	-187
+ 763 01b4 46FF     		.short	-186
+ 764 01b6 47FF     		.short	-185
+ 765 01b8 48FF     		.short	-184
+ 766 01ba 49FF     		.short	-183
+ 767 01bc 4AFF     		.short	-182
+ 768 01be 4BFF     		.short	-181
+ 769 01c0 4CFF     		.short	-180
+ 770 01c2 4DFF     		.short	-179
+ 771 01c4 4EFF     		.short	-178
+ 772 01c6 4FFF     		.short	-177
+ 773 01c8 50FF     		.short	-176
+ 774 01ca 51FF     		.short	-175
+ 775 01cc 52FF     		.short	-174
+ 776 01ce 53FF     		.short	-173
+ 777 01d0 54FF     		.short	-172
+ 778 01d2 55FF     		.short	-171
+ 779 01d4 56FF     		.short	-170
+ 780 01d6 57FF     		.short	-169
+ 781 01d8 58FF     		.short	-168
+ 782 01da 59FF     		.short	-167
+ 783 01dc 5AFF     		.short	-166
+ 784 01de 0000     		.short	0
+ 785              		.text
+ 786              	.Letext0:
+ 787              		.file 2 ".\\FatFs/integer.h"
+ 788              		.file 3 ".\\CMSIS/core_cm3.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 ccsbcs.c
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:19     .text.ff_convert:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:24     .text.ff_convert:00000000 ff_convert
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:96     .text.ff_convert:00000044 $d
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:101    .text.ff_wtoupper:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:106    .text.ff_wtoupper:00000000 ff_wtoupper
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:154    .text.ff_wtoupper:00000028 $d
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:160    .rodata.tbl_upper.6503:00000000 $d
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:164    .rodata.tbl_upper.6503:00000000 tbl_upper.6503
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:406    .rodata.Tbl:00000000 $d
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:410    .rodata.Tbl:00000000 Tbl
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:540    .rodata.tbl_lower.6502:00000000 $d
+C:\Users\Admin\AppData\Local\Temp\ccSm544x.s:544    .rodata.tbl_lower.6502:00000000 tbl_lower.6502
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

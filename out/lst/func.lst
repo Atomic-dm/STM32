@@ -1,0 +1,244 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"func.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.SysTick_Handler,"ax",%progbits
+  19              		.align	2
+  20              		.global	SysTick_Handler
+  21              		.thumb
+  22              		.thumb_func
+  24              	SysTick_Handler:
+  25              	.LFB29:
+  26              		.file 1 ".\\user-code\\src/func.c"
+   1:.\user-code\src/func.c **** #include "main.h"
+   2:.\user-code\src/func.c **** 
+   3:.\user-code\src/func.c **** __IO uint16_t delay_count;
+   4:.\user-code\src/func.c **** 
+   5:.\user-code\src/func.c **** void SysTick_Handler(void) //1ms
+   6:.\user-code\src/func.c **** {
+  27              		.loc 1 6 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+   7:.\user-code\src/func.c **** 	
+   8:.\user-code\src/func.c **** 	
+   9:.\user-code\src/func.c **** 
+  10:.\user-code\src/func.c **** 	if (delay_count>0)
+  32              		.loc 1 10 0
+  33 0000 044B     		ldr	r3, .L3
+  34 0002 1B88     		ldrh	r3, [r3]
+  35 0004 9BB2     		uxth	r3, r3
+  36 0006 23B1     		cbz	r3, .L1
+  11:.\user-code\src/func.c **** 	{		delay_count--;	}	
+  37              		.loc 1 11 0
+  38 0008 024A     		ldr	r2, .L3
+  39 000a 1388     		ldrh	r3, [r2]
+  40 000c 013B     		subs	r3, r3, #1
+  41 000e 9BB2     		uxth	r3, r3
+  42 0010 1380     		strh	r3, [r2]	@ movhi
+  43              	.L1:
+  44 0012 7047     		bx	lr
+  45              	.L4:
+  46              		.align	2
+  47              	.L3:
+  48 0014 00000000 		.word	delay_count
+  49              		.cfi_endproc
+  50              	.LFE29:
+  52              		.section	.text.delay_ms,"ax",%progbits
+  53              		.align	2
+  54              		.global	delay_ms
+  55              		.thumb
+  56              		.thumb_func
+  58              	delay_ms:
+  59              	.LFB30:
+  12:.\user-code\src/func.c **** 	
+  13:.\user-code\src/func.c **** }
+  14:.\user-code\src/func.c **** 
+  15:.\user-code\src/func.c **** void delay_ms(uint16_t delay_temp)
+  16:.\user-code\src/func.c **** {
+  60              		.loc 1 16 0
+  61              		.cfi_startproc
+  62              		@ args = 0, pretend = 0, frame = 0
+  63              		@ frame_needed = 0, uses_anonymous_args = 0
+  64              		@ link register save eliminated.
+  65              	.LVL0:
+  17:.\user-code\src/func.c **** 	//disk_timerproc();   /* Disk timer process */
+  18:.\user-code\src/func.c **** 	delay_count=delay_temp;
+  66              		.loc 1 18 0
+  67 0000 034B     		ldr	r3, .L8
+  68 0002 1880     		strh	r0, [r3]	@ movhi
+  19:.\user-code\src/func.c **** 	while (delay_count) {}
+  69              		.loc 1 19 0
+  70 0004 1A46     		mov	r2, r3
+  71              	.L6:
+  72              		.loc 1 19 0 is_stmt 0 discriminator 1
+  73 0006 1388     		ldrh	r3, [r2]
+  74 0008 9BB2     		uxth	r3, r3
+  75 000a 002B     		cmp	r3, #0
+  76 000c FBD1     		bne	.L6
+  20:.\user-code\src/func.c **** 	
+  21:.\user-code\src/func.c **** }
+  77              		.loc 1 21 0 is_stmt 1
+  78 000e 7047     		bx	lr
+  79              	.L9:
+  80              		.align	2
+  81              	.L8:
+  82 0010 00000000 		.word	delay_count
+  83              		.cfi_endproc
+  84              	.LFE30:
+  86              		.section	.text.pin_ini,"ax",%progbits
+  87              		.align	2
+  88              		.global	pin_ini
+  89              		.thumb
+  90              		.thumb_func
+  92              	pin_ini:
+  93              	.LFB31:
+  22:.\user-code\src/func.c **** 
+  23:.\user-code\src/func.c **** void pin_ini(void)
+  24:.\user-code\src/func.c **** { uint8_t i=6;
+  94              		.loc 1 24 0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 8
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  99              	.LCFI0:
+ 100              		.cfi_def_cfa_offset 20
+ 101              		.cfi_offset 4, -20
+ 102              		.cfi_offset 5, -16
+ 103              		.cfi_offset 6, -12
+ 104              		.cfi_offset 7, -8
+ 105              		.cfi_offset 14, -4
+ 106 0002 83B0     		sub	sp, sp, #12
+ 107              	.LCFI1:
+ 108              		.cfi_def_cfa_offset 32
+ 109              	.LVL1:
+  25:.\user-code\src/func.c **** 	
+  26:.\user-code\src/func.c **** 	GPIO_InitTypeDef GPIO_InitStructure;
+  27:.\user-code\src/func.c **** 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC , ENABLE);
+ 110              		.loc 1 27 0
+ 111 0004 1020     		movs	r0, #16
+ 112 0006 0121     		movs	r1, #1
+ 113 0008 FFF7FEFF 		bl	RCC_APB2PeriphClockCmd
+ 114              	.LVL2:
+  28:.\user-code\src/func.c ****  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+ 115              		.loc 1 28 0
+ 116 000c 1023     		movs	r3, #16
+ 117 000e 8DF80730 		strb	r3, [sp, #7]
+  29:.\user-code\src/func.c **** 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 118              		.loc 1 29 0
+ 119 0012 0323     		movs	r3, #3
+ 120 0014 8DF80630 		strb	r3, [sp, #6]
+  30:.\user-code\src/func.c **** 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13; ;
+ 121              		.loc 1 30 0
+ 122 0018 4FF40054 		mov	r4, #8192
+ 123 001c 02A9     		add	r1, sp, #8
+ 124 001e 21F8044D 		strh	r4, [r1, #-4]!	@ movhi
+  31:.\user-code\src/func.c ****  	GPIO_Init(GPIOC, &GPIO_InitStructure);
+ 125              		.loc 1 31 0
+ 126 0022 104D     		ldr	r5, .L14
+ 127 0024 2846     		mov	r0, r5
+ 128 0026 FFF7FEFF 		bl	GPIO_Init
+ 129              	.LVL3:
+  32:.\user-code\src/func.c **** 	GPIO_SetBits(GPIOC,GPIO_Pin_13);
+ 130              		.loc 1 32 0
+ 131 002a 2846     		mov	r0, r5
+ 132 002c 2146     		mov	r1, r4
+ 133 002e FFF7FEFF 		bl	GPIO_SetBits
+ 134              	.LVL4:
+ 135 0032 0624     		movs	r4, #6
+  33:.\user-code\src/func.c **** 	
+  34:.\user-code\src/func.c **** 	
+  35:.\user-code\src/func.c **** 	while (i>0){
+  36:.\user-code\src/func.c **** 	delay_ms(100);
+ 136              		.loc 1 36 0
+ 137 0034 6427     		movs	r7, #100
+  37:.\user-code\src/func.c **** 	GPIO_ResetBits(GPIOC,GPIO_Pin_13);
+ 138              		.loc 1 37 0
+ 139 0036 2E46     		mov	r6, r5
+ 140 0038 4FF40055 		mov	r5, #8192
+ 141              	.LVL5:
+ 142              	.L11:
+  36:.\user-code\src/func.c **** 	GPIO_ResetBits(GPIOC,GPIO_Pin_13);
+ 143              		.loc 1 36 0
+ 144 003c 3846     		mov	r0, r7
+ 145 003e FFF7FEFF 		bl	delay_ms
+ 146              	.LVL6:
+ 147              		.loc 1 37 0
+ 148 0042 3046     		mov	r0, r6
+ 149 0044 2946     		mov	r1, r5
+ 150 0046 FFF7FEFF 		bl	GPIO_ResetBits
+ 151              	.LVL7:
+  38:.\user-code\src/func.c **** 	delay_ms(50);
+ 152              		.loc 1 38 0
+ 153 004a 3220     		movs	r0, #50
+ 154 004c FFF7FEFF 		bl	delay_ms
+ 155              	.LVL8:
+  39:.\user-code\src/func.c **** 	GPIO_SetBits(GPIOC,GPIO_Pin_13);
+ 156              		.loc 1 39 0
+ 157 0050 3046     		mov	r0, r6
+ 158 0052 2946     		mov	r1, r5
+ 159 0054 FFF7FEFF 		bl	GPIO_SetBits
+ 160              	.LVL9:
+ 161 0058 631E     		subs	r3, r4, #1
+  35:.\user-code\src/func.c **** 	delay_ms(100);
+ 162              		.loc 1 35 0
+ 163 005a 13F0FF04 		ands	r4, r3, #255
+ 164              	.LVL10:
+ 165 005e EDD1     		bne	.L11
+  40:.\user-code\src/func.c **** 	i--;
+  41:.\user-code\src/func.c **** 	}
+  42:.\user-code\src/func.c **** }
+ 166              		.loc 1 42 0
+ 167 0060 03B0     		add	sp, sp, #12
+ 168              	.LCFI2:
+ 169              		.cfi_def_cfa_offset 20
+ 170              		@ sp needed
+ 171 0062 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 172              	.L15:
+ 173              		.align	2
+ 174              	.L14:
+ 175 0064 00100140 		.word	1073811456
+ 176              		.cfi_endproc
+ 177              	.LFE31:
+ 179              		.comm	delay_count,2,2
+ 180              		.text
+ 181              	.Letext0:
+ 182              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
+ 183              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 184              		.file 4 ".\\CMSIS/stm32f10x.h"
+ 185              		.file 5 ".\\StdPeriphLib\\inc/stm32f10x_gpio.h"
+ 186              		.file 6 ".\\CMSIS/core_cm3.h"
+ 187              		.file 7 ".\\StdPeriphLib\\inc/stm32f10x_rcc.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 func.c
+C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:19     .text.SysTick_Handler:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:24     .text.SysTick_Handler:00000000 SysTick_Handler
+C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:48     .text.SysTick_Handler:00000014 $d
+                            *COM*:00000002 delay_count
+C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:53     .text.delay_ms:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:58     .text.delay_ms:00000000 delay_ms
+C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:82     .text.delay_ms:00000010 $d
+C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:87     .text.pin_ini:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:92     .text.pin_ini:00000000 pin_ini
+C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:175    .text.pin_ini:00000064 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphClockCmd
+GPIO_Init
+GPIO_SetBits
+GPIO_ResetBits

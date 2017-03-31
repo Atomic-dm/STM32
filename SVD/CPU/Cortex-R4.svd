@@ -1,0 +1,4183 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Cpu>
+  <Name>CR4</Name>
+  <Revision>r1p4</Revision>
+  <Endian>little</Endian>
+  <MpuPresent>true</MpuPresent>
+  <FpuPresent>true</FpuPresent>
+  <NvicPrioBits>4</NvicPrioBits>
+  <VendorSystickConfig>false</VendorSystickConfig>
+  <Groups>
+    <Group>
+      <Name>Current</Name>
+      <Description>Current mode CPU registers</Description>
+      <Size>32</Size>
+      <Access>RW</Access>
+      <Type>unsigned int</Type>
+      <CpuModeDependent>1</CpuModeDependent>
+      <Registers>
+        <Register>
+          <Name>R0</Name>
+          <Description>General purpose register 0</Description>
+          <Index>0</Index>
+        </Register>
+        <Register>
+          <Name>R1</Name>
+          <Description>General purpose register 1</Description>
+          <Index>1</Index>
+        </Register>
+        <Register>
+          <Name>R2</Name>
+          <Description>General purpose register 2 </Description>
+          <Index>2</Index>
+        </Register>
+        <Register>
+          <Name>R3</Name>
+          <Description>General purpose register 3 </Description>
+          <Index>3</Index>
+        </Register>
+        <Register>
+          <Name>R4</Name>
+          <Description>General purpose register 4</Description>
+          <Index>4</Index>
+        </Register>
+        <Register>
+          <Name>R5</Name>
+          <Description>General purpose register 5</Description>
+          <Index>5</Index>
+        </Register>
+        <Register>
+          <Name>R6</Name>
+          <Description>General purpose register 6</Description>
+          <Index>6</Index>
+        </Register>
+        <Register>
+          <Name>R7</Name>
+          <Description>General purpose register 7</Description>
+          <Index>7</Index>
+        </Register>
+        <Register>
+          <Name>R8</Name>
+          <Description>General purpose register 8</Description>
+          <Index>10</Index>
+        </Register>
+        <Register>
+          <Name>R9</Name>
+          <Description>General purpose register 9</Description>
+          <Index>11</Index>
+        </Register>
+        <Register>
+          <Name>R10</Name>
+          <Description>General purpose register 10</Description>
+          <Index>12</Index>
+        </Register>
+        <Register>
+          <Name>R11</Name>
+          <Description>General purpose register 11</Description>
+          <Index>13</Index>
+        </Register>
+        <Register>
+          <Name>R12</Name>
+          <Description>General purpose register 12</Description>
+          <Index>14</Index>
+        </Register>
+        <Register>
+          <Name>R13</Name>
+          <Description>Stack pointer (SP)</Description>
+          <Index>15</Index>
+        </Register>
+        <Register>
+          <Name>R14</Name>
+          <Description>Link register (LR)</Description>
+          <Index>16</Index>
+        </Register>
+        <Register>
+          <Name>R15</Name>
+          <Description>Program counter (PC)</Description>
+          <Index>9</Index>
+        </Register>
+        <Register>
+          <Name>CPSR</Name>
+          <Description>Current program status register</Description>
+          <Index>8</Index>
+          <Fields>
+            <Field>
+              <Name>M</Name>
+              <Description>Mode bits</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>5</BitWidth>
+            </Field>
+            <Field>
+              <Name>T</Name>
+              <Description>Thumb state</Description>
+              <BitOffset>5</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>F</Name>
+              <Description>SVC disable</Description>
+              <BitOffset>6</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>I</Name>
+              <Description>IRQ disable</Description>
+              <BitOffset>7</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>A</Name>
+              <Description>Asynchroneous abort disable</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>E</Name>
+              <Description>Data endianess</Description>
+              <BitOffset>9</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IC/IT</Name>
+              <Description>Interruptible-continuable instruction bits</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>6</BitWidth>
+            </Field>
+            <Field>
+              <Name>GE</Name>
+              <Description>Greater-than-or-equal bits</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>J</Name>
+              <Description>Java state</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Q</Name>
+              <Description>Sticky overflow flag</Description>
+              <BitOffset>27</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Overflow flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Carry flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Zero flag</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>N</Name>
+              <Description>Negative flag</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+      </Registers>
+    </Group>
+    <Group>
+      <Name>FPU Registers</Name>
+      <Description>Floating point registers</Description>
+      <Size>32</Size>
+      <Access>RW</Access>
+      <Type>float</Type>
+      <Registers>
+        <Register>
+          <Name>S0</Name>
+          <Description>Floating point register 0</Description>
+          <Index>40</Index>
+        </Register>
+        <Register>
+          <Name>S1</Name>
+          <Description>Floating point register 1</Description>
+          <Index>41</Index>
+        </Register>
+        <Register>
+          <Name>S2</Name>
+          <Description>Floating point register 2</Description>
+          <Index>42</Index>
+        </Register>
+        <Register>
+          <Name>S3</Name>
+          <Description>Floating point register 3</Description>
+          <Index>43</Index>
+        </Register>
+        <Register>
+          <Name>S4</Name>
+          <Description>Floating point register 4</Description>
+          <Index>44</Index>
+        </Register>
+        <Register>
+          <Name>S5</Name>
+          <Description>Floating point register 5</Description>
+          <Index>45</Index>
+        </Register>
+        <Register>
+          <Name>S6</Name>
+          <Description>Floating point register 6</Description>
+          <Index>46</Index>
+        </Register>
+        <Register>
+          <Name>S7</Name>
+          <Description>Floating point register 7</Description>
+          <Index>47</Index>
+        </Register>
+        <Register>
+          <Name>S8</Name>
+          <Description>Floating point register 8</Description>
+          <Index>48</Index>
+        </Register>
+        <Register>
+          <Name>S9</Name>
+          <Description>Floating point register 9</Description>
+          <Index>49</Index>
+        </Register>
+        <Register>
+          <Name>S10</Name>
+          <Description>Floating point register 10</Description>
+          <Index>50</Index>
+        </Register>
+        <Register>
+          <Name>S11</Name>
+          <Description>Floating point register 11</Description>
+          <Index>51</Index>
+        </Register>
+        <Register>
+          <Name>S12</Name>
+          <Description>Floating point register 12</Description>
+          <Index>52</Index>
+        </Register>
+        <Register>
+          <Name>S13</Name>
+          <Description>Floating point register 13</Description>
+          <Index>53</Index>
+        </Register>
+        <Register>
+          <Name>S14</Name>
+          <Description>Floating point register 14</Description>
+          <Index>54</Index>
+        </Register>
+        <Register>
+          <Name>S15</Name>
+          <Description>Floating point register 15</Description>
+          <Index>55</Index>
+        </Register>
+        <Register>
+          <Name>S16</Name>
+          <Description>Floating point register 16</Description>
+          <Index>56</Index>
+        </Register>
+        <Register>
+          <Name>S17</Name>
+          <Description>Floating point register 17</Description>
+          <Index>57</Index>
+        </Register>
+        <Register>
+          <Name>S18</Name>
+          <Description>Floating point register 18</Description>
+          <Index>58</Index>
+        </Register>
+        <Register>
+          <Name>S19</Name>
+          <Description>Floating point register 19</Description>
+          <Index>59</Index>
+        </Register>
+        <Register>
+          <Name>S20</Name>
+          <Description>Floating point register 20</Description>
+          <Index>60</Index>
+        </Register>
+        <Register>
+          <Name>S21</Name>
+          <Description>Floating point register 21</Description>
+          <Index>61</Index>
+        </Register>
+        <Register>
+          <Name>S22</Name>
+          <Description>Floating point register 22</Description>
+          <Index>62</Index>
+        </Register>
+        <Register>
+          <Name>S23</Name>
+          <Description>Floating point register 23</Description>
+          <Index>63</Index>
+        </Register>
+        <Register>
+          <Name>S24</Name>
+          <Description>Floating point register 24</Description>
+          <Index>64</Index>
+        </Register>
+        <Register>
+          <Name>S25</Name>
+          <Description>Floating point register 25</Description>
+          <Index>65</Index>
+        </Register>
+        <Register>
+          <Name>S26</Name>
+          <Description>Floating point register 26</Description>
+          <Index>66</Index>
+        </Register>
+        <Register>
+          <Name>S27</Name>
+          <Description>Floating point register 27</Description>
+          <Index>67</Index>
+        </Register>
+        <Register>
+          <Name>S28</Name>
+          <Description>Floating point register 28</Description>
+          <Index>68</Index>
+        </Register>
+        <Register>
+          <Name>S29</Name>
+          <Description>Floating point register 29</Description>
+          <Index>69</Index>
+        </Register>
+        <Register>
+          <Name>S30</Name>
+          <Description>Floating point register 30</Description>
+          <Index>70</Index>
+        </Register>
+        <Register>
+          <Name>S31</Name>
+          <Description>Floating point register 31</Description>
+          <Index>71</Index>
+        </Register>
+        <Register>
+          <Name>FPSID</Name>
+          <Description>Floating point system information register</Description>
+          <Access>RO</Access>
+          <Reset>0x41023140</Reset>
+          <Index>37</Index>
+          <Fields>
+            <Field>
+              <Name>Implementer</Name>
+              <Description>Implementer ID</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>8</BitWidth>
+            </Field>
+            <Field>
+              <Name>SW</Name>
+              <Description>Software emulation support flag</Description>
+              <BitOffset>23</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Architecture</Name>
+              <Description>Architecture version</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>7</BitWidth>
+            </Field>
+            <Field>
+              <Name>PartNumber</Name>
+              <Description>Part number</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>8</BitWidth>
+            </Field>
+            <Field>
+              <Name>Variant</Name>
+              <Description>Variant ID</Description>
+              <BitOffset>4</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>Revision</Name>
+              <Description>Revision number</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>FPSCR</Name>
+          <Description>Floating point status and control register</Description>
+          <Access>RW</Access>
+          <Reset>0x0</Reset>
+          <Index>38</Index>
+          <Fields>
+            <Field>
+              <Name>IOC</Name>
+              <Description>Invalid operation cumulative exception flag</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>DZC</Name>
+              <Description>Division by zero cumulative exception flag</Description>
+              <BitOffset>1</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>OFC</Name>
+              <Description>Overflow cumulative exception flag</Description>
+              <BitOffset>2</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>UFC</Name>
+              <Description>Underflow cumulative exception flag</Description>
+              <BitOffset>3</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IXC</Name>
+              <Description>Inexact cumulative exception flag</Description>
+              <BitOffset>4</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IDC</Name>
+              <Description>Input denormal cumulative exception flag</Description>
+              <BitOffset>7</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IOE</Name>
+              <Description>Invalid operation exception enable bit</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>DZE</Name>
+              <Description>Division by zero exception enable bit</Description>
+              <BitOffset>9</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>OFE</Name>
+              <Description>Overflow exception enable bit</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>UFE</Name>
+              <Description>Underflow exception enable bit</Description>
+              <BitOffset>11</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IXE</Name>
+              <Description>Inexact exception enable bit</Description>
+              <BitOffset>12</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IDE</Name>
+              <Description>Input Subnormal exception enable bit</Description>
+              <BitOffset>15</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Len</Name>
+              <Description>Vector length</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>3</BitWidth>
+            </Field>
+            <Field>
+              <Name>Stride</Name>
+              <Description>Stride control</Description>
+              <BitOffset>20</BitOffset>
+              <BitWidth>2</BitWidth>
+            </Field>
+            <Field>
+              <Name>R-Mode</Name>
+              <Description>Rounding mode control</Description>
+              <BitOffset>22</BitOffset>
+              <BitWidth>2</BitWidth>
+            </Field>
+            <Field>
+              <Name>FZ</Name>
+              <Description>Flush-to-zero mode enable bit</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>DN</Name>
+              <Description>Default NaN mode enable bit</Description>
+              <BitOffset>25</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>QC</Name>
+              <Description>Saturation cumulative flag</Description>
+              <BitOffset>27</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Set if comparison produces an unordered result</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Set if comparison produces an equal, greater than, or unordered result</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Set if comparison produces an equal result</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>N</Name>
+              <Description>Set if comparison produces a less than result</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>FPEXC</Name>
+          <Description>Floating point exception register</Description>
+          <Access>RW</Access>
+          <Reset>0x0</Reset>
+          <Index>39</Index>
+          <Fields>
+            <Field>
+              <Name>DEX</Name>
+              <Description>Undefined instruction exception flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>EN</Name>
+              <Description>VFP enable bit</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>MVFR0</Name>
+          <Description>Media and VFP feature register 0</Description>
+          <Access>RO</Access>
+          <Reset>0x10110221</Reset>
+          <Index>72</Index>
+          <Fields>
+            <Field>
+              <Name>RB</Name>
+              <Description>Sixteen 64-bir registers supported</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>SP</Name>
+              <Description>Single-precision operations supported</Description>
+              <BitOffset>4</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>DP</Name>
+              <Description>Double-precision operations supported</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>TE</Name>
+              <Description>VFP exception trapping not supported</Description>
+              <BitOffset>12</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>D</Name>
+              <Description>VFP divide operation supported</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>SR</Name>
+              <Description>VFP square root operation supported</Description>
+              <BitOffset>20</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>SV</Name>
+              <Description>VFP short vectors not supported</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>RM</Name>
+              <Description>All VFP rounding modes supported</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>MVFR1</Name>
+          <Description>Media and VFP feature register 1</Description>
+          <Access>RO</Access>
+          <Reset>0x00000011</Reset>
+          <Index>73</Index>
+          <Fields>
+            <Field>
+              <Name>FZ</Name>
+              <Description>VFP denormal airthmetic operations supported</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>DN</Name>
+              <Description>VFP NaN value propagation supported</Description>
+              <BitOffset>4</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>LS</Name>
+              <Description>Advanded SIMD load/store instructions not supported</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>I</Name>
+              <Description>Advanced SIMD integer operations not supported</Description>
+              <BitOffset>12</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>SPFP</Name>
+              <Description>Advanced SIMD single-precision operations not supported</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>HPFP</Name>
+              <Description>Advanced SIMD half-precision operations not supported</Description>
+              <BitOffset>20</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>VFP HPFP</Name>
+              <Description>VFP half-precision operations supported</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+      </Registers>
+    </Group>
+    <Group>
+      <Name>All</Name>
+      <Description>Core registers</Description>
+      <Size>32</Size>
+      <Access>RW</Access>
+      <Type>unsigned int</Type>
+      <Registers>
+        <Register>
+          <Name>R0_USR</Name>
+          <Description>General purpose register 0 (User Mode)</Description>
+          <Index>0</Index>
+        </Register>
+        <Register>
+          <Name>R1_USR</Name>
+          <Description>General purpose register 1 (User Mode)</Description>
+          <Index>1</Index>
+        </Register>
+        <Register>
+          <Name>R2_USR</Name>
+          <Description>General purpose register 2 (User Mode)</Description>
+          <Index>2</Index>
+        </Register>
+        <Register>
+          <Name>R3_USR</Name>
+          <Description>General purpose register 3 (User Mode)</Description>
+          <Index>3</Index>
+        </Register>
+        <Register>
+          <Name>R4_USR</Name>
+          <Description>General purpose register 4 (User Mode)</Description>
+          <Index>4</Index>
+        </Register>
+        <Register>
+          <Name>R5_USR</Name>
+          <Description>General purpose register 5 (User Mode)</Description>
+          <Index>5</Index>
+        </Register>
+        <Register>
+          <Name>R6_USR</Name>
+          <Description>General purpose register 6 (User Mode)</Description>
+          <Index>6</Index>
+        </Register>
+        <Register>
+          <Name>R7_USR</Name>
+          <Description>General purpose register 7 (User Mode)</Description>
+          <Index>7</Index>
+        </Register>
+        <Register>
+          <Name>R8_USR</Name>
+          <Description>General purpose register 8 (User Mode)</Description>
+          <Index>10</Index>
+        </Register>
+        <Register>
+          <Name>R9_USR</Name>
+          <Description>General purpose register 9 (User Mode)</Description>
+          <Index>11</Index>
+        </Register>
+        <Register>
+          <Name>R10_USR</Name>
+          <Description>General purpose register 10 (User Mode)</Description>
+          <Index>12</Index>
+        </Register>
+        <Register>
+          <Name>R11_USR</Name>
+          <Description>General purpose register 11 (User Mode)</Description>
+          <Index>13</Index>
+        </Register>
+        <Register>
+          <Name>R12_USR</Name>
+          <Description>General purpose register 12 (User Mode)</Description>
+          <Index>14</Index>
+        </Register>
+        <Register>
+          <Name>R13_USR</Name>
+          <Description>Stack pointer (User Mode)</Description>
+          <Index>15</Index>
+        </Register>
+        <Register>
+          <Name>R14_USR</Name>
+          <Description>Link register (User Mode)</Description>
+          <Index>16</Index>
+        </Register>
+        <Register>
+          <Name>R15_USR</Name>
+          <Description>Program counter (User Mode)</Description>
+          <Index>9</Index>
+        </Register>
+        <Register>
+          <Name>CPSR_USR</Name>
+          <Description>Current program status register (User Mode)</Description>
+          <Index>8</Index>
+          <Fields>
+            <Field>
+              <Name>M</Name>
+              <Description>Mode bits</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>5</BitWidth>
+            </Field>
+            <Field>
+              <Name>T</Name>
+              <Description>Thumb state</Description>
+              <BitOffset>5</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>F</Name>
+              <Description>SVC disable</Description>
+              <BitOffset>6</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>I</Name>
+              <Description>IRQ disable</Description>
+              <BitOffset>7</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>A</Name>
+              <Description>Asynchroneous abort disable</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>E</Name>
+              <Description>Data endianess</Description>
+              <BitOffset>9</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IC/IT</Name>
+              <Description>Interruptible-continuable instruction bits</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>6</BitWidth>
+            </Field>
+            <Field>
+              <Name>GE</Name>
+              <Description>Greater-than-or-equal bits</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>J</Name>
+              <Description>Java state</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Q</Name>
+              <Description>Sticky overflow flag</Description>
+              <BitOffset>27</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Overflow flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Carry flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Zero flag</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>N</Name>
+              <Description>Negative flag</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>R8_FIQ</Name>
+          <Description>General purpose register 8 (Fast Interrupt Mode)</Description>
+          <Index>18</Index>
+        </Register>
+        <Register>
+          <Name>R9_FIQ</Name>
+          <Description>General purpose register 9 (Fast Interrupt Mode)</Description>
+          <Index>19</Index>
+        </Register>
+        <Register>
+          <Name>R10_FIQ</Name>
+          <Description>General purpose register 10 (Fast Interrupt Mode)</Description>
+          <Index>20</Index>
+        </Register>
+        <Register>
+          <Name>R11_FIQ</Name>
+          <Description>General purpose register 11 (Fast Interrupt Mode)</Description>
+          <Index>21</Index>
+        </Register>
+        <Register>
+          <Name>R12_FIQ</Name>
+          <Description>General purpose register 12 (Fast Interrupt Mode)</Description>
+          <Index>22</Index>
+        </Register>
+        <Register>
+          <Name>R13_FIQ</Name>
+          <Description>Stack pointer (Fast Interrupt Mode)</Description>
+          <Index>23</Index>
+        </Register>
+        <Register>
+          <Name>R14_FIQ</Name>
+          <Description>Link register (Fast Interrupt Mode)</Description>
+          <Index>24</Index>
+        </Register>
+        <Register>
+          <Name>CPSR_FIQ</Name>
+          <Description>Current program status register (Fast Interrupt Mode)</Description>
+          <Index>17</Index>
+          <Fields>
+            <Field>
+              <Name>M</Name>
+              <Description>Mode bits</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>5</BitWidth>
+            </Field>
+            <Field>
+              <Name>T</Name>
+              <Description>Thumb state</Description>
+              <BitOffset>5</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>F</Name>
+              <Description>SVC disable</Description>
+              <BitOffset>6</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>I</Name>
+              <Description>IRQ disable</Description>
+              <BitOffset>7</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>A</Name>
+              <Description>Asynchroneous abort disable</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>E</Name>
+              <Description>Data endianess</Description>
+              <BitOffset>9</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IC/IT</Name>
+              <Description>Interruptible-continuable instruction bits</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>6</BitWidth>
+            </Field>
+            <Field>
+              <Name>GE</Name>
+              <Description>Greater-than-or-equal bits</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>J</Name>
+              <Description>Java state</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Q</Name>
+              <Description>Sticky overflow flag</Description>
+              <BitOffset>27</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Overflow flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Carry flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Zero flag</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>N</Name>
+              <Description>Negative flag</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>R13_SVC</Name>
+          <Description>Stack pointer (Supervisor Mode)</Description>
+          <Index>26</Index>
+        </Register>
+        <Register>
+          <Name>R14_SVC</Name>
+          <Description>Link register (Supervisor Mode)</Description>
+          <Index>27</Index>
+        </Register>
+        <Register>
+          <Name>CPSR_SVC</Name>
+          <Description>Current program status register (Supervisor Mode)</Description>
+          <Index>25</Index>
+          <Fields>
+            <Field>
+              <Name>M</Name>
+              <Description>Mode bits</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>5</BitWidth>
+            </Field>
+            <Field>
+              <Name>T</Name>
+              <Description>Thumb state</Description>
+              <BitOffset>5</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>F</Name>
+              <Description>SVC disable</Description>
+              <BitOffset>6</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>I</Name>
+              <Description>IRQ disable</Description>
+              <BitOffset>7</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>A</Name>
+              <Description>Asynchroneous abort disable</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>E</Name>
+              <Description>Data endianess</Description>
+              <BitOffset>9</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IC/IT</Name>
+              <Description>Interruptible-continuable instruction bits</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>6</BitWidth>
+            </Field>
+            <Field>
+              <Name>GE</Name>
+              <Description>Greater-than-or-equal bits</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>J</Name>
+              <Description>Java state</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Q</Name>
+              <Description>Sticky overflow flag</Description>
+              <BitOffset>27</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Overflow flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Carry flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Zero flag</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>N</Name>
+              <Description>Negative flag</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>R13_ABT</Name>
+          <Description>Stack pointer (Abort Mode)</Description>
+          <Index>29</Index>
+        </Register>
+        <Register>
+          <Name>R14_ABT</Name>
+          <Description>Link register (Abort Mode)</Description>
+          <Index>30</Index>
+        </Register>
+        <Register>
+          <Name>CPSR_ABT</Name>
+          <Description>Current program status register (Fast Interrupt Mode)</Description>
+          <Index>28</Index>
+          <Fields>
+            <Field>
+              <Name>M</Name>
+              <Description>Mode bits</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>5</BitWidth>
+            </Field>
+            <Field>
+              <Name>T</Name>
+              <Description>Thumb state</Description>
+              <BitOffset>5</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>F</Name>
+              <Description>SVC disable</Description>
+              <BitOffset>6</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>I</Name>
+              <Description>IRQ disable</Description>
+              <BitOffset>7</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>A</Name>
+              <Description>Asynchroneous abort disable</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>E</Name>
+              <Description>Data endianess</Description>
+              <BitOffset>9</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IC/IT</Name>
+              <Description>Interruptible-continuable instruction bits</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>6</BitWidth>
+            </Field>
+            <Field>
+              <Name>GE</Name>
+              <Description>Greater-than-or-equal bits</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>J</Name>
+              <Description>Java state</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Q</Name>
+              <Description>Sticky overflow flag</Description>
+              <BitOffset>27</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Overflow flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Carry flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Zero flag</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>N</Name>
+              <Description>Negative flag</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>R13_IRQ</Name>
+          <Description>Stack pointer (Interrupt Mode)</Description>
+          <Index>32</Index>
+        </Register>
+        <Register>
+          <Name>R14_IRQ</Name>
+          <Description>Link register (Interrupt Mode)</Description>
+          <Index>33</Index>
+        </Register>
+        <Register>
+          <Name>CPSR_IRQ</Name>
+          <Description>Current program status register (Interrupt Mode)</Description>
+          <Index>31</Index>
+          <Fields>
+            <Field>
+              <Name>M</Name>
+              <Description>Mode bits</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>5</BitWidth>
+            </Field>
+            <Field>
+              <Name>T</Name>
+              <Description>Thumb state</Description>
+              <BitOffset>5</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>F</Name>
+              <Description>SVC disable</Description>
+              <BitOffset>6</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>I</Name>
+              <Description>IRQ disable</Description>
+              <BitOffset>7</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>A</Name>
+              <Description>Asynchroneous abort disable</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>E</Name>
+              <Description>Data endianess</Description>
+              <BitOffset>9</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IC/IT</Name>
+              <Description>Interruptible-continuable instruction bits</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>6</BitWidth>
+            </Field>
+            <Field>
+              <Name>GE</Name>
+              <Description>Greater-than-or-equal bits</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>J</Name>
+              <Description>Java state</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Q</Name>
+              <Description>Sticky overflow flag</Description>
+              <BitOffset>27</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Overflow flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Carry flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Zero flag</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>N</Name>
+              <Description>Negative flag</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>R13_UND</Name>
+          <Description>Stack pointer (Undefined Mode)</Description>
+          <Index>35</Index>
+        </Register>
+        <Register>
+          <Name>R14_UND</Name>
+          <Description>Link register (Undefined Mode)</Description>
+          <Index>36</Index>
+        </Register>
+        <Register>
+          <Name>CPSR_UND</Name>
+          <Description>Current program status register (Undefined Mode)</Description>
+          <Index>34</Index>
+          <Fields>
+            <Field>
+              <Name>M</Name>
+              <Description>Mode bits</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>5</BitWidth>
+            </Field>
+            <Field>
+              <Name>T</Name>
+              <Description>Thumb state</Description>
+              <BitOffset>5</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>F</Name>
+              <Description>SVC disable</Description>
+              <BitOffset>6</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>I</Name>
+              <Description>IRQ disable</Description>
+              <BitOffset>7</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>A</Name>
+              <Description>Asynchroneous abort disable</Description>
+              <BitOffset>8</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>E</Name>
+              <Description>Data endianess</Description>
+              <BitOffset>9</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>IC/IT</Name>
+              <Description>Interruptible-continuable instruction bits</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>6</BitWidth>
+            </Field>
+            <Field>
+              <Name>GE</Name>
+              <Description>Greater-than-or-equal bits</Description>
+              <BitOffset>16</BitOffset>
+              <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+              <Name>J</Name>
+              <Description>Java state</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Q</Name>
+              <Description>Sticky overflow flag</Description>
+              <BitOffset>27</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Overflow flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Carry flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Zero flag</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>N</Name>
+              <Description>Negative flag</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+      </Registers>
+    </Group>
+   <Group>
+     <Name>CP15 Registers</Name>
+     <Description>Coprocessor 15 Registers</Description>
+     <Size>32</Size>
+     <Access>RW</Access>
+     <Type>unsigned int</Type>
+     <Registers>
+       <!--C0 Registers-->
+       <Register>
+         <Name>MIDR</Name>
+         <Description>Main ID Register</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x410FC140</Reset>
+         <ID>0,0,0,0</ID>
+         <Fields>
+            <Field>
+             <Name>IMPLEMENTOR</Name>
+             <Description>Implementor</Description>
+             <BitOffset>31</BitOffset>
+             <BitWidth>8</BitWidth>
+           </Field>
+            <Field>
+             <Name>REV_MAJOR</Name>
+             <Description>Major revision number of the rnpn revision status</Description>
+             <BitOffset>23</BitOffset>
+             <BitWidth>4</BitWidth>
+           </Field>
+            <Field>
+             <Name>ARCHITECTURE</Name>
+             <Description>Architecture Code</Description>
+             <BitOffset>19</BitOffset>
+             <BitWidth>4</BitWidth>
+           </Field>
+            <Field>
+             <Name>PART_NBR</Name>
+             <Description>Part number</Description>
+             <BitOffset>15</BitOffset>
+             <BitWidth>12</BitWidth>
+           </Field>
+            <Field>
+             <Name>REV_MINOR</Name>
+             <Description>Minor revision number of the rnpn revision status</Description>
+             <BitOffset>3</BitOffset>
+             <BitWidth>4</BitWidth>
+           </Field>
+         </Fields>
+       </Register>
+      <Register>
+         <Name>CTR</Name>
+         <Description>Cache Type Register</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x8003C003</Reset>
+         <ID>0, 0, 0, 1</ID>
+         <Fields>
+           <Field>
+             <Name>CWG</Name>
+             <Description>Cache Write-Back Granule</Description>
+             <BitOffset>27</BitOffset>
+             <BitWidth>4</BitWidth>
+           </Field>
+           <Field>
+             <Name>ERG</Name>
+             <Description>Exclusives Reservation Granule</Description>
+             <BitOffset>23</BitOffset>
+             <BitWidth>4</BitWidth>
+           </Field>
+           <Field>
+             <Name>D_MIN_LINE</Name>
+             <Description>Log2 of the number of words in the smalles cache line of all the data and unified caches under the core control</Description>
+             <BitOffset>19</BitOffset>
+             <BitWidth>4</BitWidth>
+           </Field>
+           <Field>
+             <Name>I_MIN_LINE</Name>
+             <Description>Log2 of the number of words in the smallest cache line of all the instruction caches under the control of the processor</Description>
+             <BitOffset>3</BitOffset>
+             <BitWidth>4</BitWidth>
+           </Field>
+         </Fields>
+       </Register>
+      <Register>
+         <Name>TCMTR</Name><!-- no fields -->
+         <Description>Tightly Coupled Memory (TCM) Type Register</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00010001</Reset>
+         <ID>0,0,0,2</ID>
+         <Fields>
+           <Field>
+             <Name>BTCM</Name>
+             <Description>Number of BTCMs implemented</Description>
+             <BitOffset>18</BitOffset>
+             <BitWidth>3</BitWidth>
+           </Field>
+           <Field>
+             <Name>ATCM</Name>
+             <Description>Number of ATCMs implemented</Description>
+             <BitOffset>2</BitOffset>
+             <BitWidth>3</BitWidth>
+           </Field>
+         </Fields>
+       </Register>
+      <Register>
+         <Name>MPUTR</Name><!-- no fields -->
+         <Description>MPU Type Register</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000000</Reset>
+         <ID>0,0,0,4</ID>
+         <Fields>
+           <Field>
+             <Name>DREGION</Name>
+             <Description>Number of unified MPU regions</Description>
+             <BitOffset>15</BitOffset>
+             <BitWidth>8</BitWidth>
+           </Field>
+           <Field>
+             <Name>S</Name>
+             <Description>Type of MPU regions</Description>
+             <BitOffset>0</BitOffset>
+             <BitWidth>1</BitWidth>
+           </Field>
+         </Fields>
+       </Register>
+      <Register>
+         <Name>MPIDR</Name>
+         <!--RAZ-->
+         <Description>Multiprocessor Affinity Register</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000000</Reset>
+         <ID>0,0,0,5</ID>
+       </Register>
+      <Register>
+         <Name>ID_PFR0</Name>
+         <Description>Processor Feature Register 0</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000131</Reset>
+         <ID>0,1,0,0</ID>
+         <Fields>
+            <Field>
+               <Name>STATE_3</Name>
+               <Description>ThumbEE instruction set supported</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>STATE_2</Name>
+               <Description>Jazelle extension interface supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>STATE_1</Name>
+               <Description>Thumb-2 Instruction Set supported (0x3)</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>STATE_0</Name>
+               <Description>32-bit ARM instruction set supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+           </Field>
+          </Fields>
+       </Register>
+      <Register>
+         <Name>ID_PFR1</Name>
+         <Description>Processor Feature Register 1</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000001</Reset>
+         <ID>0,1,0,1</ID>
+           <Fields>
+            <Field>
+               <Name>M_PROFILE</Name>
+               <Description>M profile programmers model supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>SECURITY_EXT</Name>
+               <Description>Security extension architecture v1 supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>PROG_MODEL</Name>
+               <Description>Standard ARMv4 programmers model supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+          </Fields>
+       </Register>
+      <Register>
+         <Name>ID_DFR0</Name>
+         <Description>Debug Feature Register 0</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00010400</Reset>
+         <ID>0,1,0,2</ID>
+         <Fields>
+            <Field>
+               <Name>M_PROFILE</Name>
+               <Description>Memory-mapped debug model for M Profile processors supported</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+            <Field>
+               <Name>MM_TRACE_MODEL</Name>
+               <Description>Memory-mapped trace debug model supported</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+            <Field>
+               <Name>CP_TRACE_MODEL</Name>
+               <Description>Coprocessor Trace Model supported</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+            <Field>
+               <Name>MM_DEBUG_MODEL</Name>
+               <Description>Memory-Mapped Debug Model supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+            <Field>
+               <Name>CP_SEC_DBG_MODEL</Name>
+               <Description>Coprocessor-based secure debug model supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP_DBG_MODEL</Name>
+               <Description>Coprocessor based core debug model supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+          </Fields>
+       </Register>
+
+      <Register>
+         <Name>AFR0</Name>
+         <!--RAZ-->
+         <Description>Auxiliary Feature Register 0</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000000</Reset>
+         <ID>0,1,0,3</ID>
+       </Register>
+
+      <Register>
+         <Name>ID_MMFR0</Name>
+         <Description>Memory Model Features Register 0</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00210030</Reset>
+         <ID>0,1,0,4</ID>
+         <Fields>
+           <Field>
+               <Name>IN_SHARE</Name>
+               <Description>Innermost shareability domain supported</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>4</BitWidth>
+           </Field>
+           <Field>
+               <Name>FCSE</Name>
+               <Description>Fast Context Switching Extension (FCSE) supported</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>AUX_CTRL_REG</Name>
+               <Description>Auxiliary Control Registers supported</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>TCM</Name>
+               <Description>Tight Coupled Memory (TCM) supported</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>SHAREABILITY_LEVELS</Name>
+               <Description>Number of Shareability Levels Implemented (0x1: two levels implemented)</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>OUTER_SHRABILITY</Name>
+               <Description>Indicates the outermost Shareability Level Implemented (0x1: Processor supports hardware coherency)</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>PMSA</Name>
+               <Description>Protected Memory System Architecture supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>VMSA</Name>
+               <Description>Virtual Memory System Architecture supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+      <Register>
+         <Name>ID_MMFR1</Name>
+         <Description>Memory Model Features Register 1</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000000</Reset>
+         <ID>0,1,0,5</ID>
+         <Fields>
+           <Field>
+               <Name>BRANCH_PREDICT</Name>
+               <Description>Branch Predictor Management Requirements</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>4</BitWidth>
+           </Field>
+           <Field>
+               <Name>L1_CACHE_TNC</Name>
+               <Description>L1 data cache test and clean operations supported</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>L1_UNIFIED_CACHE</Name>
+               <Description>L1 unified cache clean/invalidate-all operations supported</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>L1_HARVARD_CACHE</Name>
+               <Description>L1 data cache clean/invalidate-all operations supported</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>L1_UNIFIED_CACHE_SW</Name>
+               <Description>L1 unified cache maintencance operations by set/way supported</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>L1_HARVARD_CACHE_SW</Name>
+               <Description>L1 Hardvard cache maintenance operations by set/way supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>L1_UNIFIED_CACHE_VA</Name>
+               <Description>L1 unified cache maintenance operations by VA supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>L1_HARVARD_CACHE_VA</Name>
+               <Description>L1 Harvard cache maintenance operations by VA supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+      <Register>
+         <Name>ID_MMFR2</Name>
+         <Description>Memory Model Features Register 2</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x01200000</Reset>
+         <ID>0,1,0,6</ID>
+         <Fields>
+           <Field>
+               <Name>HW_ACCESS</Name>
+               <Description>Hardware access supported</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>4</BitWidth>
+           </Field>
+           <Field>
+               <Name>WFI_STALL</Name>
+               <Description>Wait For Interrupt (WFI) stalling supported</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>MEM_BARRIER</Name>
+               <Description>Memory Barrier Operations supported</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>UNIFIED_TLB</Name>
+               <Description>Unified TLB maintenance operations supported</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>HARVARD_TLB</Name>
+               <Description>Harvard TLB maintenance operations supported</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>L1_HARVARD_RANGE</Name>
+               <Description>L1 Hardvard range supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>L1_HBP</Name>
+               <Description>L1 Harvard background prefetch operations supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>L1_HFP</Name>
+               <Description>L1 Harvard foreground prefetch operations supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+      <Register>
+         <Name>ID_MMFR3</Name>
+         <Description>Memory Model Features Register 3</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000211</Reset>
+         <ID>0,1,0,7</ID>
+         <Fields>
+           <Field>
+               <Name>SS_SUPPORT</Name>
+               <Description>16 MB supersections supported</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>4</BitWidth>
+           </Field>
+           <Field>
+               <Name>COHRERENT_WALK</Name>
+               <Description>Coherent walk supported.  0x1: updates to translation tables do not require a clean to the point of unification to ensure visibility by subsequent translation table walks</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>MAINTENANCE_BC</Name>
+               <Description>Cache, TLB and Branch prediction operations broadcast supported</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>BP_MAINTENANCE</Name>
+               <Description>Branch Predictor (BP) maintenance operations supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>CACHE MAINTENANCE_SW</Name>
+               <Description>Set/Way cache maintenance supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>CACHE_MAINTENANCE_MVA</Name>
+               <Description>MVA cache maintenance supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+      <Register>
+         <Name>ID_ISAR0</Name>
+         <Description>Instruction Set Attributes Register 0</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x01101111</Reset>
+         <ID>0,2,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>DIVIDE_INSTR</Name>
+               <Description>Integer hardware divide supported</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>4</BitWidth>
+           </Field>
+           <Field>
+               <Name>DBG_INSTR</Name>
+               <Description>BKPT instruction supported</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>CP_INSTRS</Name>
+               <Description>CP14, CP15 and VFPv4 Coprocessor instructions supported</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>CNB_INSTRS</Name>
+               <Description>Compare-and-branch instructions CBZ and CBNZ supported</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>BF_INSTRS</Name>
+               <Description>Bit-Field instructions BFC, BFI, SBFX and UBFX supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>BC_INSTRS</Name>
+               <Description>Bit count instruction CLZ supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>SWAP_INSTRS</Name>
+               <Description>Swap instructions SWP and SWPB supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>ID_ISAR1</Name>
+         <Description>Instruction Set Attributes Register 1</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x13112111</Reset>
+         <ID>0,2,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>JAZELLE_INSTRS</Name>
+               <Description>Jazelle instructions supported</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>4</BitWidth>
+           </Field>
+           <Field>
+               <Name>INTERW_INSTRS</Name>
+               <Description>ARM/Thumb interworking instructions supported</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>IMM_INSTRS</Name>
+               <Description>Special immediate-generating instructions supported</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+           <Field>
+               <Name>ITE_INSTRS</Name>
+               <Description>Thumb IT blocks supported</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>EXTEND_INSTRS</Name>
+               <Description>Extend instructions supported</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>EXCPT2_INSTRS</Name>
+               <Description>Exception2-instructions SRS, RFE and CPS supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>EXCPT1_INSTRS</Name>
+               <Description>Exception1-instructions LDM(2), LDM(3) and STM(2) supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>ENDIAN_INSTRS</Name>
+               <Description>BE8 endian change supported with SETEND</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>ID_ISAR2</Name>
+         <Description>Instruction Set Attributes Register 2</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x21232131</Reset>
+         <ID>0,2,0,2</ID>
+         <Fields>
+           <Field>
+               <Name>REV_INSTRS</Name>
+               <Description>Reversal instructions REV, REV16, REVSH and RBIT supported</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+               <Name>PSR_INSTRS</Name>
+               <Description>PSR instructions MRS and MSR and exception return data-processing instructions supported</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>MULT_U_INSTRS</Name>
+               <Description>Long multiply instructions and UMAAL supported</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>MULT_S_INSTRS</Name>
+               <Description>Signed-Multiply instructions and Q flag in PSRs supported</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>MULTIPLY_INSTRS</Name>
+               <Description>Multiply instructions MUL, MLA and MLS supported</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>MAI_INSTRS</Name>
+               <Description>Multi-access interruptible instructions (MAI) supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>MEM_HINT_INSTRS</Name>
+               <Description>Memory hint instructions PLD, PLI and PLDW supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>LS_INSTRS</Name>
+               <Description>Load and Store instructions LDRD and STRD supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>ID_ISAR3</Name>
+         <Description>Instruction Set Attributes Register 3</Description>
+         <GroupName>ID Regs</GroupName>
+         <ID>0,2,0,3</ID>
+         <Access>RO</Access>
+         <Reset>0x01112131</Reset>
+         <Fields>
+           <Field>
+               <Name>THUMB2_INSTRS</Name>
+               <Description>Thumb-2 Executable Environment Extension instructions supported</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+               <Name>TRUE_NOP_INSTR</Name>
+               <Description>True no-operation instruction NOP32 supported</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>THUMB_CPY_INSTRS</Name>
+               <Description>Thumb copy instructions MOV(3) and CPY alias supported</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>TBL_BRANCH_INSTRS</Name>
+               <Description>Thumb table branch instruction TBB and TBH supported</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>EXCLUSIVE_INSTRS</Name>
+               <Description>Exclusive Instructions supported</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>SVC_INSTRS</Name>
+               <Description>SVC instructions supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>SIMD_INSTRS</Name>
+               <Description>All SIMD instructions supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>SAT_INSTRS</Name>
+               <Description>Saturate instructions QADD, QDADD, QDSUB, QSUB and Q flag in PSRs supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>ID_ISAR4</Name>
+         <Description>Instruction Set Attributes Register 4</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00010142</Reset>
+         <ID>0,2,0,4</ID>
+         <Fields>
+          <Field>
+               <Name>PSM_M_INSTRS</Name>
+               <Description>M-profile instructions for modifying the PSRs Supported</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+           <Field>
+               <Name>SYNC_PRIM_INSTRS</Name>
+               <Description>Synchronization primitive instructions supported</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+               <Name>BARRIER_INSTRS</Name>
+               <Description>Barrier instructions DMB, DSB and ISB supported</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>SMC_INSTRS</Name>
+               <Description>Secure Monitor Call (SMC) instructions supported</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>WRITE_BACK_INSTRS</Name>
+               <Description>All defined write-back addressing modes supported</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>WITH_SHIFT_INSTRS</Name>
+               <Description>Immediate and register control shifted operations supported</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+             <Field>
+               <Name>UNPRIVILEGED_INSTRS</Name>
+               <Description>Unpriviledges load/store instructions LDRT and STRT supported</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>ID_ISAR5</Name><!--no fields -->
+         <Description>Instruction Set Attributes Register 5</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000000</Reset>
+         <ID>0,2,0,5</ID>
+       </Register>
+       <Register>
+         <Name>CCSIDR</Name>
+         <Description>Cache Size Identification Register</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <ID>0,0,1,0</ID>
+         <Fields>
+           <Field>
+               <Name>WT</Name>
+               <Description>Write-Through supported</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>WB</Name>
+               <Description>Write-Back supported for (0x0) L1 data cache, (0x1) L1 instruction cache</Description>
+               <BitOffset>30</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>RA</Name>
+               <Description>Cache read allocation supported</Description>
+               <BitOffset>29</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>WA</Name>
+               <Description>Write allocation supported for: 1: L1 data cache, 0: L1 instruction cache</Description>
+               <BitOffset>28</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>NUM_SETS</Name>
+               <Description>Number of cache sets</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>15</BitWidth>
+             </Field>
+             <Field>
+               <Name>ASSOCIATIVITY</Name>
+               <Description>Cache associativity. 0x3: 4-way data cache, 0x1: 2-way instruction cache</Description>
+               <BitOffset>12</BitOffset>
+               <BitWidth>10</BitWidth>
+             </Field>
+             <Field>
+               <Name>LINE_SIZE</Name>
+               <Description>Number of words per line.  0x1: eight words per line</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>CLIDR</Name>
+         <Description>Cache Level ID Register</Description>
+         <GroupName>ID Regs</GroupName>
+         <Access>RO</Access>
+         <ID>0,0,1,1</ID>
+         <Fields>
+           <Field>
+               <Name>LoUU</Name>
+               <Description>Level of Unification Uniprocessor</Description>
+               <BitOffset>29</BitOffset>
+               <BitWidth>3</BitWidth>
+            </Field>
+            <Field>
+               <Name>LoC</Name>
+               <Description>Level of Coherency</Description>
+               <BitOffset>26</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+             <Field>
+               <Name>LoUIS</Name>
+               <Description>Level of Unification Inner Shared</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+             <Field>
+               <Name>CL 7</Name>
+               <Description>Cache at Level 7 present</Description>
+               <BitOffset>20</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+             <Field>
+               <Name>CL 6</Name>
+               <Description>Cache at Level 6 present</Description>
+               <BitOffset>17</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+             <Field>
+               <Name>CL 5</Name>
+               <Description>Cache at Level 5 present</Description>
+               <BitOffset>14</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+             <Field>
+               <Name>CL 4</Name>
+               <Description>Cache at Level 4 present</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+             <Field>
+               <Name>CL 3</Name>
+               <Description>Cache at Level 3 present</Description>
+               <BitOffset>8</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+             <Field>
+               <Name>CL 2</Name>
+               <Description>Cache at Level 2 present</Description>
+               <BitOffset>5</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+             <Field>
+               <Name>CL 1</Name>
+               <Description>Separate instruction and data caches at Level 1</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>CSSELR</Name>
+         <Description>Cache Size Selection Register</Description>
+         <GroupName>Cache</GroupName>
+         <Access>RW</Access>
+         <ID>0,0,2,0</ID>
+         <Fields>
+           <Field>
+               <Name>LEVEL</Name>
+               <Description>Cache level selected</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>3</BitWidth>
+            </Field>
+            <Field>
+               <Name>InD</Name>
+               <Description>Selected Cache. 0x1: instruction cache,  0x0: data cache</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+       <!--C1 Registers-->
+       <Register>
+         <Name>SCTLR</Name>
+         <Description>System Control Register</Description>
+         <GroupName>System</GroupName>
+         <Access>RW</Access>
+         <ID>1,0,0,0</ID>
+         <Fields>
+            <Field>
+               <Name>IE</Name>
+               <Description>Identifies little (0) or big (1) instruction endianess in use</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>TE</Name>
+               <Description>Thumb exception enable bit. 0: exceptions including reset are handled in ARM state, 1: exceptions including reset are handled in Thumb state</Description>
+               <BitOffset>30</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>AFE</Name>
+               <Description>Access Flag Enable bit. 0: full access permissions behaviour, 1: simplified access permissions behaviour</Description>
+               <BitOffset>29</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>TRE</Name>
+               <Description>TEX remap enable bit</Description>
+               <BitOffset>28</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>NMFI</Name>
+               <Description>non-maskable fast interrupt (NMFI) enable</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>EE</Name>
+               <Description>Determines the value the CPSR E bit is set to on an exception. 0: set to 0, little-endian, 1: set to 1, big endian</Description>
+               <BitOffset>25</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>VE</Name>
+               <Description>Configures vectored interrupt</Description>
+               <BitOffset>24</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>FI</Name>
+               <Description>Fast Interrupts enable</Description>
+               <BitOffset>21</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+
+             <Field>
+               <Name>DZ</Name>
+               <Description>Raise undifined exception  on Divide By Zero</Description>
+               <BitOffset>21</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>BR</Name>
+               <Description>MPU background region enable</Description>
+               <BitOffset>21</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>RR</Name>
+               <Description>Replacement strategy for instruction and data caches. 0:random, 1:round-robin</Description>
+               <BitOffset>21</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>V</Name>
+               <Description>Location of exception vectors. 0:normal, 1:high</Description>
+               <BitOffset>13</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>I</Name>
+               <Description>Instruction caching at any available cache level enabled</Description>
+               <BitOffset>12</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>Z</Name>
+               <Description>Branch Predictions enabled</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>SW</Name>
+               <Description>SWP and SWPB enabled</Description>
+               <BitOffset>10</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>C</Name>
+               <Description>Data caching enabled</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>A</Name>
+               <Description>Strict alignment fault checking enabled</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>M</Name>
+               <Description>MMU enabled</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>ACTLR</Name>
+         <Description>Auxiliary Control Register</Description>
+         <GroupName>System</GroupName>
+         <Access>RW</Access>
+         <ID>1,0,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>DICDI</Name>
+               <Description>Case C dual issue control Disabled</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>DIB2DI</Name>
+               <Description>Case B2 dual issue control Disabled</Description>
+               <BitOffset>30</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>DIB1DI</Name>
+               <Description>Case B1 dual issue control Disabled</Description>
+               <BitOffset>29</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>DIADI</Name>
+               <Description>Case A dual issue control Disable</Description>
+               <BitOffset>28</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>B1TCMPCEN</Name>
+               <Description>B1TCM parity or ECC check enable</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>B0TCMPCEN</Name>
+               <Description>B0TCM parity or ECC check enable</Description>
+               <BitOffset>26</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>ATCMPCEN</Name>
+               <Description>ATCM parity or ECC check enable</Description>
+               <BitOffset>25</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>AXISCEN</Name>
+               <Description>AXI slave cache RAM access enable</Description>
+               <BitOffset>24</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>AXISCUEN</Name>
+               <Description>AXI slave cache RAM non-privileged access enable</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>DILSM</Name>
+               <Description>Disable Low Interrupt Latency (LIL) on load/store multiples</Description>
+               <BitOffset>22</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>DEOLP</Name>
+               <Description>Disable end of loop prediction</Description>
+               <BitOffset>21</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>DBHE</Name>
+               <Description>Disable Branch History (BH) extension</Description>
+               <BitOffset>20</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>FRCDIS</Name>
+               <Description>Fetch rate control disabled</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>RSDIS</Name>
+               <Description>Return stack disable</Description>
+               <BitOffset>17</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>BP</Name>
+               <Description>Branch Prediction Policy</Description>
+               <BitOffset>16</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>DBWR</Name>
+               <Description>Disable write burst in the AXI master</Description>
+               <BitOffset>14</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>DLFO</Name>
+               <Description>Disable linefill optimization in the AXI master</Description>
+               <BitOffset>13</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>ERPEG</Name>
+               <Description>Enable random parity error generation in the cache RAMs</Description>
+               <BitOffset>12</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>DNCH</Name>
+               <Description>Disable data forwarding for Non-cacheable accesses</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>FORA</Name>
+               <Description>Force outer read allocate (ORA) for outer write allocate (OWA) regions</Description>
+               <BitOffset>10</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>FWT</Name>
+               <Description>Force write-through (WT) for write-back (WB) regions</Description>
+               <BitOffset>9</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>FDSnS</Name>
+               <Description>Data side normal Non-cacheable forced to Non-shared when MPU is off</Description>
+               <BitOffset>8</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>sMOV</Name>
+               <Description>sMOV out of order disabled</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>DILS</Name>
+               <Description>Disable low interrupt latency on all load/store instructions</Description>
+               <BitOffset>6</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>CEC</Name>
+               <Description>Cache error control for cache parity and ECC errors</Description>
+               <BitOffset>5</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+             <Field>
+               <Name>B1TCMECEN</Name>
+               <Description>B1TCM external error enable</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>B0TCMCEN</Name>
+               <Description>B0TCM external error enable</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+             <Field>
+               <Name>ATCMECEN</Name>
+               <Description>ATCM external error enable</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>CPACR</Name>
+         <Description>Coprocessor Access Control Register</Description>
+         <GroupName>System</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>1,0,0,2</ID>
+         <Fields>
+           <Field>
+               <Name>CP13</Name>
+               <Description>Access permission for coprocessor 13. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>3</BitWidth>
+            </Field>
+            <Field>
+               <Name>CP12</Name>
+               <Description>Access permission for coprocessor 12. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>25</BitOffset>
+               <BitWidth>3</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP11</Name>
+               <Description>Access permission for coprocessor 11. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP10</Name>
+               <Description>Access permissions for coprocessor 10. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>21</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP9</Name>
+               <Description>Access permissions for coprocessor 9. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP8</Name>
+               <Description>Access permissions for coprocessor 8. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>17</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP7</Name>
+               <Description>Access permissions for coprocessor 7. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP6</Name>
+               <Description>Access permissions for coprocessor 6. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>13</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP5</Name>
+               <Description>Access permissions for coprocessor 5. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP4</Name>
+               <Description>Access permissions for coprocessor 4. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>9</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP3</Name>
+               <Description>Access permissions for coprocessor 3. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP2</Name>
+               <Description>Access permissions for coprocessor 2. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>5</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP1</Name>
+               <Description>Access permissions for coprocessor 1. 00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+             <Field>
+               <Name>CP0</Name>
+               <Description>Access permissions for coprocessor 0.  00: Access denied, 01: Priviledged mode access only, 11: Priviledged and User mode access</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>2</BitWidth>
+             </Field>
+	   </Fields>
+       </Register>
+        <!-- C5 registers-->
+       <Register>
+         <Name>DFSR</Name>
+         <Description>Data Fault Status Register</Description>
+         <GroupName>Fault Handling</GroupName>
+         <Access>RW</Access>
+         <ID>5,0,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>SD</Name>
+               <Description>External Abort Qualifier. 0: AXI Decode error, 1: AXI Slave error</Description>
+               <BitOffset>12</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>RW</Name>
+               <Description>write (1) / read (0) access caused the abort</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>FS[4]</Name>
+               <Description>Bit 4 of the Fault Status field</Description>
+               <BitOffset>10</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>FAULT_STATUS</Name>
+               <Description>Type of Fault generated</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>IFSR</Name>
+         <Description>Instruction Fault Status Register</Description>
+         <GroupName>Fault Handling</GroupName>
+         <Access>RW</Access>
+         <ID>5,0,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>SD</Name>
+               <Description>External Abort Qualifier. 0: AXI Decode error, 1: AXI Slave error</Description>
+               <BitOffset>12</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>FS[4]</Name>
+               <Description>Bit 4 of the Fault Status Field</Description>
+               <BitOffset>10</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>FAULT_STATUS</Name>
+               <Description>Type of Fault Generated</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>ADFSR</Name> 
+         <!--no fields-->
+         <Description>Auxilary Data Fault Status Register</Description>
+         <GroupName>MPU</GroupName>
+         <Access>RW</Access>
+         <ID>5,1,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>CACHE_WAY</Name>
+               <Description>Cache way or ways in which the error occurred</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+           <Field>
+               <Name>SIDE</Name>
+               <Description>Source of the error. 00: Cache or AXI master interface, 01: ATCM, 10: BTCM</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>2</BitWidth>
+            </Field>
+           <Field>
+               <Name>RECOVERABLE_ERR</Name>
+               <Description>Recoverable error attribute</Description>
+               <BitOffset>21</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>INDEX</Name>
+               <Description>Index value for the access giving the error</Description>
+               <BitOffset>13</BitOffset>
+               <BitWidth>9</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>AIFSR</Name> 
+         <!--no fields-->
+         <Description>Auxilary Instruction Fault Status Register</Description>
+         <GroupName>MPU</GroupName>
+         <Access>RW</Access>
+         <ID>5,1,0,1</ID>
+       </Register>
+
+       <!--C6 registers-->
+       <Register>
+         <Name>DFAR</Name>
+         <!--no fields-->
+         <Description>Data Fault Address Register</Description>
+         <GroupName>Fault Handling</GroupName>
+         <Access>RW</Access>
+         <ID>6,0,0,0</ID>
+       </Register>
+       <Register>
+         <Name>IFAR</Name> 
+         <!--no fields-->
+         <Description>Instruction Fault Address Register</Description>
+         <GroupName>Fault Handling</GroupName>
+         <Access>RW</Access>
+         <ID>6,0,0,2</ID>
+       </Register>
+       <Register>
+         <Name>DRBAR</Name> 
+         <!--no fields-->
+         <Description>MPU Region Base Address Register</Description>
+         <GroupName>MPU</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>6,1,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>BASE_ADDR</Name>
+               <Description>Defines bits [31:5] of the base address of a region</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>27</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>DRSR</Name>
+         <!--no fields-->
+         <Description>MPU Region Size And Enable Register</Description>
+         <GroupName>MPU</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>6,1,0,2</ID>
+         <Fields>
+           <Field>
+               <Name>SUB_REG_DISABLE</Name>
+               <Description>Bit i set: address range is not part of region i</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>8</BitWidth>
+            </Field>
+           <Field>
+               <Name>REGION_SZ</Name>
+               <Description>Region Size Selector</Description>
+               <BitOffset>5</BitOffset>
+               <BitWidth>5</BitWidth>
+            </Field>
+           <Field>
+               <Name>ENABLE</Name>
+               <Description>Memory region enabled</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>DRACR</Name> 
+         <!--no fields-->
+         <Description>MPU Region Access Control Register</Description>
+         <GroupName>MPU</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>6,1,0,4</ID>
+         <Fields>
+           <Field>
+               <Name>XN</Name>
+               <Description>No instruction fetches enabled (execute never)</Description>
+               <BitOffset>12</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>AP</Name>
+               <Description>Data Access Permissions</Description>
+               <BitOffset>10</BitOffset>
+               <BitWidth>3</BitWidth>
+            </Field>
+           <Field>
+               <Name>TEX</Name>
+               <Description>Type Extension Attribute</Description>
+               <BitOffset>5</BitOffset>
+               <BitWidth>3</BitWidth>
+            </Field>
+           <Field>
+               <Name>S</Name>
+               <Description>Memory Region is Shared</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>C</Name>
+               <Description>C Bit</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>B</Name>
+               <Description>B Bit</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>RGNR</Name> 
+         <!--no fields-->
+         <Description>MPU Memory Region Number Register</Description>
+         <GroupName>MPU</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>6,2,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>Region</Name>
+               <Description>Group of registers to be accessed</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <!--C7 Registers-->
+       <Register>
+         <Name>NOP</Name>
+         <!--no fields-->
+         <Description>No Operation</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,0,0,4</ID>
+       </Register>
+       <Register>
+         <Name>ICIALLUIS</Name>
+         <!--no fields-->
+         <Description>Invalidate All Instruction Caches</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,5,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>ADDR</Name>
+               <Description>Address to invalidate or clean</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>27</BitWidth>
+           </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>ICIMVAU</Name>
+         <Description>Invalidate instruction cache line by MVA to Point of Unification (PoU)</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,5,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>ADDR</Name>
+               <Description>Address to invalidate or clean</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>27</BitWidth>
+           </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>FPB</Name> 
+         <!--no fields-->
+         <Description>Flush Prefetch Buffer</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,5,0,4</ID>
+       </Register>
+       <Register>
+         <Name>BPIALL</Name> 
+         <!--no fields-->
+         <Description>Invalidate entire branch predictor array</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,5,0,6</ID>
+       </Register> 
+       <Register>
+         <Name>BPIMVA</Name>
+         <Description>Invalidate Virtual Address (VA) from branch predictor array</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,5,0,7</ID>
+         <Fields>
+           <Field>
+               <Name>ADDR</Name>
+               <Description>Address to invalidate or clean</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>27</BitWidth>
+           </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>DCIMVAC</Name>
+         <Description>Invalidate data cache line to Point of Coherency by MVA</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,6,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>ADDR</Name>
+               <Description>Address to invalidate or clean</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>27</BitWidth>
+           </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>DCISW</Name>
+         <Description>Invalidate data cache line by Set/Way</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,6,0,2</ID>
+         <Fields>
+           <Field>
+               <Name>WAY</Name>
+               <Description>Cache way to invalidate or clean</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>2</BitWidth>
+            </Field>     
+           <Field>
+               <Name>SET</Name>
+               <Description>Cache set to invalidate or clean</Description>
+               <BitOffset>13</BitOffset>
+               <BitWidth>9</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>DCCMVAC</Name>
+         <Description>Clean Data cache line to Point of Coherency by MVA</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,10,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>ADDR</Name>
+               <Description>Address to invalidate or clean</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>27</BitWidth>
+           </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>DCCSW</Name>
+         <Description>Clean data cache line by Set/Way</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,10,0,2</ID>
+         <Fields>
+           <Field>
+               <Name>WAY</Name>
+               <Description>Cache way to invalidate or clean</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>2</BitWidth>
+            </Field>     
+           <Field>
+               <Name>SET</Name>
+               <Description>Cache set to invalidate or clean</Description>
+               <BitOffset>13</BitOffset>
+               <BitWidth>9</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>DSB</Name>
+         <Description>Data Synchronization Barrier</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,10,0,4</ID>
+       </Register>
+       <Register>
+         <Name>DMB</Name>
+         <Description>Data Memory Barrier</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,10,0,5</ID>
+       </Register>
+       <Register>
+         <Name>DCCMVAU</Name>
+         <Description>Clean data cache line by MVA to Point of Unification (PoU)</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,11,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>ADDR</Name>
+               <Description>Address to invalidate or clean</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>27</BitWidth>
+           </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>DCCIMVAC</Name>
+         <Description>Clean and invalidate data cache line by MVA to Point of Unifciation (PoU)</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,14,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>ADDR</Name>
+               <Description>Address to invalidate or clean</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>27</BitWidth>
+           </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>DCCISW</Name>
+         <Description>Clean and invalidate data cache line by Set/Way</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <ID>7,14,0,2</ID>
+         <Fields>
+           <Field>
+               <Name>WAY</Name>
+               <Description>Cache way to invalidate or clean</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>2</BitWidth>
+            </Field>     
+           <Field>
+               <Name>SET</Name>
+               <Description>Cache set to invalidate or clean</Description>
+               <BitOffset>13</BitOffset>
+               <BitWidth>9</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <!--C8 Register (none)-->
+       <!--C9 Register-->
+       <Register>
+         <Name>BTCMRR</Name> <!--no fields-->
+         <Description>BTCM Region Register</Description>
+         <GroupName>System</GroupName>
+         <Access>RW</Access>
+         <ID>9,1,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>BASE_ADDR</Name>
+               <Description>Base Address of the BTCM</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>20</BitWidth>
+            </Field>
+           <Field>
+               <Name>SIZE</Name>
+               <Description>Size of the BTCM on reads</Description>
+               <BitOffset>6</BitOffset>
+               <BitWidth>5</BitWidth>
+            </Field>
+           <Field>
+               <Name>ENABLE</Name>
+               <Description>BTCM Enabled</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>ATCMRR</Name> <!--no fields-->
+         <Description>ATCM Region Register</Description>
+         <GroupName>System</GroupName>
+         <Access>RW</Access>
+         <ID>9,1,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>BASE_ADDR</Name>
+               <Description>Base Address of the ATCM</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>20</BitWidth>
+            </Field>
+           <Field>
+               <Name>SIZE</Name>
+               <Description>Size of the ATCM on reads</Description>
+               <BitOffset>6</BitOffset>
+               <BitWidth>5</BitWidth>
+            </Field>
+           <Field>
+               <Name>ENABLE</Name>
+               <Description>ATCM Enabled</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>TCMSR</Name> <!--no fields-->
+         <Description>TCM Selection Register</Description>
+         <GroupName>System</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>9,2,0,0</ID>
+       </Register>
+       <Register>
+         <Name>PMCR</Name>
+         <Description>Performance Monitor Control Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>RW</Access>
+         <Reset>0x41141800</Reset>
+         <ID>9,12,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>IMP</Name>
+               <Description>Implementor Code. 0x41: arm</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>8</BitWidth>
+            </Field>
+           <Field>
+               <Name>ID_CODE</Name>
+               <Description>Identification Code</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>8</BitWidth>
+            </Field>
+           <Field>
+               <Name>N</Name>
+               <Description>Number of Counters Implemented</Description>
+               <BitOffset>15</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+           <Field>
+               <Name>DP</Name>
+               <Description>Disable Cycle Counter PMCCNTR in prohibited regions</Description>
+               <BitOffset>5</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>X</Name>
+               <Description>Export of the events from the event bus to an external monitoring block enabled</Description>
+               <BitOffset>4</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>D</Name>
+               <Description>Cycle Count Divider. 0: count every clock cycle when enabled. 1: count every 64th clock cycle when enabled</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>C</Name>
+               <Description>Cycle Counter Reset</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P</Name>
+               <Description>Reset all Performance Counters, including PMCCNTR</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>E</Name>
+               <Description>Enable All Counters including PMCCNTR</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>PMCNTENSET</Name>
+         <Description>Count Enable Set Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>RW</Access>
+         <ID>9,12,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description>Cycle Counter Enabled</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>Counter 2 Enabled</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>Counter 1 Enabled</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>Counter 0 Enabled</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>PMCNTENCLR</Name>
+         <Description>Count Enable Clear Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>RW</Access>
+         <ID>9,12,0,2</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description>PMCCNTR overflow interrupt clear bit</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>Clear interrupt request on PMC2 overflow</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>Clear interrupt request on PMC1 overflow</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>Clear interrupt request on PMC0 overflow</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>PMSOVSR</Name>
+         <Description>Overflow Flag Status Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>RW</Access>
+         <ID>9,12,0,3</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description >Cycle Counter Overflow Flag</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>Counter 2 Overflow Flag</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>Counter 1 Overflow Flag</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>Counter 0 Overflow Flag</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>PMSWINC</Name>
+         <Description>Software Increment Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>WO</Access>
+         <ID>9,12,0,4</ID>
+         <Fields>
+           <Field>
+               <Name>P2</Name>
+               <Description >Increment Counter 2</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description >Increment Counter 1</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>Increment Counter 0</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>PMSELR</Name>
+         <Description>Performance Counter Selection Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>9,12,0,5</ID>
+         <Fields>
+           <Field>
+               <Name>SEL</Name>
+               <Description >Counter Select</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>PMCCNTR</Name> <!--no fields-->
+         <Description>Cycle Count Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>9,13,0,0</ID>
+       </Register>
+       <Register>
+         <Name>PMXEVTYPER</Name>
+         <Description>Event Type Select Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>RW</Access>
+         <ID>9,13,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>SEL</Name>
+               <Description >Selected Event Number</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>8</BitWidth>
+            </Field>
+         </Fields>
+       </Register>
+       <Register>
+         <Name>PMXEVCNTR</Name> 
+         <!--no fields-->
+         <Description>Counts Instances of an event selected by PMXEVTYPER</Description>
+         <GroupName>PMU</GroupName>
+         <Reset>0x00000000</Reset>
+         <Access>RW</Access>
+         <ID>9,13,0,2</ID>
+       </Register>
+       <Register>
+         <Name>PMUSERENR</Name>
+         <Description>User Enable Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>RW</Access>
+	  <Reset>0x00000000</Reset>
+         <ID>9,14,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>EN</Name>
+               <Description >User mode enable bit</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+         </Fields>
+       </Register>
+      <Register>
+         <Name>PMINTENSET</Name>
+         <Description>Interrupt Enable Set Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>RW</Access>
+         <ID>9,14,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description >PMCCNTR overflow interrupt request enable</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description >PMC2 overflow interrupt request enable</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+           </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description >PMC1 overflow interrupt request enable</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+           </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description >PMC0 overflow interrupt request enable</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+         </Fields>
+       </Register>
+      <Register>
+         <Name>PMINTENCLR</Name>
+         <Description>Interrupt Enable Clear Register</Description>
+         <GroupName>PMU</GroupName>
+         <Access>RW</Access>
+         <ID>9,14,0,2</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description >PMCCNTR overflow interrupt clear bit</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description >Clear interrupt request on PMC2 overflow</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+           </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description >Clear interrupt request on PMC1 overflow</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+           </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description >Clear interrupt request on PMC0 overflow</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+         </Fields>
+       </Register>
+       <!--C10 Registers (none)-->
+       <!--C11 Registers (none)-->
+      <Register>
+         <Name>SPCR</Name>
+         <Description>Slave Port Control Register</Description>
+         <GroupName>Impl. Defined</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>11,0,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>PRIVLGD_ACCESS</Name>
+               <Description>Privileged TCM accesses only</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>AXI_SLAVE_DISABLE</Name>
+               <Description>AXI slave port disable</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <!--C12 Registers (none)-->
+       <!--C13 Registers-->
+      <Register>
+         <Name>FCSEPIDR</Name>
+         <!--no fields-->
+         <Description>Fast Context Switch Extension (FCSE) Process ID Register</Description>
+         <GroupName>Impl. Defined</GroupName>
+         <Access>RO</Access>
+	  <Reset>0x00000000</Reset>
+         <ID>13,0,0,0</ID>
+       </Register>
+       <Register>
+         <Name>CONTEXTTIDR</Name>
+         <Description>Context ID Register</Description>
+         <GroupName>Impl. Defined</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>13,0,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>PROCID</Name>
+               <Description>Processor Identifier</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>24</BitWidth>
+            </Field>
+           <Field>
+               <Name>ASID</Name>
+               <Description>Address Space Identifier</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>8</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>TPIDRURW</Name> <!--no fields-->
+         <Description>User-RW Thread and Process ID Register</Description>
+         <GroupName>Impl. Defined</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>13,0,0,2</ID>
+       </Register>
+       <Register>
+         <Name>TPIDRURO</Name>  <!--no fields-->
+         <Description>User Read-Only Thread and Process ID Register</Description>
+         <GroupName>Impl. Defined</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000000</Reset>
+         <ID>13,0,0,3</ID>
+       </Register>
+       <Register>
+         <Name>TPIDRPRW</Name>  <!--no fields-->
+         <Description>Priviledged Only Thread and Process ID Register</Description>
+         <GroupName>Impl. Defined</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>13,0,0,4</ID>
+       </Register>
+	<!--C14 Registers-->
+     	<!--C15 Registers-->
+       <Register>
+         <Name>SACR</Name>  <!--no fields-->
+         <Description>Secondary Auxiliary Control Register</Description>
+         <GroupName>Impl. Defined</GroupName>
+         <Access>RW</Access>
+         <ID>15,0,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>DCHE</Name>
+               <Description>Disable hard-error support in the caches</Description>
+               <BitOffset>22</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>DR2B</Name>
+               <Description>Enable random 2-bit error generation in cache RAMs</Description>
+               <BitOffset>21</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>DF6DI</Name>
+               <Description>F6 dual issue control Disabled</Description>
+               <BitOffset>20</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>DF2DI</Name>
+               <Description>F2_Id/F2_st/F2D dual issue control Disabled</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>DDI</Name>
+               <Description>F1/F3/F4dual issue control Disabled</Description>
+               <BitOffset>18</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>DOODPFP</Name>
+               <Description>Out-of-order Double Precision Floating Point instruction control Disabled</Description>
+               <BitOffset>17</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>DOOFMACS</Name>
+               <Description>Out-of-order FMACS control Disabled</Description>
+               <BitOffset>16</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>IXC</Name>
+               <Description>Propagate floating point inexact exception flag FPSCR.IXC to output FPIXC</Description>
+               <BitOffset>13</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>OFC</Name>
+               <Description>Propagate floating-point overflow exception flag FPSCR.OFC to output FPOFC</Description>
+               <BitOffset>12</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>UFC</Name>
+               <Description>Propagate floating-point underflow exception flag FPSCR.UFC to output FPUFC</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>IOC</Name>
+               <Description>Propagate floating-point invalid operation exception flag FPSCR.IOC to output FPIOC</Description>
+               <BitOffset>10</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>DZC</Name>
+               <Description>Propagate floating-point divide-by-zero exception flag FPSCR.DZC to output FPDZC</Description>
+               <BitOffset>9</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>IDC</Name>
+               <Description>Propagate floating-point input denormal exception flag FPSCR.IDC to output FPIDC</Description>
+               <BitOffset>8</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>BTCMECC</Name>
+               <Description>Correction for internal ECC logic on BTCM ports Disabled</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>ATCMECC</Name>
+               <Description>Correction for internal ECC logic on ATCM port Disabled</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>BTCMRMW</Name>
+               <Description>64-bit stores for the BTCMs Enabled</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>ATCMRMW</Name>
+               <Description>64-bit stores for the ATCM Enabled</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>NVAL_IRQ_SET</Name>  <!--no fields-->
+         <Description>nVAL IRQ Enable Set</Description>
+         <GroupName>Validation</GroupName>
+         <Access>RW</Access>
+         <ID>15,1,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description>PMCCNTR overflow IRQ request</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>PMC2 overflow IRQ request</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>PMC1 overflow IRQ request</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>PMC0 overflow IRQ request</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>NVAL_FIQ_SET</Name>  <!--no fields-->
+         <Description>nVAL FIQ Enable Set</Description>
+         <GroupName>Validation</GroupName>
+         <Access>RW</Access>
+         <ID>15,1,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description>PMCCNTR overflow FIQ request</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>PMC2 overflow FIQ request</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>PMC1 overflow FIQ request</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>PMC0 overflow FIQ request</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>NVAL_RESET_SET</Name>  <!--no fields-->
+         <Description>nVAL Reset Enable Set</Description>
+         <GroupName>Validation</GroupName>
+         <Access>RW</Access>
+         <ID>15,1,0,2</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description>PMCCNTR overflow Reset request</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>PMC2 overflow Reset request</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>PMC1 overflow Reset request</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>PMC0 overflow Reset request</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>NVAL_DEBUG_REQ_SET</Name> <!--no fields-->
+         <Description>nVAL Debug Request Enable Set</Description>
+         <GroupName>Validation</GroupName>
+         <Access>RW</Access>
+         <ID>15,1,0,3</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description>PMCCNTR overflow Debug request</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>PMC2 overflow Debug request</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>PMC1 overflow Debug request</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>PMC0 overflow Debug request</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>NVAL_IRQ_CLR</Name> <!--no fields-->
+         <Description>nVAL IRQ Request Enable Clear</Description>
+         <GroupName>Validation</GroupName>
+         <Access>RW</Access>
+         <ID>15,1,0,4</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description>PMCCNTR overflow IRQ request</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>PMC2 overflow IRQ request</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>PMC1 overflow IRQ request</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>PMC0 overflow IRQ request</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>NVAL_FIQ_CLR</Name> <!--no fields-->
+         <Description>nVAL FIQ Enable Clear</Description>
+         <GroupName>Validation</GroupName>
+         <Access>RW</Access>
+         <ID>15,1,0,5</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description>PMCCNTR overflow FIQ request</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>PMC2 overflow FIQ request</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>PMC1 overflow FIQ request</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>PMC0 overflow FIQ request</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>NVAL_RESET_CLR</Name> <!--no fields-->
+         <Description>nVAL Reset Enable Clear</Description>
+         <GroupName>Validation</GroupName>
+         <Access>RW</Access>
+         <ID>15,1,0,6</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description>PMCCNTR overflow Reset request</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>PMC2 overflow Reset request</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>PMC1 overflow Reset request</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>PMC0 overflow Reset request</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>NVAL_DBG_REQ_CLR</Name> <!--no fields-->
+         <Description>nVAL Debug Request Enable Clear</Description>
+         <GroupName>Validation</GroupName>
+         <Access>RW</Access>
+         <ID>15,1,0,7</ID>
+         <Fields>
+           <Field>
+               <Name>C</Name>
+               <Description>PMCCNTR overflow Debug request</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P2</Name>
+               <Description>PMC2 overflow Debug request</Description>
+               <BitOffset>2</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P1</Name>
+               <Description>PMC1 overflow Debug request</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>P0</Name>
+               <Description>PMC0 overflow Debug request</Description>
+               <BitOffset>0</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>BOR1</Name> <!--no fields-->
+         <Description>Build Options Register 1</Description>
+         <GroupName>Impl. Defined</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000000</Reset>
+         <ID>15,2,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>TCM_HI_INIT_ADDR</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>20</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>BOR2</Name> <!--no fields-->
+         <Description>Build Options Register 2</Description>
+         <GroupName>Impl. Defined</GroupName>
+         <Access>RO</Access>
+         <Reset>0x00000000</Reset>
+         <ID>15,2,0,1</ID>
+         <Fields>
+           <Field>
+               <Name>DUAL_CORE</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>31</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+           <Field>
+               <Name>DUAL_NCLK</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>30</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>NO_ICACHE</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>29</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>NO_DCACHE</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>28</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>ATCM_ES</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>27</BitOffset>
+               <BitWidth>2</BitWidth>
+            </Field>
+            <Field>
+               <Name>BTCM_ES</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>25</BitOffset>
+               <BitWidth>2</BitWidth>
+            </Field>
+            <Field>
+               <Name>NO_IE</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>23</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>NO_FPU</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>22</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>NO_MPU</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>21</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>MPU_REGIONS</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>20</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>BREAK_POINTS</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>19</BitOffset>
+               <BitWidth>3</BitWidth>
+            </Field>
+            <Field>
+               <Name>WATCH_POINTS</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>16</BitOffset>
+               <BitWidth>3</BitWidth>
+            </Field>
+            <Field>
+               <Name>NO_A_TCM_INF</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>13</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>NO_B0_TCM_INF</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>12</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>NO_B1_TCM_INF</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>11</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>TCMBUSPARITY</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>10</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>NO_SLAVE</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>9</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>ICACHE_ES</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>8</BitOffset>
+               <BitWidth>2</BitWidth>
+            </Field>
+            <Field>
+               <Name>DCACHE_ES</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>6</BitOffset>
+               <BitWidth>2</BitWidth>
+            </Field>
+            <Field>
+               <Name>NO_HARD_ERR_CACHE</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>4</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+               <Name>AXIBUSPARITY</Name>
+               <Description>Default high address for the TCM</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>1</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>CFLR</Name> <!--no fields-->
+         <Description>Correctable Fault Location Register</Description>
+         <GroupName>MPU</GroupName>
+         <Access>RW</Access>
+         <Reset>0x00000000</Reset>
+         <ID>15,3,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>WAY</Name>
+               <Description>Cache way where the error occured</Description>
+               <BitOffset>29</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+            <Field>
+               <Name>SIDE</Name>
+               <Description>Cache side where the error occured</Description>
+               <BitOffset>25</BitOffset>
+               <BitWidth>2</BitWidth>
+            </Field>
+            <Field>
+               <Name>ADDR</Name>
+               <Description>Address in the TCM where the TCM error occured</Description>
+               <BitOffset>22</BitOffset>
+               <BitWidth>20</BitWidth>
+            </Field>
+            <Field>
+               <Name>INDEX</Name>
+               <Description>Index of the location where the cache error occurred</Description>
+               <BitOffset>13</BitOffset>
+               <BitWidth>9</BitWidth>
+            </Field>
+            <Field>
+               <Name>TYPE</Name>
+               <Description>Type of access that caused the error. 00: instruction cache, 01: data cache</Description>
+               <BitOffset>1</BitOffset>
+               <BitWidth>2</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+       <Register>
+         <Name>IADCR</Name> <!--no fields-->
+         <Description>Invalidate All Data Caches Register</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <Reset>0x00000000</Reset>
+         <ID>15,5,0,0</ID>
+       </Register>
+       <Register>
+         <Name>CZOR</Name> <!--no fields-->
+         <Description>Cache Size Override Register</Description>
+         <GroupName>Cache</GroupName>
+         <Access>WO</Access>
+         <Reset>0x00000000</Reset>
+         <ID>15,14,0,0</ID>
+         <Fields>
+           <Field>
+               <Name>DCACHE</Name>
+               <Description>Data cache size override value</Description>
+               <BitOffset>7</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+           <Field>
+               <Name>ICACHE</Name>
+               <Description>Instruction cache size override value</Description>
+               <BitOffset>3</BitOffset>
+               <BitWidth>4</BitWidth>
+            </Field>
+	   </Fields>
+       </Register>
+      </Registers>
+   </Group> 
+  </Groups>
+</Cpu>

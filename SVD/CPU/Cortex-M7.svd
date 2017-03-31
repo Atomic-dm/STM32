@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Cpu>
+  <Name>CM7</Name>
+  <Revision></Revision>
+  <Endian>little</Endian>
+  <MpuPresent>true</MpuPresent>
+  <FpuPresent>true</FpuPresent>
+  <NvicPrioBits>4</NvicPrioBits>
+  <VendorSystickConfig>false</VendorSystickConfig>
+  <Groups>
+    <Group>
+      <Name>Current</Name>
+      <Description>Core registers</Description>
+      <Size>32</Size>
+      <Access>RW</Access>
+      <Type>unsigned int</Type>
+      <Registers>
+        <Register>
+          <Name>R0</Name>
+          <Description>General purpose register 0</Description>
+          <Index>0</Index>
+        </Register>
+        <Register>
+          <Name>R1</Name>
+          <Description>General purpose register 1</Description>
+          <Index>1</Index>
+        </Register>
+        <Register>
+          <Name>R2</Name>
+          <Description>General purpose register 2</Description>
+          <Index>2</Index>
+        </Register>
+        <Register>
+          <Name>R3</Name>
+          <Description>General purpose register 3</Description>
+          <Index>3</Index>
+        </Register>
+        <Register>
+          <Name>R4</Name>
+          <Description>General purpose register 4</Description>
+          <Index>4</Index>
+        </Register>
+        <Register>
+          <Name>R5</Name>
+          <Description>General purpose register 5</Description>
+          <Index>5</Index>
+        </Register>
+        <Register>
+          <Name>R6</Name>
+          <Description>General purpose register 6</Description>
+          <Index>6</Index>
+        </Register>
+        <Register>
+          <Name>R7</Name>
+          <Description>General purpose register 7</Description>
+          <Index>7</Index>
+        </Register>
+        <Register>
+          <Name>R8</Name>
+          <Description>General purpose register 8</Description>
+          <Index>8</Index>
+        </Register>
+        <Register>
+          <Name>R9</Name>
+          <Description>General purpose register 9</Description>
+          <Index>9</Index>
+        </Register>
+        <Register>
+          <Name>R10</Name>
+          <Description>General purpose register 10</Description>
+          <Index>10</Index>
+        </Register>
+        <Register>
+          <Name>R11</Name>
+          <Description>General purpose register 11</Description>
+          <Index>11</Index>
+        </Register>
+        <Register>
+          <Name>R12</Name>
+          <Description>General purpose register 12</Description>
+          <Index>12</Index>
+        </Register>
+        <Register>
+          <Name>R13</Name>
+          <Description>Stack pointer (SP)</Description>
+          <Index>13</Index>
+        </Register>
+        <Register>
+          <Name>R14</Name>
+          <Description>Link register (LR)</Description>
+          <Index>14</Index>
+        </Register>
+        <Register>
+          <Name>R15</Name>
+          <Description>Program counter (PC)</Description>
+          <Index>15</Index>
+        </Register>
+        <Register>
+          <Name>APSR</Name>
+          <Description>Application program status register</Description>
+          <Index>21</Index>
+          <Fields>
+            <Field>
+              <Name>N</Name>
+              <Description>Negative flag</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Zero flag</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Carry flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Overflow flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Q</Name>
+              <Description>DSP overflow and saturation flag</Description>
+              <BitOffset>27</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>    
+        <Register>
+          <Name>EPSR</Name>
+          <Description>Exception program status register</Description>
+          <Index>22</Index>
+          <Fields>
+            <Field>
+              <Name>ICI/IT HighBits</Name>
+              <Description>Interruptible-continuable instruction bits (high bits)</Description>
+              <BitOffset>25</BitOffset>
+              <BitWidth>2</BitWidth>
+            </Field>
+            <Field>
+              <Name>ICI/IT LowBits</Name>
+              <Description>Interruptible-continuable instruction bits (low bits)</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>6</BitWidth>
+            </Field>
+            <Field>
+              <Name>T</Name>
+              <Description>Thumb state bit</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>IPSR</Name>
+          <Description>Interrupt program status register</Description>
+          <Index>23</Index>
+          <Fields>
+            <Field>
+              <Name>ISR Number</Name>
+              <Description>Interrupt service routine number</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>9</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>PriMask</Name>
+          <Description>Priority mask register</Description>
+          <Index>24</Index>
+          <Fields>
+            <Field>
+              <Name>PriMask</Name>
+              <Description>Prevent the activation of all exceptions with configurable priority</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>BasePri</Name>
+          <Description>Base priority mask register</Description>
+          <Index>25</Index>
+          <Fields>
+            <Field>
+              <Name>BasePri</Name>
+              <Description>Priority mask bits</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>8</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>FaultMask</Name>
+          <Description>Fault mask register</Description>
+          <Index>26</Index>
+          <Fields>
+            <Field>
+              <Name>FaultMask</Name>
+              <Description>Prevent the activation of all exceptions except for NMI</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>Control</Name>
+          <Description>Control register</Description>
+          <Index>27</Index>
+          <Fields>
+            <Field>
+              <Name>FPCA</Name>
+              <Description>Context floating-point active</Description>
+              <BitOffset>2</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>SPSEL</Name>
+              <Description>Active stack pointer</Description>
+              <BitOffset>1</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>nPRIV</Name>
+              <Description>Thread mode privilege level</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>CycleCount</Name>
+          <Description>Cycle count</Description>
+          <Index>65</Index>
+        </Register>
+      </Registers>
+    </Group>
+    <Group>
+      <Name>All</Name>
+      <Description>All CPU registers</Description>
+      <Size>32</Size>
+      <Access>RW</Access>
+      <Type>unsigned int</Type>
+      <Registers>
+        <Register>
+          <Name>R0</Name>
+          <Description>General purpose register 0</Description>
+          <Index>0</Index>
+        </Register>
+        <Register>
+          <Name>R1</Name>
+          <Description>General purpose register 1</Description>
+          <Index>1</Index>
+        </Register>
+        <Register>
+          <Name>R2</Name>
+          <Description>General purpose register 2</Description>
+          <Index>2</Index>
+        </Register>
+        <Register>
+          <Name>R3</Name>
+          <Description>General purpose register 3</Description>
+          <Index>3</Index>
+        </Register>
+        <Register>
+          <Name>R4</Name>
+          <Description>General purpose register 4</Description>
+          <Index>4</Index>
+        </Register>
+        <Register>
+          <Name>R5</Name>
+          <Description>General purpose register 5</Description>
+          <Index>5</Index>
+        </Register>
+        <Register>
+          <Name>R6</Name>
+          <Description>General purpose register 6</Description>
+          <Index>6</Index>
+        </Register>
+        <Register>
+          <Name>R7</Name>
+          <Description>General purpose register 7</Description>
+          <Index>7</Index>
+        </Register>
+        <Register>
+          <Name>R8</Name>
+          <Description>General purpose register 8</Description>
+          <Index>8</Index>
+        </Register>
+        <Register>
+          <Name>R9</Name>
+          <Description>General purpose register 9</Description>
+          <Index>9</Index>
+        </Register>
+        <Register>
+          <Name>R10</Name>
+          <Description>General purpose register 10</Description>
+          <Index>10</Index>
+        </Register>
+        <Register>
+          <Name>R11</Name>
+          <Description>General purpose register 11</Description>
+          <Index>11</Index>
+        </Register>
+        <Register>
+          <Name>R12</Name>
+          <Description>General purpose register 12</Description>
+          <Index>12</Index>
+        </Register>
+        <Register>
+          <Name>SP</Name>
+          <Description>Stack pointer</Description>
+          <Index>13</Index>
+        </Register>
+        <Register>
+          <Name>LR</Name>
+          <Description>Link register</Description>
+          <Index>14</Index>
+        </Register>
+        <Register>
+          <Name>PC</Name>
+          <Description>Program counter</Description>
+          <Index>15</Index>
+        </Register>
+        <Register>
+          <Name>xPSR</Name>
+          <Description>Program status register</Description>
+          <Index>16</Index>
+          <Fields>
+            <Field>
+              <Name>N</Name>
+              <Description>Negative flag</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Zero flag</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Carry flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Overflow flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Q</Name>
+              <Description>DSP overflow and saturation flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>ICI/IT</Name>
+              <Description>Interruptible-continuable instruction bits</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>17</BitWidth>
+            </Field>
+            <Field>
+              <Name>T</Name>
+              <Description>Thumb state bit</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>ISR Number</Name>
+              <Description>Interrupt service routine number</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>9</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>MSP</Name>
+          <Description>Main stack pointer</Description>
+          <Index>17</Index>
+        </Register>
+        <Register>
+          <Name>PSP</Name>
+          <Description>Process stack pointer</Description>
+          <Index>18</Index>
+        </Register>
+        <Register>
+          <Name>APSR</Name>
+          <Description>Application program status register</Description>
+          <Index>21</Index>
+          <Fields>
+            <Field>
+              <Name>N</Name>
+              <Description>Negative flag</Description>
+              <BitOffset>31</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Z</Name>
+              <Description>Zero flag</Description>
+              <BitOffset>30</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>C</Name>
+              <Description>Carry flag</Description>
+              <BitOffset>29</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>V</Name>
+              <Description>Overflow flag</Description>
+              <BitOffset>28</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>Q</Name>
+              <Description>DSP overflow and saturation flag</Description>
+              <BitOffset>27</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>    
+        <Register>
+          <Name>EPSR</Name>
+          <Description>Exception program status register</Description>
+          <Index>22</Index>
+          <Fields>
+          <Field>
+              <Name>ICI/IT HighBits</Name>
+              <Description>Interruptible-continuable instruction bits (high bits)</Description>
+              <BitOffset>25</BitOffset>
+              <BitWidth>2</BitWidth>
+            </Field>
+            <Field>
+              <Name>ICI/IT LowBits</Name>
+              <Description>Interruptible-continuable instruction bits (low bits)</Description>
+              <BitOffset>10</BitOffset>
+              <BitWidth>6</BitWidth>
+            </Field>
+            <Field>
+              <Name>T</Name>
+              <Description>Thumb state bit</Description>
+              <BitOffset>24</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>IPSR</Name>
+          <Description>Interrupt program status register</Description>
+          <Index>23</Index>
+          <Fields>
+            <Field>
+              <Name>ISR Number</Name>
+              <Description>Interrupt service routine number</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>9</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>PriMask</Name>
+          <Description>Priority mask register</Description>
+          <Index>24</Index>
+          <Fields>
+            <Field>
+              <Name>PriMask</Name>
+              <Description>Prevent the activation of all exceptions with configurable priority</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>BasePri</Name>
+          <Description>Base priority mask register</Description>
+          <Index>25</Index>
+          <Fields>
+            <Field>
+              <Name>BasePri</Name>
+              <Description>Priority mask bits</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>8</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>FaultMask</Name>
+          <Description>Fault mask register</Description>
+          <Index>26</Index>
+          <Fields>
+            <Field>
+              <Name>FaultMask</Name>
+              <Description>Prevent the activation of all exceptions except for NMI</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>Control</Name>
+          <Description>Control register</Description>
+          <Index>27</Index>
+          <Fields>
+            <Field>
+              <Name>FPCA</Name>
+              <Description>Context floating-point active</Description>
+              <BitOffset>2</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>SPSEL</Name>
+              <Description>Active stack pointer</Description>
+              <BitOffset>1</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+            <Field>
+              <Name>nPRIV</Name>
+              <Description>Thread mode privilege level</Description>
+              <BitOffset>0</BitOffset>
+              <BitWidth>1</BitWidth>
+            </Field>
+          </Fields>
+        </Register>
+        <Register>
+          <Name>CycleCount</Name>
+          <Description>Cycle count</Description>
+          <Index>65</Index>
+        </Register>
+      </Registers>
+    </Group>
+  </Groups>
+</Cpu>

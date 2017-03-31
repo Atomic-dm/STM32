@@ -1,0 +1,1870 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"stm32f10x_spi.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.SPI_I2S_DeInit,"ax",%progbits
+  19              		.align	2
+  20              		.global	SPI_I2S_DeInit
+  21              		.thumb
+  22              		.thumb_func
+  24              	SPI_I2S_DeInit:
+  25              	.LFB29:
+  26              		.file 1 ".\\StdPeriphLib\\src/stm32f10x_spi.c"
+   1:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+   2:.\StdPeriphLib\src/stm32f10x_spi.c ****   ******************************************************************************
+   3:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @file    stm32f10x_spi.c
+   4:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @author  MCD Application Team
+   5:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @version V3.5.0
+   6:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @date    11-March-2011
+   7:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief   This file provides all the SPI firmware functions.
+   8:.\StdPeriphLib\src/stm32f10x_spi.c ****   ******************************************************************************
+   9:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @attention
+  10:.\StdPeriphLib\src/stm32f10x_spi.c ****   *
+  11:.\StdPeriphLib\src/stm32f10x_spi.c ****   * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  12:.\StdPeriphLib\src/stm32f10x_spi.c ****   * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  13:.\StdPeriphLib\src/stm32f10x_spi.c ****   * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  14:.\StdPeriphLib\src/stm32f10x_spi.c ****   * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  15:.\StdPeriphLib\src/stm32f10x_spi.c ****   * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  16:.\StdPeriphLib\src/stm32f10x_spi.c ****   * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  17:.\StdPeriphLib\src/stm32f10x_spi.c ****   *
+  18:.\StdPeriphLib\src/stm32f10x_spi.c ****   * <h2><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h2>
+  19:.\StdPeriphLib\src/stm32f10x_spi.c ****   ******************************************************************************
+  20:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+  21:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  22:.\StdPeriphLib\src/stm32f10x_spi.c **** /* Includes ------------------------------------------------------------------*/
+  23:.\StdPeriphLib\src/stm32f10x_spi.c **** #include "stm32f10x_spi.h"
+  24:.\StdPeriphLib\src/stm32f10x_spi.c **** #include "stm32f10x_rcc.h"
+  25:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  26:.\StdPeriphLib\src/stm32f10x_spi.c **** /** @addtogroup STM32F10x_StdPeriph_Driver
+  27:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @{
+  28:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+  29:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  30:.\StdPeriphLib\src/stm32f10x_spi.c **** /** @defgroup SPI 
+  31:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief SPI driver modules
+  32:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @{
+  33:.\StdPeriphLib\src/stm32f10x_spi.c ****   */ 
+  34:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  35:.\StdPeriphLib\src/stm32f10x_spi.c **** /** @defgroup SPI_Private_TypesDefinitions
+  36:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @{
+  37:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+  38:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  39:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+  40:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @}
+  41:.\StdPeriphLib\src/stm32f10x_spi.c ****   */ 
+  42:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  43:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  44:.\StdPeriphLib\src/stm32f10x_spi.c **** /** @defgroup SPI_Private_Defines
+  45:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @{
+  46:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+  47:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  48:.\StdPeriphLib\src/stm32f10x_spi.c **** /* SPI SPE mask */
+  49:.\StdPeriphLib\src/stm32f10x_spi.c **** #define CR1_SPE_Set          ((uint16_t)0x0040)
+  50:.\StdPeriphLib\src/stm32f10x_spi.c **** #define CR1_SPE_Reset        ((uint16_t)0xFFBF)
+  51:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  52:.\StdPeriphLib\src/stm32f10x_spi.c **** /* I2S I2SE mask */
+  53:.\StdPeriphLib\src/stm32f10x_spi.c **** #define I2SCFGR_I2SE_Set     ((uint16_t)0x0400)
+  54:.\StdPeriphLib\src/stm32f10x_spi.c **** #define I2SCFGR_I2SE_Reset   ((uint16_t)0xFBFF)
+  55:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  56:.\StdPeriphLib\src/stm32f10x_spi.c **** /* SPI CRCNext mask */
+  57:.\StdPeriphLib\src/stm32f10x_spi.c **** #define CR1_CRCNext_Set      ((uint16_t)0x1000)
+  58:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  59:.\StdPeriphLib\src/stm32f10x_spi.c **** /* SPI CRCEN mask */
+  60:.\StdPeriphLib\src/stm32f10x_spi.c **** #define CR1_CRCEN_Set        ((uint16_t)0x2000)
+  61:.\StdPeriphLib\src/stm32f10x_spi.c **** #define CR1_CRCEN_Reset      ((uint16_t)0xDFFF)
+  62:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  63:.\StdPeriphLib\src/stm32f10x_spi.c **** /* SPI SSOE mask */
+  64:.\StdPeriphLib\src/stm32f10x_spi.c **** #define CR2_SSOE_Set         ((uint16_t)0x0004)
+  65:.\StdPeriphLib\src/stm32f10x_spi.c **** #define CR2_SSOE_Reset       ((uint16_t)0xFFFB)
+  66:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  67:.\StdPeriphLib\src/stm32f10x_spi.c **** /* SPI registers Masks */
+  68:.\StdPeriphLib\src/stm32f10x_spi.c **** #define CR1_CLEAR_Mask       ((uint16_t)0x3040)
+  69:.\StdPeriphLib\src/stm32f10x_spi.c **** #define I2SCFGR_CLEAR_Mask   ((uint16_t)0xF040)
+  70:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  71:.\StdPeriphLib\src/stm32f10x_spi.c **** /* SPI or I2S mode selection masks */
+  72:.\StdPeriphLib\src/stm32f10x_spi.c **** #define SPI_Mode_Select      ((uint16_t)0xF7FF)
+  73:.\StdPeriphLib\src/stm32f10x_spi.c **** #define I2S_Mode_Select      ((uint16_t)0x0800) 
+  74:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  75:.\StdPeriphLib\src/stm32f10x_spi.c **** /* I2S clock source selection masks */
+  76:.\StdPeriphLib\src/stm32f10x_spi.c **** #define I2S2_CLOCK_SRC       ((uint32_t)(0x00020000))
+  77:.\StdPeriphLib\src/stm32f10x_spi.c **** #define I2S3_CLOCK_SRC       ((uint32_t)(0x00040000))
+  78:.\StdPeriphLib\src/stm32f10x_spi.c **** #define I2S_MUL_MASK         ((uint32_t)(0x0000F000))
+  79:.\StdPeriphLib\src/stm32f10x_spi.c **** #define I2S_DIV_MASK         ((uint32_t)(0x000000F0))
+  80:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  81:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+  82:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @}
+  83:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+  84:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  85:.\StdPeriphLib\src/stm32f10x_spi.c **** /** @defgroup SPI_Private_Macros
+  86:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @{
+  87:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+  88:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  89:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+  90:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @}
+  91:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+  92:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  93:.\StdPeriphLib\src/stm32f10x_spi.c **** /** @defgroup SPI_Private_Variables
+  94:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @{
+  95:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+  96:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+  97:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+  98:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @}
+  99:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 100:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 101:.\StdPeriphLib\src/stm32f10x_spi.c **** /** @defgroup SPI_Private_FunctionPrototypes
+ 102:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @{
+ 103:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 104:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 105:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 106:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @}
+ 107:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 108:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 109:.\StdPeriphLib\src/stm32f10x_spi.c **** /** @defgroup SPI_Private_Functions
+ 110:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @{
+ 111:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 112:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 113:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 114:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Deinitializes the SPIx peripheral registers to their default
+ 115:.\StdPeriphLib\src/stm32f10x_spi.c ****   *         reset values (Affects also the I2Ss).
+ 116:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 117:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 118:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 119:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_I2S_DeInit(SPI_TypeDef* SPIx)
+ 120:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+  27              		.loc 1 120 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 08B5     		push	{r3, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+ 121:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 122:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 123:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 124:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (SPIx == SPI1)
+  37              		.loc 1 124 0
+  38 0002 154B     		ldr	r3, .L6
+  39 0004 9842     		cmp	r0, r3
+  40 0006 0AD1     		bne	.L2
+ 125:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 126:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Enable SPI1 reset state */
+ 127:.\StdPeriphLib\src/stm32f10x_spi.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, ENABLE);
+  41              		.loc 1 127 0
+  42 0008 4FF48050 		mov	r0, #4096
+  43              	.LVL1:
+  44 000c 0121     		movs	r1, #1
+  45 000e FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  46              	.LVL2:
+ 128:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Release SPI1 from reset state */
+ 129:.\StdPeriphLib\src/stm32f10x_spi.c ****     RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI1, DISABLE);
+  47              		.loc 1 129 0
+  48 0012 4FF48050 		mov	r0, #4096
+  49 0016 0021     		movs	r1, #0
+  50 0018 FFF7FEFF 		bl	RCC_APB2PeriphResetCmd
+  51              	.LVL3:
+  52 001c 08BD     		pop	{r3, pc}
+  53              	.LVL4:
+  54              	.L2:
+ 130:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 131:.\StdPeriphLib\src/stm32f10x_spi.c ****   else if (SPIx == SPI2)
+  55              		.loc 1 131 0
+  56 001e 0F4B     		ldr	r3, .L6+4
+  57 0020 9842     		cmp	r0, r3
+  58 0022 0AD1     		bne	.L4
+ 132:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 133:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Enable SPI2 reset state */
+ 134:.\StdPeriphLib\src/stm32f10x_spi.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, ENABLE);
+  59              		.loc 1 134 0
+  60 0024 4FF48040 		mov	r0, #16384
+  61              	.LVL5:
+  62 0028 0121     		movs	r1, #1
+  63 002a FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  64              	.LVL6:
+ 135:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Release SPI2 from reset state */
+ 136:.\StdPeriphLib\src/stm32f10x_spi.c ****     RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, DISABLE);
+  65              		.loc 1 136 0
+  66 002e 4FF48040 		mov	r0, #16384
+  67 0032 0021     		movs	r1, #0
+  68 0034 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  69              	.LVL7:
+  70 0038 08BD     		pop	{r3, pc}
+  71              	.LVL8:
+  72              	.L4:
+ 137:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 138:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 139:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 140:.\StdPeriphLib\src/stm32f10x_spi.c ****     if (SPIx == SPI3)
+  73              		.loc 1 140 0
+  74 003a 094B     		ldr	r3, .L6+8
+  75 003c 9842     		cmp	r0, r3
+  76 003e 09D1     		bne	.L1
+ 141:.\StdPeriphLib\src/stm32f10x_spi.c ****     {
+ 142:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* Enable SPI3 reset state */
+ 143:.\StdPeriphLib\src/stm32f10x_spi.c ****       RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);
+  77              		.loc 1 143 0
+  78 0040 4FF40040 		mov	r0, #32768
+  79              	.LVL9:
+  80 0044 0121     		movs	r1, #1
+  81 0046 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  82              	.LVL10:
+ 144:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* Release SPI3 from reset state */
+ 145:.\StdPeriphLib\src/stm32f10x_spi.c ****       RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, DISABLE);
+  83              		.loc 1 145 0
+  84 004a 4FF40040 		mov	r0, #32768
+  85 004e 0021     		movs	r1, #0
+  86 0050 FFF7FEFF 		bl	RCC_APB1PeriphResetCmd
+  87              	.LVL11:
+  88              	.L1:
+  89 0054 08BD     		pop	{r3, pc}
+  90              	.L7:
+  91 0056 00BF     		.align	2
+  92              	.L6:
+  93 0058 00300140 		.word	1073819648
+  94 005c 00380040 		.word	1073756160
+  95 0060 003C0040 		.word	1073757184
+  96              		.cfi_endproc
+  97              	.LFE29:
+  99              		.section	.text.SPI_Init,"ax",%progbits
+ 100              		.align	2
+ 101              		.global	SPI_Init
+ 102              		.thumb
+ 103              		.thumb_func
+ 105              	SPI_Init:
+ 106              	.LFB30:
+ 146:.\StdPeriphLib\src/stm32f10x_spi.c ****     }
+ 147:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 148:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 149:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 150:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 151:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Initializes the SPIx peripheral according to the specified 
+ 152:.\StdPeriphLib\src/stm32f10x_spi.c ****   *         parameters in the SPI_InitStruct.
+ 153:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 154:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_InitStruct: pointer to a SPI_InitTypeDef structure that
+ 155:.\StdPeriphLib\src/stm32f10x_spi.c ****   *         contains the configuration information for the specified SPI peripheral.
+ 156:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 157:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 158:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_Init(SPI_TypeDef* SPIx, SPI_InitTypeDef* SPI_InitStruct)
+ 159:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 107              		.loc 1 159 0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 112              	.LVL12:
+ 113 0000 10B4     		push	{r4}
+ 114              	.LCFI1:
+ 115              		.cfi_def_cfa_offset 4
+ 116              		.cfi_offset 4, -4
+ 117              	.LVL13:
+ 160:.\StdPeriphLib\src/stm32f10x_spi.c ****   uint16_t tmpreg = 0;
+ 161:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 162:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* check the parameters */
+ 163:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));   
+ 164:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 165:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the SPI parameters */
+ 166:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_DIRECTION_MODE(SPI_InitStruct->SPI_Direction));
+ 167:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_MODE(SPI_InitStruct->SPI_Mode));
+ 168:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_DATASIZE(SPI_InitStruct->SPI_DataSize));
+ 169:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_CPOL(SPI_InitStruct->SPI_CPOL));
+ 170:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_CPHA(SPI_InitStruct->SPI_CPHA));
+ 171:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_NSS(SPI_InitStruct->SPI_NSS));
+ 172:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_BAUDRATE_PRESCALER(SPI_InitStruct->SPI_BaudRatePrescaler));
+ 173:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_FIRST_BIT(SPI_InitStruct->SPI_FirstBit));
+ 174:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_CRC_POLYNOMIAL(SPI_InitStruct->SPI_CRCPolynomial));
+ 175:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 176:.\StdPeriphLib\src/stm32f10x_spi.c **** /*---------------------------- SPIx CR1 Configuration ------------------------*/
+ 177:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Get the SPIx CR1 value */
+ 178:.\StdPeriphLib\src/stm32f10x_spi.c ****   tmpreg = SPIx->CR1;
+ 118              		.loc 1 178 0
+ 119 0002 0388     		ldrh	r3, [r0]
+ 120              	.LVL14:
+ 179:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Clear BIDIMode, BIDIOE, RxONLY, SSM, SSI, LSBFirst, BR, MSTR, CPOL and CPHA bits */
+ 180:.\StdPeriphLib\src/stm32f10x_spi.c ****   tmpreg &= CR1_CLEAR_Mask;
+ 121              		.loc 1 180 0
+ 122 0004 03F44154 		and	r4, r3, #12352
+ 123              	.LVL15:
+ 181:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Configure SPIx: direction, NSS management, first transmitted bit, BaudRate prescaler
+ 182:.\StdPeriphLib\src/stm32f10x_spi.c ****      master/salve mode, CPOL and CPHA */
+ 183:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Set BIDImode, BIDIOE and RxONLY bits according to SPI_Direction value */
+ 184:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Set SSM, SSI and MSTR bits according to SPI_Mode and SPI_NSS values */
+ 185:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Set LSBFirst bit according to SPI_FirstBit value */
+ 186:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Set BR bits according to SPI_BaudRatePrescaler value */
+ 187:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Set CPOL bit according to SPI_CPOL value */
+ 188:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Set CPHA bit according to SPI_CPHA value */
+ 189:.\StdPeriphLib\src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)((uint32_t)SPI_InitStruct->SPI_Direction | SPI_InitStruct->SPI_Mode |
+ 124              		.loc 1 189 0
+ 125 0008 4A88     		ldrh	r2, [r1, #2]
+ 126 000a 0B88     		ldrh	r3, [r1]
+ 127 000c 1343     		orrs	r3, r3, r2
+ 128 000e 8A88     		ldrh	r2, [r1, #4]
+ 129 0010 1343     		orrs	r3, r3, r2
+ 130 0012 CA88     		ldrh	r2, [r1, #6]
+ 131 0014 1343     		orrs	r3, r3, r2
+ 132 0016 0A89     		ldrh	r2, [r1, #8]
+ 133 0018 1343     		orrs	r3, r3, r2
+ 134 001a 4A89     		ldrh	r2, [r1, #10]
+ 135 001c 1343     		orrs	r3, r3, r2
+ 136 001e 8A89     		ldrh	r2, [r1, #12]
+ 137 0020 1343     		orrs	r3, r3, r2
+ 138 0022 CA89     		ldrh	r2, [r1, #14]
+ 139 0024 1343     		orrs	r3, r3, r2
+ 140 0026 2343     		orrs	r3, r3, r4
+ 141 0028 9BB2     		uxth	r3, r3
+ 142              	.LVL16:
+ 190:.\StdPeriphLib\src/stm32f10x_spi.c ****                   SPI_InitStruct->SPI_DataSize | SPI_InitStruct->SPI_CPOL |  
+ 191:.\StdPeriphLib\src/stm32f10x_spi.c ****                   SPI_InitStruct->SPI_CPHA | SPI_InitStruct->SPI_NSS |  
+ 192:.\StdPeriphLib\src/stm32f10x_spi.c ****                   SPI_InitStruct->SPI_BaudRatePrescaler | SPI_InitStruct->SPI_FirstBit);
+ 193:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Write to SPIx CR1 */
+ 194:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->CR1 = tmpreg;
+ 143              		.loc 1 194 0
+ 144 002a 0380     		strh	r3, [r0]	@ movhi
+ 195:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 196:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Activate the SPI mode (Reset I2SMOD bit in I2SCFGR register) */
+ 197:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->I2SCFGR &= SPI_Mode_Select;		
+ 145              		.loc 1 197 0
+ 146 002c 838B     		ldrh	r3, [r0, #28]
+ 147              	.LVL17:
+ 148 002e 23F40063 		bic	r3, r3, #2048
+ 149 0032 1B04     		lsls	r3, r3, #16
+ 150 0034 1B0C     		lsrs	r3, r3, #16
+ 151 0036 8383     		strh	r3, [r0, #28]	@ movhi
+ 152              	.LVL18:
+ 198:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 199:.\StdPeriphLib\src/stm32f10x_spi.c **** /*---------------------------- SPIx CRCPOLY Configuration --------------------*/
+ 200:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Write to SPIx CRCPOLY */
+ 201:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->CRCPR = SPI_InitStruct->SPI_CRCPolynomial;
+ 153              		.loc 1 201 0
+ 154 0038 0B8A     		ldrh	r3, [r1, #16]
+ 155 003a 0382     		strh	r3, [r0, #16]	@ movhi
+ 202:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 156              		.loc 1 202 0
+ 157 003c 5DF8044B 		ldr	r4, [sp], #4
+ 158              	.LCFI2:
+ 159              		.cfi_restore 4
+ 160              		.cfi_def_cfa_offset 0
+ 161 0040 7047     		bx	lr
+ 162              		.cfi_endproc
+ 163              	.LFE30:
+ 165 0042 00BF     		.section	.text.I2S_Init,"ax",%progbits
+ 166              		.align	2
+ 167              		.global	I2S_Init
+ 168              		.thumb
+ 169              		.thumb_func
+ 171              	I2S_Init:
+ 172              	.LFB31:
+ 203:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 204:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 205:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Initializes the SPIx peripheral according to the specified 
+ 206:.\StdPeriphLib\src/stm32f10x_spi.c ****   *         parameters in the I2S_InitStruct.
+ 207:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be  2 or 3 to select the SPI peripheral
+ 208:.\StdPeriphLib\src/stm32f10x_spi.c ****   *         (configured in I2S mode).
+ 209:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  I2S_InitStruct: pointer to an I2S_InitTypeDef structure that
+ 210:.\StdPeriphLib\src/stm32f10x_spi.c ****   *         contains the configuration information for the specified SPI peripheral
+ 211:.\StdPeriphLib\src/stm32f10x_spi.c ****   *         configured in I2S mode.
+ 212:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @note
+ 213:.\StdPeriphLib\src/stm32f10x_spi.c ****   *  The function calculates the optimal prescaler needed to obtain the most 
+ 214:.\StdPeriphLib\src/stm32f10x_spi.c ****   *  accurate audio frequency (depending on the I2S clock source, the PLL values 
+ 215:.\StdPeriphLib\src/stm32f10x_spi.c ****   *  and the product configuration). But in case the prescaler value is greater 
+ 216:.\StdPeriphLib\src/stm32f10x_spi.c ****   *  than 511, the default value (0x02) will be configured instead.  *   
+ 217:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 218:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 219:.\StdPeriphLib\src/stm32f10x_spi.c **** void I2S_Init(SPI_TypeDef* SPIx, I2S_InitTypeDef* I2S_InitStruct)
+ 220:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 173              		.loc 1 220 0
+ 174              		.cfi_startproc
+ 175              		@ args = 0, pretend = 0, frame = 24
+ 176              		@ frame_needed = 0, uses_anonymous_args = 0
+ 177              	.LVL19:
+ 178 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 179              	.LCFI3:
+ 180              		.cfi_def_cfa_offset 20
+ 181              		.cfi_offset 4, -20
+ 182              		.cfi_offset 5, -16
+ 183              		.cfi_offset 6, -12
+ 184              		.cfi_offset 7, -8
+ 185              		.cfi_offset 14, -4
+ 186 0002 87B0     		sub	sp, sp, #28
+ 187              	.LCFI4:
+ 188              		.cfi_def_cfa_offset 48
+ 189 0004 0546     		mov	r5, r0
+ 190 0006 0C46     		mov	r4, r1
+ 191              	.LVL20:
+ 221:.\StdPeriphLib\src/stm32f10x_spi.c ****   uint16_t tmpreg = 0, i2sdiv = 2, i2sodd = 0, packetlength = 1;
+ 222:.\StdPeriphLib\src/stm32f10x_spi.c ****   uint32_t tmp = 0;
+ 223:.\StdPeriphLib\src/stm32f10x_spi.c ****   RCC_ClocksTypeDef RCC_Clocks;
+ 224:.\StdPeriphLib\src/stm32f10x_spi.c ****   uint32_t sourceclock = 0;
+ 225:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 226:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the I2S parameters */
+ 227:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_23_PERIPH(SPIx));
+ 228:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_I2S_MODE(I2S_InitStruct->I2S_Mode));
+ 229:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_I2S_STANDARD(I2S_InitStruct->I2S_Standard));
+ 230:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_I2S_DATA_FORMAT(I2S_InitStruct->I2S_DataFormat));
+ 231:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_I2S_MCLK_OUTPUT(I2S_InitStruct->I2S_MCLKOutput));
+ 232:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_I2S_AUDIO_FREQ(I2S_InitStruct->I2S_AudioFreq));
+ 233:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_I2S_CPOL(I2S_InitStruct->I2S_CPOL));  
+ 234:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 235:.\StdPeriphLib\src/stm32f10x_spi.c **** /*----------------------- SPIx I2SCFGR & I2SPR Configuration -----------------*/
+ 236:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Clear I2SMOD, I2SE, I2SCFG, PCMSYNC, I2SSTD, CKPOL, DATLEN and CHLEN bits */
+ 237:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->I2SCFGR &= I2SCFGR_CLEAR_Mask; 
+ 192              		.loc 1 237 0
+ 193 0008 838B     		ldrh	r3, [r0, #28]
+ 194 000a 9BB2     		uxth	r3, r3
+ 195 000c 23F47B63 		bic	r3, r3, #4016
+ 196 0010 23F00F03 		bic	r3, r3, #15
+ 197 0014 9BB2     		uxth	r3, r3
+ 198 0016 8383     		strh	r3, [r0, #28]	@ movhi
+ 238:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->I2SPR = 0x0002;
+ 199              		.loc 1 238 0
+ 200 0018 0223     		movs	r3, #2
+ 201 001a 0384     		strh	r3, [r0, #32]	@ movhi
+ 239:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 240:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Get the I2SCFGR register value */
+ 241:.\StdPeriphLib\src/stm32f10x_spi.c ****   tmpreg = SPIx->I2SCFGR;
+ 202              		.loc 1 241 0
+ 203 001c 868B     		ldrh	r6, [r0, #28]
+ 204 001e B6B2     		uxth	r6, r6
+ 205              	.LVL21:
+ 242:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 243:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* If the default value has to be written, reinitialize i2sdiv and i2sodd*/
+ 244:.\StdPeriphLib\src/stm32f10x_spi.c ****   if(I2S_InitStruct->I2S_AudioFreq == I2S_AudioFreq_Default)
+ 206              		.loc 1 244 0
+ 207 0020 8B68     		ldr	r3, [r1, #8]
+ 208 0022 022B     		cmp	r3, #2
+ 209 0024 26D0     		beq	.L15
+ 245:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 246:.\StdPeriphLib\src/stm32f10x_spi.c ****     i2sodd = (uint16_t)0;
+ 247:.\StdPeriphLib\src/stm32f10x_spi.c ****     i2sdiv = (uint16_t)2;   
+ 248:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 249:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* If the requested audio frequency is not the default, compute the prescaler */
+ 250:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 251:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 252:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Check the frame length (For the Prescaler computing) */
+ 253:.\StdPeriphLib\src/stm32f10x_spi.c ****     if(I2S_InitStruct->I2S_DataFormat == I2S_DataFormat_16b)
+ 210              		.loc 1 253 0
+ 211 0026 8B88     		ldrh	r3, [r1, #4]
+ 254:.\StdPeriphLib\src/stm32f10x_spi.c ****     {
+ 255:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* Packet length is 16 bits */
+ 256:.\StdPeriphLib\src/stm32f10x_spi.c ****       packetlength = 1;
+ 257:.\StdPeriphLib\src/stm32f10x_spi.c ****     }
+ 258:.\StdPeriphLib\src/stm32f10x_spi.c ****     else
+ 259:.\StdPeriphLib\src/stm32f10x_spi.c ****     {
+ 260:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* Packet length is 32 bits */
+ 261:.\StdPeriphLib\src/stm32f10x_spi.c ****       packetlength = 2;
+ 212              		.loc 1 261 0
+ 213 0028 002B     		cmp	r3, #0
+ 214 002a 0CBF     		ite	eq
+ 215 002c 0127     		moveq	r7, #1
+ 216 002e 0227     		movne	r7, #2
+ 217              	.LVL22:
+ 262:.\StdPeriphLib\src/stm32f10x_spi.c ****     }
+ 263:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 264:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Get the I2S clock source mask depending on the peripheral number */
+ 265:.\StdPeriphLib\src/stm32f10x_spi.c ****     if(((uint32_t)SPIx) == SPI2_BASE)
+ 266:.\StdPeriphLib\src/stm32f10x_spi.c ****     {
+ 267:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* The mask is relative to I2S2 */
+ 268:.\StdPeriphLib\src/stm32f10x_spi.c ****       tmp = I2S2_CLOCK_SRC;
+ 269:.\StdPeriphLib\src/stm32f10x_spi.c ****     }
+ 270:.\StdPeriphLib\src/stm32f10x_spi.c ****     else 
+ 271:.\StdPeriphLib\src/stm32f10x_spi.c ****     {
+ 272:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* The mask is relative to I2S3 */      
+ 273:.\StdPeriphLib\src/stm32f10x_spi.c ****       tmp = I2S3_CLOCK_SRC;
+ 274:.\StdPeriphLib\src/stm32f10x_spi.c ****     }
+ 275:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 276:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Check the I2S clock source configuration depending on the Device:
+ 277:.\StdPeriphLib\src/stm32f10x_spi.c ****        Only Connectivity line devices have the PLL3 VCO clock */
+ 278:.\StdPeriphLib\src/stm32f10x_spi.c **** #ifdef STM32F10X_CL
+ 279:.\StdPeriphLib\src/stm32f10x_spi.c ****     if((RCC->CFGR2 & tmp) != 0)
+ 280:.\StdPeriphLib\src/stm32f10x_spi.c ****     {
+ 281:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* Get the configuration bits of RCC PLL3 multiplier */
+ 282:.\StdPeriphLib\src/stm32f10x_spi.c ****       tmp = (uint32_t)((RCC->CFGR2 & I2S_MUL_MASK) >> 12);
+ 283:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 284:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* Get the value of the PLL3 multiplier */      
+ 285:.\StdPeriphLib\src/stm32f10x_spi.c ****       if((tmp > 5) && (tmp < 15))
+ 286:.\StdPeriphLib\src/stm32f10x_spi.c ****       {
+ 287:.\StdPeriphLib\src/stm32f10x_spi.c ****         /* Multiplier is between 8 and 14 (value 15 is forbidden) */
+ 288:.\StdPeriphLib\src/stm32f10x_spi.c ****         tmp += 2;
+ 289:.\StdPeriphLib\src/stm32f10x_spi.c ****       }
+ 290:.\StdPeriphLib\src/stm32f10x_spi.c ****       else
+ 291:.\StdPeriphLib\src/stm32f10x_spi.c ****       {
+ 292:.\StdPeriphLib\src/stm32f10x_spi.c ****         if (tmp == 15)
+ 293:.\StdPeriphLib\src/stm32f10x_spi.c ****         {
+ 294:.\StdPeriphLib\src/stm32f10x_spi.c ****           /* Multiplier is 20 */
+ 295:.\StdPeriphLib\src/stm32f10x_spi.c ****           tmp = 20;
+ 296:.\StdPeriphLib\src/stm32f10x_spi.c ****         }
+ 297:.\StdPeriphLib\src/stm32f10x_spi.c ****       }      
+ 298:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* Get the PREDIV2 value */
+ 299:.\StdPeriphLib\src/stm32f10x_spi.c ****       sourceclock = (uint32_t)(((RCC->CFGR2 & I2S_DIV_MASK) >> 4) + 1);
+ 300:.\StdPeriphLib\src/stm32f10x_spi.c ****       
+ 301:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* Calculate the Source Clock frequency based on PLL3 and PREDIV2 values */
+ 302:.\StdPeriphLib\src/stm32f10x_spi.c ****       sourceclock = (uint32_t) ((HSE_Value / sourceclock) * tmp * 2); 
+ 303:.\StdPeriphLib\src/stm32f10x_spi.c ****     }
+ 304:.\StdPeriphLib\src/stm32f10x_spi.c ****     else
+ 305:.\StdPeriphLib\src/stm32f10x_spi.c ****     {
+ 306:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* I2S Clock source is System clock: Get System Clock frequency */
+ 307:.\StdPeriphLib\src/stm32f10x_spi.c ****       RCC_GetClocksFreq(&RCC_Clocks);      
+ 308:.\StdPeriphLib\src/stm32f10x_spi.c ****       
+ 309:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* Get the source clock value: based on System Clock value */
+ 310:.\StdPeriphLib\src/stm32f10x_spi.c ****       sourceclock = RCC_Clocks.SYSCLK_Frequency;
+ 311:.\StdPeriphLib\src/stm32f10x_spi.c ****     }        
+ 312:.\StdPeriphLib\src/stm32f10x_spi.c **** #else /* STM32F10X_HD */
+ 313:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* I2S Clock source is System clock: Get System Clock frequency */
+ 314:.\StdPeriphLib\src/stm32f10x_spi.c ****     RCC_GetClocksFreq(&RCC_Clocks);      
+ 218              		.loc 1 314 0
+ 219 0030 01A8     		add	r0, sp, #4
+ 220              	.LVL23:
+ 221 0032 FFF7FEFF 		bl	RCC_GetClocksFreq
+ 222              	.LVL24:
+ 315:.\StdPeriphLib\src/stm32f10x_spi.c ****       
+ 316:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Get the source clock value: based on System Clock value */
+ 317:.\StdPeriphLib\src/stm32f10x_spi.c ****     sourceclock = RCC_Clocks.SYSCLK_Frequency;    
+ 223              		.loc 1 317 0
+ 224 0036 019A     		ldr	r2, [sp, #4]
+ 225              	.LVL25:
+ 318:.\StdPeriphLib\src/stm32f10x_spi.c **** #endif /* STM32F10X_CL */    
+ 319:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 320:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Compute the Real divider depending on the MCLK output state with a floating point */
+ 321:.\StdPeriphLib\src/stm32f10x_spi.c ****     if(I2S_InitStruct->I2S_MCLKOutput == I2S_MCLKOutput_Enable)
+ 226              		.loc 1 321 0
+ 227 0038 E388     		ldrh	r3, [r4, #6]
+ 228 003a B3F5007F 		cmp	r3, #512
+ 322:.\StdPeriphLib\src/stm32f10x_spi.c ****     {
+ 323:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* MCLK output is enabled */
+ 324:.\StdPeriphLib\src/stm32f10x_spi.c ****       tmp = (uint16_t)(((((sourceclock / 256) * 10) / I2S_InitStruct->I2S_AudioFreq)) + 5);
+ 229              		.loc 1 324 0
+ 230 003e 0EBF     		itee	eq
+ 231 0040 130A     		lsreq	r3, r2, #8
+ 325:.\StdPeriphLib\src/stm32f10x_spi.c ****     }
+ 326:.\StdPeriphLib\src/stm32f10x_spi.c ****     else
+ 327:.\StdPeriphLib\src/stm32f10x_spi.c ****     {
+ 328:.\StdPeriphLib\src/stm32f10x_spi.c ****       /* MCLK output is disabled */
+ 329:.\StdPeriphLib\src/stm32f10x_spi.c ****       tmp = (uint16_t)(((((sourceclock / (32 * packetlength)) *10 ) / I2S_InitStruct->I2S_AudioFreq
+ 232              		.loc 1 329 0
+ 233 0042 7B01     		lslne	r3, r7, #5
+ 234 0044 B2FBF3F3 		udivne	r3, r2, r3
+ 235 0048 03EB8303 		add	r3, r3, r3, lsl #2
+ 236 004c 5B00     		lsls	r3, r3, #1
+ 237 004e A268     		ldr	r2, [r4, #8]
+ 238              	.LVL26:
+ 239 0050 B3FBF2F3 		udiv	r3, r3, r2
+ 240 0054 0533     		adds	r3, r3, #5
+ 241 0056 9BB2     		uxth	r3, r3
+ 242              	.LVL27:
+ 330:.\StdPeriphLib\src/stm32f10x_spi.c ****     }
+ 331:.\StdPeriphLib\src/stm32f10x_spi.c ****     
+ 332:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Remove the floating point */
+ 333:.\StdPeriphLib\src/stm32f10x_spi.c ****     tmp = tmp / 10;  
+ 243              		.loc 1 333 0
+ 244 0058 124A     		ldr	r2, .L19
+ 245 005a A2FB0323 		umull	r2, r3, r2, r3
+ 246              	.LVL28:
+ 247 005e DB08     		lsrs	r3, r3, #3
+ 248              	.LVL29:
+ 334:.\StdPeriphLib\src/stm32f10x_spi.c ****       
+ 335:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Check the parity of the divider */
+ 336:.\StdPeriphLib\src/stm32f10x_spi.c ****     i2sodd = (uint16_t)(tmp & (uint16_t)0x0001);
+ 337:.\StdPeriphLib\src/stm32f10x_spi.c ****    
+ 338:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Compute the i2sdiv prescaler */
+ 339:.\StdPeriphLib\src/stm32f10x_spi.c ****     i2sdiv = (uint16_t)((tmp - i2sodd) / 2);
+ 249              		.loc 1 339 0
+ 250 0060 03F00102 		and	r2, r3, #1
+ 251 0064 5B08     		lsrs	r3, r3, #1
+ 252              	.LVL30:
+ 340:.\StdPeriphLib\src/stm32f10x_spi.c ****    
+ 341:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Get the Mask for the Odd bit (SPI_I2SPR[8]) register */
+ 342:.\StdPeriphLib\src/stm32f10x_spi.c ****     i2sodd = (uint16_t) (i2sodd << 8);
+ 343:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 344:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 345:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Test if the divider is 1 or 0 or greater than 0xFF */
+ 346:.\StdPeriphLib\src/stm32f10x_spi.c ****   if ((i2sdiv < 2) || (i2sdiv > 0xFF))
+ 253              		.loc 1 346 0
+ 254 0066 991E     		subs	r1, r3, #2
+ 255 0068 89B2     		uxth	r1, r1
+ 256 006a FD29     		cmp	r1, #253
+ 257              	.LVL31:
+ 258 006c 05D8     		bhi	.L17
+ 342:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 259              		.loc 1 342 0
+ 260 006e 1202     		lsls	r2, r2, #8
+ 261              	.LVL32:
+ 262 0070 92B2     		uxth	r2, r2
+ 263 0072 04E0     		b	.L11
+ 264              	.LVL33:
+ 265              	.L15:
+ 246:.\StdPeriphLib\src/stm32f10x_spi.c ****     i2sdiv = (uint16_t)2;   
+ 266              		.loc 1 246 0
+ 267 0074 0022     		movs	r2, #0
+ 247:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 268              		.loc 1 247 0
+ 269 0076 0223     		movs	r3, #2
+ 270 0078 01E0     		b	.L11
+ 271              	.LVL34:
+ 272              	.L17:
+ 347:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 348:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Set the default values */
+ 349:.\StdPeriphLib\src/stm32f10x_spi.c ****     i2sdiv = 2;
+ 350:.\StdPeriphLib\src/stm32f10x_spi.c ****     i2sodd = 0;
+ 273              		.loc 1 350 0
+ 274 007a 0022     		movs	r2, #0
+ 275              	.LVL35:
+ 349:.\StdPeriphLib\src/stm32f10x_spi.c ****     i2sodd = 0;
+ 276              		.loc 1 349 0
+ 277 007c 0223     		movs	r3, #2
+ 278              	.LVL36:
+ 279              	.L11:
+ 280 007e 1343     		orrs	r3, r3, r2
+ 281              	.LVL37:
+ 351:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 352:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 353:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Write to SPIx I2SPR register the computed value */
+ 354:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->I2SPR = (uint16_t)(i2sdiv | (uint16_t)(i2sodd | (uint16_t)I2S_InitStruct->I2S_MCLKOutput));
+ 282              		.loc 1 354 0
+ 283 0080 E288     		ldrh	r2, [r4, #6]
+ 284              	.LVL38:
+ 285 0082 1343     		orrs	r3, r3, r2
+ 286 0084 2B84     		strh	r3, [r5, #32]	@ movhi
+ 287 0086 2388     		ldrh	r3, [r4]
+ 288 0088 1E43     		orrs	r6, r6, r3
+ 289              	.LVL39:
+ 290 008a 46F40066 		orr	r6, r6, #2048
+ 291 008e 6388     		ldrh	r3, [r4, #2]
+ 292 0090 3343     		orrs	r3, r3, r6
+ 293 0092 A288     		ldrh	r2, [r4, #4]
+ 294 0094 1343     		orrs	r3, r3, r2
+ 355:.\StdPeriphLib\src/stm32f10x_spi.c ****  
+ 356:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Configure the I2S with the SPI_InitStruct values */
+ 357:.\StdPeriphLib\src/stm32f10x_spi.c ****   tmpreg |= (uint16_t)(I2S_Mode_Select | (uint16_t)(I2S_InitStruct->I2S_Mode | \
+ 295              		.loc 1 357 0
+ 296 0096 A289     		ldrh	r2, [r4, #12]
+ 297 0098 1343     		orrs	r3, r3, r2
+ 298 009a 9BB2     		uxth	r3, r3
+ 299              	.LVL40:
+ 358:.\StdPeriphLib\src/stm32f10x_spi.c ****                   (uint16_t)(I2S_InitStruct->I2S_Standard | (uint16_t)(I2S_InitStruct->I2S_DataForm
+ 359:.\StdPeriphLib\src/stm32f10x_spi.c ****                   (uint16_t)I2S_InitStruct->I2S_CPOL))));
+ 360:.\StdPeriphLib\src/stm32f10x_spi.c ****  
+ 361:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Write to SPIx I2SCFGR */  
+ 362:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->I2SCFGR = tmpreg;   
+ 300              		.loc 1 362 0
+ 301 009c AB83     		strh	r3, [r5, #28]	@ movhi
+ 363:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 302              		.loc 1 363 0
+ 303 009e 07B0     		add	sp, sp, #28
+ 304              	.LCFI5:
+ 305              		.cfi_def_cfa_offset 20
+ 306              		@ sp needed
+ 307 00a0 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 308              	.LVL41:
+ 309              	.L20:
+ 310 00a2 00BF     		.align	2
+ 311              	.L19:
+ 312 00a4 CDCCCCCC 		.word	-858993459
+ 313              		.cfi_endproc
+ 314              	.LFE31:
+ 316              		.section	.text.SPI_StructInit,"ax",%progbits
+ 317              		.align	2
+ 318              		.global	SPI_StructInit
+ 319              		.thumb
+ 320              		.thumb_func
+ 322              	SPI_StructInit:
+ 323              	.LFB32:
+ 364:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 365:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 366:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Fills each SPI_InitStruct member with its default value.
+ 367:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_InitStruct : pointer to a SPI_InitTypeDef structure which will be initialized.
+ 368:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 369:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 370:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_StructInit(SPI_InitTypeDef* SPI_InitStruct)
+ 371:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 324              		.loc 1 371 0
+ 325              		.cfi_startproc
+ 326              		@ args = 0, pretend = 0, frame = 0
+ 327              		@ frame_needed = 0, uses_anonymous_args = 0
+ 328              		@ link register save eliminated.
+ 329              	.LVL42:
+ 372:.\StdPeriphLib\src/stm32f10x_spi.c **** /*--------------- Reset SPI init structure parameters values -----------------*/
+ 373:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the SPI_Direction member */
+ 374:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+ 330              		.loc 1 374 0
+ 331 0000 0023     		movs	r3, #0
+ 332 0002 0380     		strh	r3, [r0]	@ movhi
+ 375:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* initialize the SPI_Mode member */
+ 376:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_Mode = SPI_Mode_Slave;
+ 333              		.loc 1 376 0
+ 334 0004 4380     		strh	r3, [r0, #2]	@ movhi
+ 377:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* initialize the SPI_DataSize member */
+ 378:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_DataSize = SPI_DataSize_8b;
+ 335              		.loc 1 378 0
+ 336 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 379:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the SPI_CPOL member */
+ 380:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_CPOL = SPI_CPOL_Low;
+ 337              		.loc 1 380 0
+ 338 0008 C380     		strh	r3, [r0, #6]	@ movhi
+ 381:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the SPI_CPHA member */
+ 382:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_CPHA = SPI_CPHA_1Edge;
+ 339              		.loc 1 382 0
+ 340 000a 0381     		strh	r3, [r0, #8]	@ movhi
+ 383:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the SPI_NSS member */
+ 384:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_NSS = SPI_NSS_Hard;
+ 341              		.loc 1 384 0
+ 342 000c 4381     		strh	r3, [r0, #10]	@ movhi
+ 385:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the SPI_BaudRatePrescaler member */
+ 386:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
+ 343              		.loc 1 386 0
+ 344 000e 8381     		strh	r3, [r0, #12]	@ movhi
+ 387:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the SPI_FirstBit member */
+ 388:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_FirstBit = SPI_FirstBit_MSB;
+ 345              		.loc 1 388 0
+ 346 0010 C381     		strh	r3, [r0, #14]	@ movhi
+ 389:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the SPI_CRCPolynomial member */
+ 390:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPI_InitStruct->SPI_CRCPolynomial = 7;
+ 347              		.loc 1 390 0
+ 348 0012 0723     		movs	r3, #7
+ 349 0014 0382     		strh	r3, [r0, #16]	@ movhi
+ 350 0016 7047     		bx	lr
+ 351              		.cfi_endproc
+ 352              	.LFE32:
+ 354              		.section	.text.I2S_StructInit,"ax",%progbits
+ 355              		.align	2
+ 356              		.global	I2S_StructInit
+ 357              		.thumb
+ 358              		.thumb_func
+ 360              	I2S_StructInit:
+ 361              	.LFB33:
+ 391:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 392:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 393:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 394:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Fills each I2S_InitStruct member with its default value.
+ 395:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  I2S_InitStruct : pointer to a I2S_InitTypeDef structure which will be initialized.
+ 396:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 397:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 398:.\StdPeriphLib\src/stm32f10x_spi.c **** void I2S_StructInit(I2S_InitTypeDef* I2S_InitStruct)
+ 399:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 362              		.loc 1 399 0
+ 363              		.cfi_startproc
+ 364              		@ args = 0, pretend = 0, frame = 0
+ 365              		@ frame_needed = 0, uses_anonymous_args = 0
+ 366              		@ link register save eliminated.
+ 367              	.LVL43:
+ 400:.\StdPeriphLib\src/stm32f10x_spi.c **** /*--------------- Reset I2S init structure parameters values -----------------*/
+ 401:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the I2S_Mode member */
+ 402:.\StdPeriphLib\src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_Mode = I2S_Mode_SlaveTx;
+ 368              		.loc 1 402 0
+ 369 0000 0023     		movs	r3, #0
+ 370 0002 0380     		strh	r3, [r0]	@ movhi
+ 403:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 404:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the I2S_Standard member */
+ 405:.\StdPeriphLib\src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_Standard = I2S_Standard_Phillips;
+ 371              		.loc 1 405 0
+ 372 0004 4380     		strh	r3, [r0, #2]	@ movhi
+ 406:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 407:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the I2S_DataFormat member */
+ 408:.\StdPeriphLib\src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_DataFormat = I2S_DataFormat_16b;
+ 373              		.loc 1 408 0
+ 374 0006 8380     		strh	r3, [r0, #4]	@ movhi
+ 409:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 410:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the I2S_MCLKOutput member */
+ 411:.\StdPeriphLib\src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_MCLKOutput = I2S_MCLKOutput_Disable;
+ 375              		.loc 1 411 0
+ 376 0008 C380     		strh	r3, [r0, #6]	@ movhi
+ 412:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 413:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the I2S_AudioFreq member */
+ 414:.\StdPeriphLib\src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_AudioFreq = I2S_AudioFreq_Default;
+ 377              		.loc 1 414 0
+ 378 000a 0222     		movs	r2, #2
+ 379 000c 8260     		str	r2, [r0, #8]
+ 415:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 416:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Initialize the I2S_CPOL member */
+ 417:.\StdPeriphLib\src/stm32f10x_spi.c ****   I2S_InitStruct->I2S_CPOL = I2S_CPOL_Low;
+ 380              		.loc 1 417 0
+ 381 000e 8381     		strh	r3, [r0, #12]	@ movhi
+ 382 0010 7047     		bx	lr
+ 383              		.cfi_endproc
+ 384              	.LFE33:
+ 386 0012 00BF     		.section	.text.SPI_Cmd,"ax",%progbits
+ 387              		.align	2
+ 388              		.global	SPI_Cmd
+ 389              		.thumb
+ 390              		.thumb_func
+ 392              	SPI_Cmd:
+ 393              	.LFB34:
+ 418:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 419:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 420:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 421:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Enables or disables the specified SPI peripheral.
+ 422:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 423:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  NewState: new state of the SPIx peripheral. 
+ 424:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 425:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 426:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 427:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 428:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 394              		.loc 1 428 0
+ 395              		.cfi_startproc
+ 396              		@ args = 0, pretend = 0, frame = 0
+ 397              		@ frame_needed = 0, uses_anonymous_args = 0
+ 398              		@ link register save eliminated.
+ 399              	.LVL44:
+ 429:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 430:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 431:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 432:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 400              		.loc 1 432 0
+ 401 0000 29B1     		cbz	r1, .L24
+ 433:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 434:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Enable the selected SPI peripheral */
+ 435:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR1 |= CR1_SPE_Set;
+ 402              		.loc 1 435 0
+ 403 0002 0388     		ldrh	r3, [r0]
+ 404 0004 9BB2     		uxth	r3, r3
+ 405 0006 43F04003 		orr	r3, r3, #64
+ 406 000a 0380     		strh	r3, [r0]	@ movhi
+ 407 000c 7047     		bx	lr
+ 408              	.L24:
+ 436:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 437:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 438:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 439:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Disable the selected SPI peripheral */
+ 440:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR1 &= CR1_SPE_Reset;
+ 409              		.loc 1 440 0
+ 410 000e 0388     		ldrh	r3, [r0]
+ 411 0010 23F04003 		bic	r3, r3, #64
+ 412 0014 1B04     		lsls	r3, r3, #16
+ 413 0016 1B0C     		lsrs	r3, r3, #16
+ 414 0018 0380     		strh	r3, [r0]	@ movhi
+ 415 001a 7047     		bx	lr
+ 416              		.cfi_endproc
+ 417              	.LFE34:
+ 419              		.section	.text.I2S_Cmd,"ax",%progbits
+ 420              		.align	2
+ 421              		.global	I2S_Cmd
+ 422              		.thumb
+ 423              		.thumb_func
+ 425              	I2S_Cmd:
+ 426              	.LFB35:
+ 441:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 442:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 443:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 444:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 445:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Enables or disables the specified SPI peripheral (in I2S mode).
+ 446:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 2 or 3 to select the SPI peripheral.
+ 447:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  NewState: new state of the SPIx peripheral. 
+ 448:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 449:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 450:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 451:.\StdPeriphLib\src/stm32f10x_spi.c **** void I2S_Cmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 452:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 427              		.loc 1 452 0
+ 428              		.cfi_startproc
+ 429              		@ args = 0, pretend = 0, frame = 0
+ 430              		@ frame_needed = 0, uses_anonymous_args = 0
+ 431              		@ link register save eliminated.
+ 432              	.LVL45:
+ 453:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 454:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_23_PERIPH(SPIx));
+ 455:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 456:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 433              		.loc 1 456 0
+ 434 0000 29B1     		cbz	r1, .L27
+ 457:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 458:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Enable the selected SPI peripheral (in I2S mode) */
+ 459:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->I2SCFGR |= I2SCFGR_I2SE_Set;
+ 435              		.loc 1 459 0
+ 436 0002 838B     		ldrh	r3, [r0, #28]
+ 437 0004 9BB2     		uxth	r3, r3
+ 438 0006 43F48063 		orr	r3, r3, #1024
+ 439 000a 8383     		strh	r3, [r0, #28]	@ movhi
+ 440 000c 7047     		bx	lr
+ 441              	.L27:
+ 460:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 461:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 462:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 463:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Disable the selected SPI peripheral (in I2S mode) */
+ 464:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->I2SCFGR &= I2SCFGR_I2SE_Reset;
+ 442              		.loc 1 464 0
+ 443 000e 838B     		ldrh	r3, [r0, #28]
+ 444 0010 23F48063 		bic	r3, r3, #1024
+ 445 0014 1B04     		lsls	r3, r3, #16
+ 446 0016 1B0C     		lsrs	r3, r3, #16
+ 447 0018 8383     		strh	r3, [r0, #28]	@ movhi
+ 448 001a 7047     		bx	lr
+ 449              		.cfi_endproc
+ 450              	.LFE35:
+ 452              		.section	.text.SPI_I2S_ITConfig,"ax",%progbits
+ 453              		.align	2
+ 454              		.global	SPI_I2S_ITConfig
+ 455              		.thumb
+ 456              		.thumb_func
+ 458              	SPI_I2S_ITConfig:
+ 459              	.LFB36:
+ 465:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 466:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 467:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 468:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 469:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Enables or disables the specified SPI/I2S interrupts.
+ 470:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 471:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 472:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 473:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_I2S_IT: specifies the SPI/I2S interrupt source to be enabled or disabled. 
+ 474:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 475:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_TXE: Tx buffer empty interrupt mask
+ 476:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_RXNE: Rx buffer not empty interrupt mask
+ 477:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_ERR: Error interrupt mask
+ 478:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  NewState: new state of the specified SPI/I2S interrupt.
+ 479:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 480:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 481:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 482:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_I2S_ITConfig(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT, FunctionalState NewState)
+ 483:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 460              		.loc 1 483 0
+ 461              		.cfi_startproc
+ 462              		@ args = 0, pretend = 0, frame = 0
+ 463              		@ frame_needed = 0, uses_anonymous_args = 0
+ 464              		@ link register save eliminated.
+ 465              	.LVL46:
+ 484:.\StdPeriphLib\src/stm32f10x_spi.c ****   uint16_t itpos = 0, itmask = 0 ;
+ 485:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 486:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 487:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 488:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_CONFIG_IT(SPI_I2S_IT));
+ 489:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 490:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Get the SPI/I2S IT index */
+ 491:.\StdPeriphLib\src/stm32f10x_spi.c ****   itpos = SPI_I2S_IT >> 4;
+ 492:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 493:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Set the IT mask */
+ 494:.\StdPeriphLib\src/stm32f10x_spi.c ****   itmask = (uint16_t)1 << (uint16_t)itpos;
+ 466              		.loc 1 494 0
+ 467 0000 0909     		lsrs	r1, r1, #4
+ 468              	.LVL47:
+ 469 0002 0123     		movs	r3, #1
+ 470 0004 8B40     		lsls	r3, r3, r1
+ 471 0006 9BB2     		uxth	r3, r3
+ 472              	.LVL48:
+ 495:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 496:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 473              		.loc 1 496 0
+ 474 0008 22B1     		cbz	r2, .L30
+ 497:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 498:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Enable the selected SPI/I2S interrupt */
+ 499:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR2 |= itmask;
+ 475              		.loc 1 499 0
+ 476 000a 8288     		ldrh	r2, [r0, #4]
+ 477              	.LVL49:
+ 478 000c 92B2     		uxth	r2, r2
+ 479 000e 1343     		orrs	r3, r3, r2
+ 480              	.LVL50:
+ 481 0010 8380     		strh	r3, [r0, #4]	@ movhi
+ 482 0012 7047     		bx	lr
+ 483              	.LVL51:
+ 484              	.L30:
+ 500:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 501:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 502:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 503:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Disable the selected SPI/I2S interrupt */
+ 504:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR2 &= (uint16_t)~itmask;
+ 485              		.loc 1 504 0
+ 486 0014 8288     		ldrh	r2, [r0, #4]
+ 487              	.LVL52:
+ 488 0016 92B2     		uxth	r2, r2
+ 489 0018 22EA0303 		bic	r3, r2, r3
+ 490              	.LVL53:
+ 491 001c 8380     		strh	r3, [r0, #4]	@ movhi
+ 492 001e 7047     		bx	lr
+ 493              		.cfi_endproc
+ 494              	.LFE36:
+ 496              		.section	.text.SPI_I2S_DMACmd,"ax",%progbits
+ 497              		.align	2
+ 498              		.global	SPI_I2S_DMACmd
+ 499              		.thumb
+ 500              		.thumb_func
+ 502              	SPI_I2S_DMACmd:
+ 503              	.LFB37:
+ 505:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 506:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 507:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 508:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 509:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Enables or disables the SPIx/I2Sx DMA interface.
+ 510:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 511:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 512:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 513:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_I2S_DMAReq: specifies the SPI/I2S DMA transfer request to be enabled or disabled. 
+ 514:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be any combination of the following values:
+ 515:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_DMAReq_Tx: Tx buffer DMA transfer request
+ 516:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_DMAReq_Rx: Rx buffer DMA transfer request
+ 517:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  NewState: new state of the selected SPI/I2S DMA transfer request.
+ 518:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 519:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 520:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 521:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_I2S_DMACmd(SPI_TypeDef* SPIx, uint16_t SPI_I2S_DMAReq, FunctionalState NewState)
+ 522:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 504              		.loc 1 522 0
+ 505              		.cfi_startproc
+ 506              		@ args = 0, pretend = 0, frame = 0
+ 507              		@ frame_needed = 0, uses_anonymous_args = 0
+ 508              		@ link register save eliminated.
+ 509              	.LVL54:
+ 523:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 524:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 525:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 526:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_DMAREQ(SPI_I2S_DMAReq));
+ 527:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 510              		.loc 1 527 0
+ 511 0000 22B1     		cbz	r2, .L33
+ 528:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 529:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Enable the selected SPI/I2S DMA requests */
+ 530:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR2 |= SPI_I2S_DMAReq;
+ 512              		.loc 1 530 0
+ 513 0002 8388     		ldrh	r3, [r0, #4]
+ 514 0004 9BB2     		uxth	r3, r3
+ 515 0006 1943     		orrs	r1, r1, r3
+ 516              	.LVL55:
+ 517 0008 8180     		strh	r1, [r0, #4]	@ movhi
+ 518 000a 7047     		bx	lr
+ 519              	.LVL56:
+ 520              	.L33:
+ 531:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 532:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 533:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 534:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Disable the selected SPI/I2S DMA requests */
+ 535:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR2 &= (uint16_t)~SPI_I2S_DMAReq;
+ 521              		.loc 1 535 0
+ 522 000c 8388     		ldrh	r3, [r0, #4]
+ 523 000e 9BB2     		uxth	r3, r3
+ 524 0010 23EA0101 		bic	r1, r3, r1
+ 525              	.LVL57:
+ 526 0014 8180     		strh	r1, [r0, #4]	@ movhi
+ 527 0016 7047     		bx	lr
+ 528              		.cfi_endproc
+ 529              	.LFE37:
+ 531              		.section	.text.SPI_I2S_SendData,"ax",%progbits
+ 532              		.align	2
+ 533              		.global	SPI_I2S_SendData
+ 534              		.thumb
+ 535              		.thumb_func
+ 537              	SPI_I2S_SendData:
+ 538              	.LFB38:
+ 536:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 537:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 538:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 539:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 540:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Transmits a Data through the SPIx/I2Sx peripheral.
+ 541:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 542:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 543:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 544:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  Data : Data to be transmitted.
+ 545:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 546:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 547:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_I2S_SendData(SPI_TypeDef* SPIx, uint16_t Data)
+ 548:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 539              		.loc 1 548 0
+ 540              		.cfi_startproc
+ 541              		@ args = 0, pretend = 0, frame = 0
+ 542              		@ frame_needed = 0, uses_anonymous_args = 0
+ 543              		@ link register save eliminated.
+ 544              	.LVL58:
+ 549:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 550:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 551:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 552:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Write in the DR register the data to be sent */
+ 553:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->DR = Data;
+ 545              		.loc 1 553 0
+ 546 0000 8181     		strh	r1, [r0, #12]	@ movhi
+ 547 0002 7047     		bx	lr
+ 548              		.cfi_endproc
+ 549              	.LFE38:
+ 551              		.section	.text.SPI_I2S_ReceiveData,"ax",%progbits
+ 552              		.align	2
+ 553              		.global	SPI_I2S_ReceiveData
+ 554              		.thumb
+ 555              		.thumb_func
+ 557              	SPI_I2S_ReceiveData:
+ 558              	.LFB39:
+ 554:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 555:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 556:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 557:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Returns the most recent received data by the SPIx/I2Sx peripheral. 
+ 558:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 559:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 560:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 561:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval The value of the received data.
+ 562:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 563:.\StdPeriphLib\src/stm32f10x_spi.c **** uint16_t SPI_I2S_ReceiveData(SPI_TypeDef* SPIx)
+ 564:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 559              		.loc 1 564 0
+ 560              		.cfi_startproc
+ 561              		@ args = 0, pretend = 0, frame = 0
+ 562              		@ frame_needed = 0, uses_anonymous_args = 0
+ 563              		@ link register save eliminated.
+ 564              	.LVL59:
+ 565:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 566:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 567:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 568:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Return the data in the DR register */
+ 569:.\StdPeriphLib\src/stm32f10x_spi.c ****   return SPIx->DR;
+ 565              		.loc 1 569 0
+ 566 0000 8089     		ldrh	r0, [r0, #12]
+ 567              	.LVL60:
+ 570:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 568              		.loc 1 570 0
+ 569 0002 80B2     		uxth	r0, r0
+ 570 0004 7047     		bx	lr
+ 571              		.cfi_endproc
+ 572              	.LFE39:
+ 574 0006 00BF     		.section	.text.SPI_NSSInternalSoftwareConfig,"ax",%progbits
+ 575              		.align	2
+ 576              		.global	SPI_NSSInternalSoftwareConfig
+ 577              		.thumb
+ 578              		.thumb_func
+ 580              	SPI_NSSInternalSoftwareConfig:
+ 581              	.LFB40:
+ 571:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 572:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 573:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Configures internally by software the NSS pin for the selected SPI.
+ 574:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 575:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_NSSInternalSoft: specifies the SPI NSS internal state.
+ 576:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 577:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_NSSInternalSoft_Set: Set NSS pin internally
+ 578:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_NSSInternalSoft_Reset: Reset NSS pin internally
+ 579:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 580:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 581:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_NSSInternalSoftwareConfig(SPI_TypeDef* SPIx, uint16_t SPI_NSSInternalSoft)
+ 582:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 582              		.loc 1 582 0
+ 583              		.cfi_startproc
+ 584              		@ args = 0, pretend = 0, frame = 0
+ 585              		@ frame_needed = 0, uses_anonymous_args = 0
+ 586              		@ link register save eliminated.
+ 587              	.LVL61:
+ 583:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 584:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 585:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_NSS_INTERNAL(SPI_NSSInternalSoft));
+ 586:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (SPI_NSSInternalSoft != SPI_NSSInternalSoft_Reset)
+ 588              		.loc 1 586 0
+ 589 0000 4FF6FF63 		movw	r3, #65279
+ 590 0004 9942     		cmp	r1, r3
+ 591 0006 05D0     		beq	.L38
+ 587:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 588:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Set NSS pin internally by software */
+ 589:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR1 |= SPI_NSSInternalSoft_Set;
+ 592              		.loc 1 589 0
+ 593 0008 0388     		ldrh	r3, [r0]
+ 594 000a 9BB2     		uxth	r3, r3
+ 595 000c 43F48073 		orr	r3, r3, #256
+ 596 0010 0380     		strh	r3, [r0]	@ movhi
+ 597 0012 7047     		bx	lr
+ 598              	.L38:
+ 590:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 591:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 592:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 593:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Reset NSS pin internally by software */
+ 594:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR1 &= SPI_NSSInternalSoft_Reset;
+ 599              		.loc 1 594 0
+ 600 0014 0388     		ldrh	r3, [r0]
+ 601 0016 23F48073 		bic	r3, r3, #256
+ 602 001a 1B04     		lsls	r3, r3, #16
+ 603 001c 1B0C     		lsrs	r3, r3, #16
+ 604 001e 0380     		strh	r3, [r0]	@ movhi
+ 605 0020 7047     		bx	lr
+ 606              		.cfi_endproc
+ 607              	.LFE40:
+ 609 0022 00BF     		.section	.text.SPI_SSOutputCmd,"ax",%progbits
+ 610              		.align	2
+ 611              		.global	SPI_SSOutputCmd
+ 612              		.thumb
+ 613              		.thumb_func
+ 615              	SPI_SSOutputCmd:
+ 616              	.LFB41:
+ 595:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 596:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 597:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 598:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 599:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Enables or disables the SS output for the selected SPI.
+ 600:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 601:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  NewState: new state of the SPIx SS output. 
+ 602:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 603:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 604:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 605:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_SSOutputCmd(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 606:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 617              		.loc 1 606 0
+ 618              		.cfi_startproc
+ 619              		@ args = 0, pretend = 0, frame = 0
+ 620              		@ frame_needed = 0, uses_anonymous_args = 0
+ 621              		@ link register save eliminated.
+ 622              	.LVL62:
+ 607:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 608:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 609:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 610:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 623              		.loc 1 610 0
+ 624 0000 29B1     		cbz	r1, .L41
+ 611:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 612:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Enable the selected SPI SS output */
+ 613:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR2 |= CR2_SSOE_Set;
+ 625              		.loc 1 613 0
+ 626 0002 8388     		ldrh	r3, [r0, #4]
+ 627 0004 9BB2     		uxth	r3, r3
+ 628 0006 43F00403 		orr	r3, r3, #4
+ 629 000a 8380     		strh	r3, [r0, #4]	@ movhi
+ 630 000c 7047     		bx	lr
+ 631              	.L41:
+ 614:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 615:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 616:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 617:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Disable the selected SPI SS output */
+ 618:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR2 &= CR2_SSOE_Reset;
+ 632              		.loc 1 618 0
+ 633 000e 8388     		ldrh	r3, [r0, #4]
+ 634 0010 23F00403 		bic	r3, r3, #4
+ 635 0014 1B04     		lsls	r3, r3, #16
+ 636 0016 1B0C     		lsrs	r3, r3, #16
+ 637 0018 8380     		strh	r3, [r0, #4]	@ movhi
+ 638 001a 7047     		bx	lr
+ 639              		.cfi_endproc
+ 640              	.LFE41:
+ 642              		.section	.text.SPI_DataSizeConfig,"ax",%progbits
+ 643              		.align	2
+ 644              		.global	SPI_DataSizeConfig
+ 645              		.thumb
+ 646              		.thumb_func
+ 648              	SPI_DataSizeConfig:
+ 649              	.LFB42:
+ 619:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 620:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 621:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 622:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 623:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Configures the data size for the selected SPI.
+ 624:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 625:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_DataSize: specifies the SPI data size.
+ 626:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 627:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_DataSize_16b: Set data frame format to 16bit
+ 628:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_DataSize_8b: Set data frame format to 8bit
+ 629:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 630:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 631:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_DataSizeConfig(SPI_TypeDef* SPIx, uint16_t SPI_DataSize)
+ 632:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 650              		.loc 1 632 0
+ 651              		.cfi_startproc
+ 652              		@ args = 0, pretend = 0, frame = 0
+ 653              		@ frame_needed = 0, uses_anonymous_args = 0
+ 654              		@ link register save eliminated.
+ 655              	.LVL63:
+ 633:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 634:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 635:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_DATASIZE(SPI_DataSize));
+ 636:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Clear DFF bit */
+ 637:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->CR1 &= (uint16_t)~SPI_DataSize_16b;
+ 656              		.loc 1 637 0
+ 657 0000 0388     		ldrh	r3, [r0]
+ 658 0002 23F40063 		bic	r3, r3, #2048
+ 659 0006 1B04     		lsls	r3, r3, #16
+ 660 0008 1B0C     		lsrs	r3, r3, #16
+ 661 000a 0380     		strh	r3, [r0]	@ movhi
+ 638:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Set new DFF bit value */
+ 639:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->CR1 |= SPI_DataSize;
+ 662              		.loc 1 639 0
+ 663 000c 0388     		ldrh	r3, [r0]
+ 664 000e 9BB2     		uxth	r3, r3
+ 665 0010 1943     		orrs	r1, r1, r3
+ 666              	.LVL64:
+ 667 0012 0180     		strh	r1, [r0]	@ movhi
+ 668 0014 7047     		bx	lr
+ 669              		.cfi_endproc
+ 670              	.LFE42:
+ 672 0016 00BF     		.section	.text.SPI_TransmitCRC,"ax",%progbits
+ 673              		.align	2
+ 674              		.global	SPI_TransmitCRC
+ 675              		.thumb
+ 676              		.thumb_func
+ 678              	SPI_TransmitCRC:
+ 679              	.LFB43:
+ 640:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 641:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 642:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 643:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Transmit the SPIx CRC value.
+ 644:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 645:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 646:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 647:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_TransmitCRC(SPI_TypeDef* SPIx)
+ 648:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 680              		.loc 1 648 0
+ 681              		.cfi_startproc
+ 682              		@ args = 0, pretend = 0, frame = 0
+ 683              		@ frame_needed = 0, uses_anonymous_args = 0
+ 684              		@ link register save eliminated.
+ 685              	.LVL65:
+ 649:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 650:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 651:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 652:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Enable the selected SPI CRC transmission */
+ 653:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->CR1 |= CR1_CRCNext_Set;
+ 686              		.loc 1 653 0
+ 687 0000 0388     		ldrh	r3, [r0]
+ 688 0002 9BB2     		uxth	r3, r3
+ 689 0004 43F48053 		orr	r3, r3, #4096
+ 690 0008 0380     		strh	r3, [r0]	@ movhi
+ 691 000a 7047     		bx	lr
+ 692              		.cfi_endproc
+ 693              	.LFE43:
+ 695              		.section	.text.SPI_CalculateCRC,"ax",%progbits
+ 696              		.align	2
+ 697              		.global	SPI_CalculateCRC
+ 698              		.thumb
+ 699              		.thumb_func
+ 701              	SPI_CalculateCRC:
+ 702              	.LFB44:
+ 654:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 655:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 656:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 657:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Enables or disables the CRC value calculation of the transferred bytes.
+ 658:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 659:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  NewState: new state of the SPIx CRC value calculation.
+ 660:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be: ENABLE or DISABLE.
+ 661:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 662:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 663:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_CalculateCRC(SPI_TypeDef* SPIx, FunctionalState NewState)
+ 664:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 703              		.loc 1 664 0
+ 704              		.cfi_startproc
+ 705              		@ args = 0, pretend = 0, frame = 0
+ 706              		@ frame_needed = 0, uses_anonymous_args = 0
+ 707              		@ link register save eliminated.
+ 708              	.LVL66:
+ 665:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 666:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 667:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_FUNCTIONAL_STATE(NewState));
+ 668:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (NewState != DISABLE)
+ 709              		.loc 1 668 0
+ 710 0000 29B1     		cbz	r1, .L46
+ 669:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 670:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Enable the selected SPI CRC calculation */
+ 671:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR1 |= CR1_CRCEN_Set;
+ 711              		.loc 1 671 0
+ 712 0002 0388     		ldrh	r3, [r0]
+ 713 0004 9BB2     		uxth	r3, r3
+ 714 0006 43F40053 		orr	r3, r3, #8192
+ 715 000a 0380     		strh	r3, [r0]	@ movhi
+ 716 000c 7047     		bx	lr
+ 717              	.L46:
+ 672:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 673:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 674:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 675:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Disable the selected SPI CRC calculation */
+ 676:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR1 &= CR1_CRCEN_Reset;
+ 718              		.loc 1 676 0
+ 719 000e 0388     		ldrh	r3, [r0]
+ 720 0010 23F40053 		bic	r3, r3, #8192
+ 721 0014 1B04     		lsls	r3, r3, #16
+ 722 0016 1B0C     		lsrs	r3, r3, #16
+ 723 0018 0380     		strh	r3, [r0]	@ movhi
+ 724 001a 7047     		bx	lr
+ 725              		.cfi_endproc
+ 726              	.LFE44:
+ 728              		.section	.text.SPI_GetCRC,"ax",%progbits
+ 729              		.align	2
+ 730              		.global	SPI_GetCRC
+ 731              		.thumb
+ 732              		.thumb_func
+ 734              	SPI_GetCRC:
+ 735              	.LFB45:
+ 677:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 678:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 679:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 680:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 681:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Returns the transmit or the receive CRC register value for the specified SPI.
+ 682:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 683:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_CRC: specifies the CRC register to be read.
+ 684:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 685:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_CRC_Tx: Selects Tx CRC register
+ 686:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_CRC_Rx: Selects Rx CRC register
+ 687:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval The selected CRC register value..
+ 688:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 689:.\StdPeriphLib\src/stm32f10x_spi.c **** uint16_t SPI_GetCRC(SPI_TypeDef* SPIx, uint8_t SPI_CRC)
+ 690:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 736              		.loc 1 690 0
+ 737              		.cfi_startproc
+ 738              		@ args = 0, pretend = 0, frame = 0
+ 739              		@ frame_needed = 0, uses_anonymous_args = 0
+ 740              		@ link register save eliminated.
+ 741              	.LVL67:
+ 691:.\StdPeriphLib\src/stm32f10x_spi.c ****   uint16_t crcreg = 0;
+ 692:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 693:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 694:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_CRC(SPI_CRC));
+ 695:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (SPI_CRC != SPI_CRC_Rx)
+ 742              		.loc 1 695 0
+ 743 0000 0129     		cmp	r1, #1
+ 696:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 697:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Get the Tx CRC register */
+ 698:.\StdPeriphLib\src/stm32f10x_spi.c ****     crcreg = SPIx->TXCRCR;
+ 744              		.loc 1 698 0
+ 745 0002 14BF     		ite	ne
+ 746 0004 008B     		ldrhne	r0, [r0, #24]
+ 747              	.LVL68:
+ 699:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 700:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 701:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 702:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Get the Rx CRC register */
+ 703:.\StdPeriphLib\src/stm32f10x_spi.c ****     crcreg = SPIx->RXCRCR;
+ 748              		.loc 1 703 0
+ 749 0006 808A     		ldrheq	r0, [r0, #20]
+ 750 0008 80B2     		uxth	r0, r0
+ 751              	.LVL69:
+ 704:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 705:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Return the selected CRC register */
+ 706:.\StdPeriphLib\src/stm32f10x_spi.c ****   return crcreg;
+ 707:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 752              		.loc 1 707 0
+ 753 000a 7047     		bx	lr
+ 754              		.cfi_endproc
+ 755              	.LFE45:
+ 757              		.section	.text.SPI_GetCRCPolynomial,"ax",%progbits
+ 758              		.align	2
+ 759              		.global	SPI_GetCRCPolynomial
+ 760              		.thumb
+ 761              		.thumb_func
+ 763              	SPI_GetCRCPolynomial:
+ 764              	.LFB46:
+ 708:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 709:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 710:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Returns the CRC Polynomial register value for the specified SPI.
+ 711:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 712:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval The CRC Polynomial register value.
+ 713:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 714:.\StdPeriphLib\src/stm32f10x_spi.c **** uint16_t SPI_GetCRCPolynomial(SPI_TypeDef* SPIx)
+ 715:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 765              		.loc 1 715 0
+ 766              		.cfi_startproc
+ 767              		@ args = 0, pretend = 0, frame = 0
+ 768              		@ frame_needed = 0, uses_anonymous_args = 0
+ 769              		@ link register save eliminated.
+ 770              	.LVL70:
+ 716:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 717:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 718:.\StdPeriphLib\src/stm32f10x_spi.c ****   
+ 719:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Return the CRC polynomial register */
+ 720:.\StdPeriphLib\src/stm32f10x_spi.c ****   return SPIx->CRCPR;
+ 771              		.loc 1 720 0
+ 772 0000 008A     		ldrh	r0, [r0, #16]
+ 773              	.LVL71:
+ 721:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 774              		.loc 1 721 0
+ 775 0002 80B2     		uxth	r0, r0
+ 776 0004 7047     		bx	lr
+ 777              		.cfi_endproc
+ 778              	.LFE46:
+ 780 0006 00BF     		.section	.text.SPI_BiDirectionalLineConfig,"ax",%progbits
+ 781              		.align	2
+ 782              		.global	SPI_BiDirectionalLineConfig
+ 783              		.thumb
+ 784              		.thumb_func
+ 786              	SPI_BiDirectionalLineConfig:
+ 787              	.LFB47:
+ 722:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 723:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 724:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Selects the data transfer direction in bi-directional mode for the specified SPI.
+ 725:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be 1, 2 or 3 to select the SPI peripheral.
+ 726:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_Direction: specifies the data transfer direction in bi-directional mode. 
+ 727:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 728:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_Direction_Tx: Selects Tx transmission direction
+ 729:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_Direction_Rx: Selects Rx receive direction
+ 730:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 731:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 732:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_BiDirectionalLineConfig(SPI_TypeDef* SPIx, uint16_t SPI_Direction)
+ 733:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 788              		.loc 1 733 0
+ 789              		.cfi_startproc
+ 790              		@ args = 0, pretend = 0, frame = 0
+ 791              		@ frame_needed = 0, uses_anonymous_args = 0
+ 792              		@ link register save eliminated.
+ 793              	.LVL72:
+ 734:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 735:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 736:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_DIRECTION(SPI_Direction));
+ 737:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (SPI_Direction == SPI_Direction_Tx)
+ 794              		.loc 1 737 0
+ 795 0000 B1F5804F 		cmp	r1, #16384
+ 796 0004 05D1     		bne	.L53
+ 738:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 739:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Set the Tx only mode */
+ 740:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR1 |= SPI_Direction_Tx;
+ 797              		.loc 1 740 0
+ 798 0006 0388     		ldrh	r3, [r0]
+ 799 0008 9BB2     		uxth	r3, r3
+ 800 000a 43F48043 		orr	r3, r3, #16384
+ 801 000e 0380     		strh	r3, [r0]	@ movhi
+ 802 0010 7047     		bx	lr
+ 803              	.L53:
+ 741:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 742:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 743:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 744:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Set the Rx only mode */
+ 745:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->CR1 &= SPI_Direction_Rx;
+ 804              		.loc 1 745 0
+ 805 0012 0388     		ldrh	r3, [r0]
+ 806 0014 23F48043 		bic	r3, r3, #16384
+ 807 0018 1B04     		lsls	r3, r3, #16
+ 808 001a 1B0C     		lsrs	r3, r3, #16
+ 809 001c 0380     		strh	r3, [r0]	@ movhi
+ 810 001e 7047     		bx	lr
+ 811              		.cfi_endproc
+ 812              	.LFE47:
+ 814              		.section	.text.SPI_I2S_GetFlagStatus,"ax",%progbits
+ 815              		.align	2
+ 816              		.global	SPI_I2S_GetFlagStatus
+ 817              		.thumb
+ 818              		.thumb_func
+ 820              	SPI_I2S_GetFlagStatus:
+ 821              	.LFB48:
+ 746:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 747:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 748:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 749:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 750:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Checks whether the specified SPI/I2S flag is set or not.
+ 751:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 752:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 753:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 754:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_I2S_FLAG: specifies the SPI/I2S flag to check. 
+ 755:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 756:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_FLAG_TXE: Transmit buffer empty flag.
+ 757:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_FLAG_RXNE: Receive buffer not empty flag.
+ 758:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_FLAG_BSY: Busy flag.
+ 759:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_FLAG_OVR: Overrun flag.
+ 760:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_FLAG_MODF: Mode Fault flag.
+ 761:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_FLAG_CRCERR: CRC Error flag.
+ 762:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg I2S_FLAG_UDR: Underrun Error flag.
+ 763:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg I2S_FLAG_CHSIDE: Channel Side flag.
+ 764:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval The new state of SPI_I2S_FLAG (SET or RESET).
+ 765:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 766:.\StdPeriphLib\src/stm32f10x_spi.c **** FlagStatus SPI_I2S_GetFlagStatus(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG)
+ 767:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 822              		.loc 1 767 0
+ 823              		.cfi_startproc
+ 824              		@ args = 0, pretend = 0, frame = 0
+ 825              		@ frame_needed = 0, uses_anonymous_args = 0
+ 826              		@ link register save eliminated.
+ 827              	.LVL73:
+ 768:.\StdPeriphLib\src/stm32f10x_spi.c ****   FlagStatus bitstatus = RESET;
+ 769:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 770:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 771:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_GET_FLAG(SPI_I2S_FLAG));
+ 772:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the status of the specified SPI/I2S flag */
+ 773:.\StdPeriphLib\src/stm32f10x_spi.c ****   if ((SPIx->SR & SPI_I2S_FLAG) != (uint16_t)RESET)
+ 828              		.loc 1 773 0
+ 829 0000 0389     		ldrh	r3, [r0, #8]
+ 830              	.LVL74:
+ 831 0002 1942     		tst	r1, r3
+ 774:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 775:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* SPI_I2S_FLAG is set */
+ 776:.\StdPeriphLib\src/stm32f10x_spi.c ****     bitstatus = SET;
+ 777:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 778:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 779:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 780:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* SPI_I2S_FLAG is reset */
+ 781:.\StdPeriphLib\src/stm32f10x_spi.c ****     bitstatus = RESET;
+ 782:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 783:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Return the SPI_I2S_FLAG status */
+ 784:.\StdPeriphLib\src/stm32f10x_spi.c ****   return  bitstatus;
+ 785:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 832              		.loc 1 785 0
+ 833 0004 14BF     		ite	ne
+ 834 0006 0120     		movne	r0, #1
+ 835              	.LVL75:
+ 836 0008 0020     		moveq	r0, #0
+ 837 000a 7047     		bx	lr
+ 838              		.cfi_endproc
+ 839              	.LFE48:
+ 841              		.section	.text.SPI_I2S_ClearFlag,"ax",%progbits
+ 842              		.align	2
+ 843              		.global	SPI_I2S_ClearFlag
+ 844              		.thumb
+ 845              		.thumb_func
+ 847              	SPI_I2S_ClearFlag:
+ 848              	.LFB49:
+ 786:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 787:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 788:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Clears the SPIx CRC Error (CRCERR) flag.
+ 789:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 790:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 791:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_I2S_FLAG: specifies the SPI flag to clear. 
+ 792:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This function clears only CRCERR flag.
+ 793:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @note
+ 794:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - OVR (OverRun error) flag is cleared by software sequence: a read 
+ 795:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     operation to SPI_DR register (SPI_I2S_ReceiveData()) followed by a read 
+ 796:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     operation to SPI_SR register (SPI_I2S_GetFlagStatus()).
+ 797:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - UDR (UnderRun error) flag is cleared by a read operation to 
+ 798:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     SPI_SR register (SPI_I2S_GetFlagStatus()).
+ 799:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - MODF (Mode Fault) flag is cleared by software sequence: a read/write 
+ 800:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     operation to SPI_SR register (SPI_I2S_GetFlagStatus()) followed by a 
+ 801:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     write operation to SPI_CR1 register (SPI_Cmd() to enable the SPI).
+ 802:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 803:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 804:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_I2S_ClearFlag(SPI_TypeDef* SPIx, uint16_t SPI_I2S_FLAG)
+ 805:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 849              		.loc 1 805 0
+ 850              		.cfi_startproc
+ 851              		@ args = 0, pretend = 0, frame = 0
+ 852              		@ frame_needed = 0, uses_anonymous_args = 0
+ 853              		@ link register save eliminated.
+ 854              	.LVL76:
+ 806:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 807:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 808:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_CLEAR_FLAG(SPI_I2S_FLAG));
+ 809:.\StdPeriphLib\src/stm32f10x_spi.c ****     
+ 810:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* Clear the selected SPI CRC Error (CRCERR) flag */
+ 811:.\StdPeriphLib\src/stm32f10x_spi.c ****     SPIx->SR = (uint16_t)~SPI_I2S_FLAG;
+ 855              		.loc 1 811 0
+ 856 0000 C943     		mvns	r1, r1
+ 857              	.LVL77:
+ 858 0002 89B2     		uxth	r1, r1
+ 859 0004 0181     		strh	r1, [r0, #8]	@ movhi
+ 860 0006 7047     		bx	lr
+ 861              		.cfi_endproc
+ 862              	.LFE49:
+ 864              		.section	.text.SPI_I2S_GetITStatus,"ax",%progbits
+ 865              		.align	2
+ 866              		.global	SPI_I2S_GetITStatus
+ 867              		.thumb
+ 868              		.thumb_func
+ 870              	SPI_I2S_GetITStatus:
+ 871              	.LFB50:
+ 812:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 813:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 814:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 815:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Checks whether the specified SPI/I2S interrupt has occurred or not.
+ 816:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 817:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 818:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 2 or 3 in I2S mode
+ 819:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_I2S_IT: specifies the SPI/I2S interrupt source to check. 
+ 820:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This parameter can be one of the following values:
+ 821:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_TXE: Transmit buffer empty interrupt.
+ 822:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_RXNE: Receive buffer not empty interrupt.
+ 823:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_I2S_IT_OVR: Overrun interrupt.
+ 824:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_IT_MODF: Mode Fault interrupt.
+ 825:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg SPI_IT_CRCERR: CRC Error interrupt.
+ 826:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     @arg I2S_IT_UDR: Underrun Error interrupt.
+ 827:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval The new state of SPI_I2S_IT (SET or RESET).
+ 828:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 829:.\StdPeriphLib\src/stm32f10x_spi.c **** ITStatus SPI_I2S_GetITStatus(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT)
+ 830:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 872              		.loc 1 830 0
+ 873              		.cfi_startproc
+ 874              		@ args = 0, pretend = 0, frame = 0
+ 875              		@ frame_needed = 0, uses_anonymous_args = 0
+ 876              		@ link register save eliminated.
+ 877              	.LVL78:
+ 878 0000 10B4     		push	{r4}
+ 879              	.LCFI6:
+ 880              		.cfi_def_cfa_offset 4
+ 881              		.cfi_offset 4, -4
+ 882              	.LVL79:
+ 831:.\StdPeriphLib\src/stm32f10x_spi.c ****   ITStatus bitstatus = RESET;
+ 832:.\StdPeriphLib\src/stm32f10x_spi.c ****   uint16_t itpos = 0, itmask = 0, enablestatus = 0;
+ 833:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 834:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 835:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 836:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_GET_IT(SPI_I2S_IT));
+ 837:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 838:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Get the SPI/I2S IT index */
+ 839:.\StdPeriphLib\src/stm32f10x_spi.c ****   itpos = 0x01 << (SPI_I2S_IT & 0x0F);
+ 840:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 841:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Get the SPI/I2S IT mask */
+ 842:.\StdPeriphLib\src/stm32f10x_spi.c ****   itmask = SPI_I2S_IT >> 4;
+ 843:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 844:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Set the IT mask */
+ 845:.\StdPeriphLib\src/stm32f10x_spi.c ****   itmask = 0x01 << itmask;
+ 846:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 847:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Get the SPI_I2S_IT enable bit status */
+ 848:.\StdPeriphLib\src/stm32f10x_spi.c ****   enablestatus = (SPIx->CR2 & itmask) ;
+ 883              		.loc 1 848 0
+ 884 0002 8388     		ldrh	r3, [r0, #4]
+ 885 0004 9CB2     		uxth	r4, r3
+ 886              	.LVL80:
+ 849:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 850:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the status of the specified SPI/I2S interrupt */
+ 851:.\StdPeriphLib\src/stm32f10x_spi.c ****   if (((SPIx->SR & itpos) != (uint16_t)RESET) && enablestatus)
+ 887              		.loc 1 851 0
+ 888 0006 0289     		ldrh	r2, [r0, #8]
+ 889 0008 92B2     		uxth	r2, r2
+ 839:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 890              		.loc 1 839 0
+ 891 000a 01F00F00 		and	r0, r1, #15
+ 892              	.LVL81:
+ 893 000e 0123     		movs	r3, #1
+ 894 0010 8340     		lsls	r3, r3, r0
+ 895              		.loc 1 851 0
+ 896 0012 1A42     		tst	r2, r3
+ 897 0014 07D0     		beq	.L59
+ 845:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 898              		.loc 1 845 0 discriminator 1
+ 899 0016 0909     		lsrs	r1, r1, #4
+ 900              	.LVL82:
+ 901 0018 0123     		movs	r3, #1
+ 902 001a 8B40     		lsls	r3, r3, r1
+ 903              		.loc 1 851 0 discriminator 1
+ 904 001c 1C42     		tst	r4, r3
+ 852:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 853:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* SPI_I2S_IT is set */
+ 854:.\StdPeriphLib\src/stm32f10x_spi.c ****     bitstatus = SET;
+ 905              		.loc 1 854 0 discriminator 1
+ 906 001e 14BF     		ite	ne
+ 907 0020 0120     		movne	r0, #1
+ 908 0022 0020     		moveq	r0, #0
+ 909 0024 00E0     		b	.L58
+ 910              	.LVL83:
+ 911              	.L59:
+ 855:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 856:.\StdPeriphLib\src/stm32f10x_spi.c ****   else
+ 857:.\StdPeriphLib\src/stm32f10x_spi.c ****   {
+ 858:.\StdPeriphLib\src/stm32f10x_spi.c ****     /* SPI_I2S_IT is reset */
+ 859:.\StdPeriphLib\src/stm32f10x_spi.c ****     bitstatus = RESET;
+ 912              		.loc 1 859 0
+ 913 0026 0020     		movs	r0, #0
+ 914              	.LVL84:
+ 915              	.L58:
+ 860:.\StdPeriphLib\src/stm32f10x_spi.c ****   }
+ 861:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Return the SPI_I2S_IT status */
+ 862:.\StdPeriphLib\src/stm32f10x_spi.c ****   return bitstatus;
+ 863:.\StdPeriphLib\src/stm32f10x_spi.c **** }
+ 916              		.loc 1 863 0
+ 917 0028 5DF8044B 		ldr	r4, [sp], #4
+ 918              	.LCFI7:
+ 919              		.cfi_restore 4
+ 920              		.cfi_def_cfa_offset 0
+ 921              	.LVL85:
+ 922 002c 7047     		bx	lr
+ 923              		.cfi_endproc
+ 924              	.LFE50:
+ 926 002e 00BF     		.section	.text.SPI_I2S_ClearITPendingBit,"ax",%progbits
+ 927              		.align	2
+ 928              		.global	SPI_I2S_ClearITPendingBit
+ 929              		.thumb
+ 930              		.thumb_func
+ 932              	SPI_I2S_ClearITPendingBit:
+ 933              	.LFB51:
+ 864:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 865:.\StdPeriphLib\src/stm32f10x_spi.c **** /**
+ 866:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @brief  Clears the SPIx CRC Error (CRCERR) interrupt pending bit.
+ 867:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPIx: where x can be
+ 868:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - 1, 2 or 3 in SPI mode 
+ 869:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @param  SPI_I2S_IT: specifies the SPI interrupt pending bit to clear.
+ 870:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   This function clears only CRCERR interrupt pending bit.   
+ 871:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @note
+ 872:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - OVR (OverRun Error) interrupt pending bit is cleared by software 
+ 873:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     sequence: a read operation to SPI_DR register (SPI_I2S_ReceiveData()) 
+ 874:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     followed by a read operation to SPI_SR register (SPI_I2S_GetITStatus()).
+ 875:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - UDR (UnderRun Error) interrupt pending bit is cleared by a read 
+ 876:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     operation to SPI_SR register (SPI_I2S_GetITStatus()).
+ 877:.\StdPeriphLib\src/stm32f10x_spi.c ****   *   - MODF (Mode Fault) interrupt pending bit is cleared by software sequence:
+ 878:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     a read/write operation to SPI_SR register (SPI_I2S_GetITStatus()) 
+ 879:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     followed by a write operation to SPI_CR1 register (SPI_Cmd() to enable 
+ 880:.\StdPeriphLib\src/stm32f10x_spi.c ****   *     the SPI).
+ 881:.\StdPeriphLib\src/stm32f10x_spi.c ****   * @retval None
+ 882:.\StdPeriphLib\src/stm32f10x_spi.c ****   */
+ 883:.\StdPeriphLib\src/stm32f10x_spi.c **** void SPI_I2S_ClearITPendingBit(SPI_TypeDef* SPIx, uint8_t SPI_I2S_IT)
+ 884:.\StdPeriphLib\src/stm32f10x_spi.c **** {
+ 934              		.loc 1 884 0
+ 935              		.cfi_startproc
+ 936              		@ args = 0, pretend = 0, frame = 0
+ 937              		@ frame_needed = 0, uses_anonymous_args = 0
+ 938              		@ link register save eliminated.
+ 939              	.LVL86:
+ 885:.\StdPeriphLib\src/stm32f10x_spi.c ****   uint16_t itpos = 0;
+ 886:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Check the parameters */
+ 887:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_ALL_PERIPH(SPIx));
+ 888:.\StdPeriphLib\src/stm32f10x_spi.c ****   assert_param(IS_SPI_I2S_CLEAR_IT(SPI_I2S_IT));
+ 889:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 890:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Get the SPI IT index */
+ 891:.\StdPeriphLib\src/stm32f10x_spi.c ****   itpos = 0x01 << (SPI_I2S_IT & 0x0F);
+ 940              		.loc 1 891 0
+ 941 0000 01F00F01 		and	r1, r1, #15
+ 942              	.LVL87:
+ 943 0004 0123     		movs	r3, #1
+ 944 0006 8B40     		lsls	r3, r3, r1
+ 892:.\StdPeriphLib\src/stm32f10x_spi.c **** 
+ 893:.\StdPeriphLib\src/stm32f10x_spi.c ****   /* Clear the selected SPI CRC Error (CRCERR) interrupt pending bit */
+ 894:.\StdPeriphLib\src/stm32f10x_spi.c ****   SPIx->SR = (uint16_t)~itpos;
+ 945              		.loc 1 894 0
+ 946 0008 DB43     		mvns	r3, r3
+ 947 000a 9BB2     		uxth	r3, r3
+ 948 000c 0381     		strh	r3, [r0, #8]	@ movhi
+ 949 000e 7047     		bx	lr
+ 950              		.cfi_endproc
+ 951              	.LFE51:
+ 953              		.text
+ 954              	.Letext0:
+ 955              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
+ 956              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 957              		.file 4 ".\\CMSIS/stm32f10x.h"
+ 958              		.file 5 ".\\StdPeriphLib\\inc/stm32f10x_rcc.h"
+ 959              		.file 6 ".\\StdPeriphLib\\inc/stm32f10x_spi.h"
+ 960              		.file 7 ".\\CMSIS/core_cm3.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 stm32f10x_spi.c
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:19     .text.SPI_I2S_DeInit:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:24     .text.SPI_I2S_DeInit:00000000 SPI_I2S_DeInit
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:93     .text.SPI_I2S_DeInit:00000058 $d
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:100    .text.SPI_Init:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:105    .text.SPI_Init:00000000 SPI_Init
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:166    .text.I2S_Init:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:171    .text.I2S_Init:00000000 I2S_Init
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:312    .text.I2S_Init:000000a4 $d
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:317    .text.SPI_StructInit:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:322    .text.SPI_StructInit:00000000 SPI_StructInit
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:355    .text.I2S_StructInit:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:360    .text.I2S_StructInit:00000000 I2S_StructInit
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:387    .text.SPI_Cmd:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:392    .text.SPI_Cmd:00000000 SPI_Cmd
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:420    .text.I2S_Cmd:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:425    .text.I2S_Cmd:00000000 I2S_Cmd
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:453    .text.SPI_I2S_ITConfig:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:458    .text.SPI_I2S_ITConfig:00000000 SPI_I2S_ITConfig
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:497    .text.SPI_I2S_DMACmd:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:502    .text.SPI_I2S_DMACmd:00000000 SPI_I2S_DMACmd
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:532    .text.SPI_I2S_SendData:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:537    .text.SPI_I2S_SendData:00000000 SPI_I2S_SendData
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:552    .text.SPI_I2S_ReceiveData:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:557    .text.SPI_I2S_ReceiveData:00000000 SPI_I2S_ReceiveData
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:575    .text.SPI_NSSInternalSoftwareConfig:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:580    .text.SPI_NSSInternalSoftwareConfig:00000000 SPI_NSSInternalSoftwareConfig
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:610    .text.SPI_SSOutputCmd:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:615    .text.SPI_SSOutputCmd:00000000 SPI_SSOutputCmd
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:643    .text.SPI_DataSizeConfig:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:648    .text.SPI_DataSizeConfig:00000000 SPI_DataSizeConfig
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:673    .text.SPI_TransmitCRC:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:678    .text.SPI_TransmitCRC:00000000 SPI_TransmitCRC
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:696    .text.SPI_CalculateCRC:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:701    .text.SPI_CalculateCRC:00000000 SPI_CalculateCRC
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:729    .text.SPI_GetCRC:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:734    .text.SPI_GetCRC:00000000 SPI_GetCRC
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:758    .text.SPI_GetCRCPolynomial:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:763    .text.SPI_GetCRCPolynomial:00000000 SPI_GetCRCPolynomial
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:781    .text.SPI_BiDirectionalLineConfig:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:786    .text.SPI_BiDirectionalLineConfig:00000000 SPI_BiDirectionalLineConfig
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:815    .text.SPI_I2S_GetFlagStatus:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:820    .text.SPI_I2S_GetFlagStatus:00000000 SPI_I2S_GetFlagStatus
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:842    .text.SPI_I2S_ClearFlag:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:847    .text.SPI_I2S_ClearFlag:00000000 SPI_I2S_ClearFlag
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:865    .text.SPI_I2S_GetITStatus:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:870    .text.SPI_I2S_GetITStatus:00000000 SPI_I2S_GetITStatus
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:927    .text.SPI_I2S_ClearITPendingBit:00000000 $t
+C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:932    .text.SPI_I2S_ClearITPendingBit:00000000 SPI_I2S_ClearITPendingBit
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+RCC_APB2PeriphResetCmd
+RCC_APB1PeriphResetCmd
+RCC_GetClocksFreq
