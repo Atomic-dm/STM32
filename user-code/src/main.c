@@ -11,7 +11,7 @@ __IO uint16_t i=0;
 SystemCoreClockUpdate();
 SysTick_Config(SystemCoreClock/1000);	
 
-// comment  ww
+//fff/ comment  ww
 pin_ini();	
 
 	while(1)
