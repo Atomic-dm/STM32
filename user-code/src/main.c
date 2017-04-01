@@ -17,9 +17,9 @@ pin_ini();
 	while(1)
 	{
 	i++;
-	delay_ms(1000);
+	delay_ms(100);
 	GPIO_ResetBits(GPIOC,GPIO_Pin_13);
-	delay_ms(1000);
+	delay_ms(10);
 	GPIO_SetBits(GPIOC,GPIO_Pin_13);
 		
 	}	
