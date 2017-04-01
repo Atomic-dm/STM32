@@ -2024,66 +2024,66 @@
  1192              	.LFE47:
  1194              		.text
  1195              	.Letext0:
- 1196              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 1197              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1196              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 1197              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  1198              		.file 4 ".\\CMSIS/stm32f10x.h"
  1199              		.file 5 ".\\StdPeriphLib\\inc/stm32f10x_fsmc.h"
  1200              		.file 6 ".\\CMSIS/core_cm3.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_fsmc.c
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:19     .text.FSMC_NORSRAMDeInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:24     .text.FSMC_NORSRAMDeInit:00000000 FSMC_NORSRAMDeInit
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:61     .text.FSMC_NANDDeInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:66     .text.FSMC_NANDDeInit:00000000 FSMC_NANDDeInit
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:95     .text.FSMC_NANDDeInit:0000001c $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:101    .text.FSMC_PCCARDDeInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:106    .text.FSMC_PCCARDDeInit:00000000 FSMC_PCCARDDeInit
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:131    .text.FSMC_PCCARDDeInit:00000018 $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:136    .text.FSMC_NORSRAMInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:141    .text.FSMC_NORSRAMInit:00000000 FSMC_NORSRAMInit
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:276    .text.FSMC_NORSRAMInit:000000c4 $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:281    .text.FSMC_NANDInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:286    .text.FSMC_NANDInit:00000000 FSMC_NANDInit
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:373    .text.FSMC_NANDInit:00000060 $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:379    .text.FSMC_PCCARDInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:384    .text.FSMC_PCCARDInit:00000000 FSMC_PCCARDInit
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:469    .text.FSMC_PCCARDInit:00000068 $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:474    .text.FSMC_NORSRAMStructInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:479    .text.FSMC_NORSRAMStructInit:00000000 FSMC_NORSRAMStructInit
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:575    .text.FSMC_NANDStructInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:580    .text.FSMC_NANDStructInit:00000000 FSMC_NANDStructInit
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:634    .text.FSMC_PCCARDStructInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:639    .text.FSMC_PCCARDStructInit:00000000 FSMC_PCCARDStructInit
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:696    .text.FSMC_NORSRAMCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:701    .text.FSMC_NORSRAMCmd:00000000 FSMC_NORSRAMCmd
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:733    .text.FSMC_NORSRAMCmd:00000024 $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:738    .text.FSMC_NANDCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:743    .text.FSMC_NANDCmd:00000000 FSMC_NANDCmd
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:781    .text.FSMC_NANDCmd:00000028 $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:788    .text.FSMC_PCCARDCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:793    .text.FSMC_PCCARDCmd:00000000 FSMC_PCCARDCmd
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:820    .text.FSMC_PCCARDCmd:0000001c $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:826    .text.FSMC_NANDECCCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:831    .text.FSMC_NANDECCCmd:00000000 FSMC_NANDECCCmd
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:869    .text.FSMC_NANDECCCmd:00000028 $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:876    .text.FSMC_GetECC:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:881    .text.FSMC_GetECC:00000000 FSMC_GetECC
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:903    .text.FSMC_GetECC:0000000c $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:909    .text.FSMC_ITConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:914    .text.FSMC_ITConfig:00000000 FSMC_ITConfig
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:981    .text.FSMC_ITConfig:00000048 $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:988    .text.FSMC_GetFlagStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:993    .text.FSMC_GetFlagStatus:00000000 FSMC_GetFlagStatus
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:1032   .text.FSMC_GetFlagStatus:00000020 $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:1039   .text.FSMC_ClearFlag:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:1044   .text.FSMC_ClearFlag:00000000 FSMC_ClearFlag
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:1079   .text.FSMC_ClearFlag:00000024 $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:1086   .text.FSMC_GetITStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:1091   .text.FSMC_GetITStatus:00000000 FSMC_GetITStatus
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:1141   .text.FSMC_GetITStatus:0000002c $d
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:1148   .text.FSMC_ClearITPendingBit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:1153   .text.FSMC_ClearITPendingBit:00000000 FSMC_ClearITPendingBit
-C:\Users\Admin\AppData\Local\Temp\ccIiuUNr.s:1188   .text.FSMC_ClearITPendingBit:00000024 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:19     .text.FSMC_NORSRAMDeInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:24     .text.FSMC_NORSRAMDeInit:00000000 FSMC_NORSRAMDeInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:61     .text.FSMC_NANDDeInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:66     .text.FSMC_NANDDeInit:00000000 FSMC_NANDDeInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:95     .text.FSMC_NANDDeInit:0000001c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:101    .text.FSMC_PCCARDDeInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:106    .text.FSMC_PCCARDDeInit:00000000 FSMC_PCCARDDeInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:131    .text.FSMC_PCCARDDeInit:00000018 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:136    .text.FSMC_NORSRAMInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:141    .text.FSMC_NORSRAMInit:00000000 FSMC_NORSRAMInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:276    .text.FSMC_NORSRAMInit:000000c4 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:281    .text.FSMC_NANDInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:286    .text.FSMC_NANDInit:00000000 FSMC_NANDInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:373    .text.FSMC_NANDInit:00000060 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:379    .text.FSMC_PCCARDInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:384    .text.FSMC_PCCARDInit:00000000 FSMC_PCCARDInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:469    .text.FSMC_PCCARDInit:00000068 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:474    .text.FSMC_NORSRAMStructInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:479    .text.FSMC_NORSRAMStructInit:00000000 FSMC_NORSRAMStructInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:575    .text.FSMC_NANDStructInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:580    .text.FSMC_NANDStructInit:00000000 FSMC_NANDStructInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:634    .text.FSMC_PCCARDStructInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:639    .text.FSMC_PCCARDStructInit:00000000 FSMC_PCCARDStructInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:696    .text.FSMC_NORSRAMCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:701    .text.FSMC_NORSRAMCmd:00000000 FSMC_NORSRAMCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:733    .text.FSMC_NORSRAMCmd:00000024 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:738    .text.FSMC_NANDCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:743    .text.FSMC_NANDCmd:00000000 FSMC_NANDCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:781    .text.FSMC_NANDCmd:00000028 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:788    .text.FSMC_PCCARDCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:793    .text.FSMC_PCCARDCmd:00000000 FSMC_PCCARDCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:820    .text.FSMC_PCCARDCmd:0000001c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:826    .text.FSMC_NANDECCCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:831    .text.FSMC_NANDECCCmd:00000000 FSMC_NANDECCCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:869    .text.FSMC_NANDECCCmd:00000028 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:876    .text.FSMC_GetECC:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:881    .text.FSMC_GetECC:00000000 FSMC_GetECC
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:903    .text.FSMC_GetECC:0000000c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:909    .text.FSMC_ITConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:914    .text.FSMC_ITConfig:00000000 FSMC_ITConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:981    .text.FSMC_ITConfig:00000048 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:988    .text.FSMC_GetFlagStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:993    .text.FSMC_GetFlagStatus:00000000 FSMC_GetFlagStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:1032   .text.FSMC_GetFlagStatus:00000020 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:1039   .text.FSMC_ClearFlag:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:1044   .text.FSMC_ClearFlag:00000000 FSMC_ClearFlag
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:1079   .text.FSMC_ClearFlag:00000024 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:1086   .text.FSMC_GetITStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:1091   .text.FSMC_GetITStatus:00000000 FSMC_GetITStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:1141   .text.FSMC_GetITStatus:0000002c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:1148   .text.FSMC_ClearITPendingBit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:1153   .text.FSMC_ClearITPendingBit:00000000 FSMC_ClearITPendingBit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHdrrqL.s:1188   .text.FSMC_ClearITPendingBit:00000024 $d
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

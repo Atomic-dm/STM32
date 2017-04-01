@@ -1469,55 +1469,55 @@
  857              	.LFE46:
  859              		.text
  860              	.Letext0:
- 861              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 862              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 861              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 862              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  863              		.file 4 ".\\CMSIS/stm32f10x.h"
  864              		.file 5 ".\\StdPeriphLib\\inc/stm32f10x_gpio.h"
  865              		.file 6 ".\\CMSIS/core_cm3.h"
  866              		.file 7 ".\\StdPeriphLib\\inc/stm32f10x_rcc.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_gpio.c
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:19     .text.GPIO_DeInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:24     .text.GPIO_DeInit:00000000 GPIO_DeInit
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:165    .text.GPIO_DeInit:000000b0 $d
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:176    .text.GPIO_AFIODeInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:181    .text.GPIO_AFIODeInit:00000000 GPIO_AFIODeInit
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:207    .text.GPIO_Init:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:212    .text.GPIO_Init:00000000 GPIO_Init
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:367    .text.GPIO_StructInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:372    .text.GPIO_StructInit:00000000 GPIO_StructInit
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:394    .text.GPIO_ReadInputDataBit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:399    .text.GPIO_ReadInputDataBit:00000000 GPIO_ReadInputDataBit
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:421    .text.GPIO_ReadInputData:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:426    .text.GPIO_ReadInputData:00000000 GPIO_ReadInputData
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:444    .text.GPIO_ReadOutputDataBit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:449    .text.GPIO_ReadOutputDataBit:00000000 GPIO_ReadOutputDataBit
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:471    .text.GPIO_ReadOutputData:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:476    .text.GPIO_ReadOutputData:00000000 GPIO_ReadOutputData
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:494    .text.GPIO_SetBits:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:499    .text.GPIO_SetBits:00000000 GPIO_SetBits
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:514    .text.GPIO_ResetBits:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:519    .text.GPIO_ResetBits:00000000 GPIO_ResetBits
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:534    .text.GPIO_WriteBit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:539    .text.GPIO_WriteBit:00000000 GPIO_WriteBit
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:560    .text.GPIO_Write:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:565    .text.GPIO_Write:00000000 GPIO_Write
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:580    .text.GPIO_PinLockConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:585    .text.GPIO_PinLockConfig:00000000 GPIO_PinLockConfig
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:612    .text.GPIO_EventOutputConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:617    .text.GPIO_EventOutputConfig:00000000 GPIO_EventOutputConfig
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:645    .text.GPIO_EventOutputConfig:00000018 $d
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:650    .text.GPIO_EventOutputCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:655    .text.GPIO_EventOutputCmd:00000000 GPIO_EventOutputCmd
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:670    .text.GPIO_EventOutputCmd:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:675    .text.GPIO_PinRemapConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:680    .text.GPIO_PinRemapConfig:00000000 GPIO_PinRemapConfig
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:778    .text.GPIO_PinRemapConfig:00000068 $d
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:783    .text.GPIO_EXTILineConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:788    .text.GPIO_EXTILineConfig:00000000 GPIO_EXTILineConfig
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:835    .text.GPIO_ETH_MediaInterfaceConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:840    .text.GPIO_ETH_MediaInterfaceConfig:00000000 GPIO_ETH_MediaInterfaceConfig
-C:\Users\Admin\AppData\Local\Temp\ccyvMA1g.s:855    .text.GPIO_ETH_MediaInterfaceConfig:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:19     .text.GPIO_DeInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:24     .text.GPIO_DeInit:00000000 GPIO_DeInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:165    .text.GPIO_DeInit:000000b0 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:176    .text.GPIO_AFIODeInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:181    .text.GPIO_AFIODeInit:00000000 GPIO_AFIODeInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:207    .text.GPIO_Init:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:212    .text.GPIO_Init:00000000 GPIO_Init
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:367    .text.GPIO_StructInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:372    .text.GPIO_StructInit:00000000 GPIO_StructInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:394    .text.GPIO_ReadInputDataBit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:399    .text.GPIO_ReadInputDataBit:00000000 GPIO_ReadInputDataBit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:421    .text.GPIO_ReadInputData:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:426    .text.GPIO_ReadInputData:00000000 GPIO_ReadInputData
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:444    .text.GPIO_ReadOutputDataBit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:449    .text.GPIO_ReadOutputDataBit:00000000 GPIO_ReadOutputDataBit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:471    .text.GPIO_ReadOutputData:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:476    .text.GPIO_ReadOutputData:00000000 GPIO_ReadOutputData
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:494    .text.GPIO_SetBits:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:499    .text.GPIO_SetBits:00000000 GPIO_SetBits
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:514    .text.GPIO_ResetBits:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:519    .text.GPIO_ResetBits:00000000 GPIO_ResetBits
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:534    .text.GPIO_WriteBit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:539    .text.GPIO_WriteBit:00000000 GPIO_WriteBit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:560    .text.GPIO_Write:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:565    .text.GPIO_Write:00000000 GPIO_Write
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:580    .text.GPIO_PinLockConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:585    .text.GPIO_PinLockConfig:00000000 GPIO_PinLockConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:612    .text.GPIO_EventOutputConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:617    .text.GPIO_EventOutputConfig:00000000 GPIO_EventOutputConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:645    .text.GPIO_EventOutputConfig:00000018 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:650    .text.GPIO_EventOutputCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:655    .text.GPIO_EventOutputCmd:00000000 GPIO_EventOutputCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:670    .text.GPIO_EventOutputCmd:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:675    .text.GPIO_PinRemapConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:680    .text.GPIO_PinRemapConfig:00000000 GPIO_PinRemapConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:778    .text.GPIO_PinRemapConfig:00000068 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:783    .text.GPIO_EXTILineConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:788    .text.GPIO_EXTILineConfig:00000000 GPIO_EXTILineConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:835    .text.GPIO_ETH_MediaInterfaceConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:840    .text.GPIO_ETH_MediaInterfaceConfig:00000000 GPIO_ETH_MediaInterfaceConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsKusXh.s:855    .text.GPIO_ETH_MediaInterfaceConfig:00000008 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

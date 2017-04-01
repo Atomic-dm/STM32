@@ -1820,38 +1820,38 @@
  332              	.LFE37:
  334              		.text
  335              	.Letext0:
- 336              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 337              		.file 4 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 336              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 337              		.file 4 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  338              		.file 5 ".\\CMSIS/stm32f10x.h"
  339              		.file 6 ".\\StdPeriphLib\\inc/stm32f10x_rcc.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_pwr.c
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:19     .text.PWR_DeInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:24     .text.PWR_DeInit:00000000 PWR_DeInit
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:51     .text.PWR_BackupAccessCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:56     .text.PWR_BackupAccessCmd:00000000 PWR_BackupAccessCmd
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:71     .text.PWR_BackupAccessCmd:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:76     .text.PWR_PVDCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:81     .text.PWR_PVDCmd:00000000 PWR_PVDCmd
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:96     .text.PWR_PVDCmd:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:101    .text.PWR_PVDLevelConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:106    .text.PWR_PVDLevelConfig:00000000 PWR_PVDLevelConfig
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:130    .text.PWR_PVDLevelConfig:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:135    .text.PWR_WakeUpPinCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:140    .text.PWR_WakeUpPinCmd:00000000 PWR_WakeUpPinCmd
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:155    .text.PWR_WakeUpPinCmd:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:160    .text.PWR_EnterSTOPMode:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:165    .text.PWR_EnterSTOPMode:00000000 PWR_EnterSTOPMode
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:224    .text.PWR_EnterSTOPMode:0000002c $d
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:230    .text.PWR_EnterSTANDBYMode:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:235    .text.PWR_EnterSTANDBYMode:00000000 PWR_EnterSTANDBYMode
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:267    .text.PWR_EnterSTANDBYMode:00000020 $d
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:275    .text.PWR_GetFlagStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:280    .text.PWR_GetFlagStatus:00000000 PWR_GetFlagStatus
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:302    .text.PWR_GetFlagStatus:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:307    .text.PWR_ClearFlag:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:312    .text.PWR_ClearFlag:00000000 PWR_ClearFlag
-C:\Users\Admin\AppData\Local\Temp\ccRrDNXU.s:330    .text.PWR_ClearFlag:0000000c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:19     .text.PWR_DeInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:24     .text.PWR_DeInit:00000000 PWR_DeInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:51     .text.PWR_BackupAccessCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:56     .text.PWR_BackupAccessCmd:00000000 PWR_BackupAccessCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:71     .text.PWR_BackupAccessCmd:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:76     .text.PWR_PVDCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:81     .text.PWR_PVDCmd:00000000 PWR_PVDCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:96     .text.PWR_PVDCmd:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:101    .text.PWR_PVDLevelConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:106    .text.PWR_PVDLevelConfig:00000000 PWR_PVDLevelConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:130    .text.PWR_PVDLevelConfig:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:135    .text.PWR_WakeUpPinCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:140    .text.PWR_WakeUpPinCmd:00000000 PWR_WakeUpPinCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:155    .text.PWR_WakeUpPinCmd:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:160    .text.PWR_EnterSTOPMode:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:165    .text.PWR_EnterSTOPMode:00000000 PWR_EnterSTOPMode
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:224    .text.PWR_EnterSTOPMode:0000002c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:230    .text.PWR_EnterSTANDBYMode:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:235    .text.PWR_EnterSTANDBYMode:00000000 PWR_EnterSTANDBYMode
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:267    .text.PWR_EnterSTANDBYMode:00000020 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:275    .text.PWR_GetFlagStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:280    .text.PWR_GetFlagStatus:00000000 PWR_GetFlagStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:302    .text.PWR_GetFlagStatus:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:307    .text.PWR_ClearFlag:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:312    .text.PWR_ClearFlag:00000000 PWR_ClearFlag
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccigmYDA.s:330    .text.PWR_ClearFlag:0000000c $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

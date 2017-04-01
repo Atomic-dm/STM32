@@ -660,48 +660,48 @@
  390              	.LFE40:
  392              		.text
  393              	.Letext0:
- 394              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 395              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 394              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 395              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  396              		.file 4 ".\\CMSIS/stm32f10x.h"
  397              		.file 5 ".\\CMSIS/core_cm3.h"
  398              		.file 6 ".\\StdPeriphLib\\inc/stm32f10x_rcc.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_bkp.c
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:19     .text.BKP_DeInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:24     .text.BKP_DeInit:00000000 BKP_DeInit
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:49     .text.BKP_TamperPinLevelConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:54     .text.BKP_TamperPinLevelConfig:00000000 BKP_TamperPinLevelConfig
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:69     .text.BKP_TamperPinLevelConfig:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:74     .text.BKP_TamperPinCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:79     .text.BKP_TamperPinCmd:00000000 BKP_TamperPinCmd
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:94     .text.BKP_TamperPinCmd:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:99     .text.BKP_ITConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:104    .text.BKP_ITConfig:00000000 BKP_ITConfig
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:119    .text.BKP_ITConfig:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:124    .text.BKP_RTCOutputConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:129    .text.BKP_RTCOutputConfig:00000000 BKP_RTCOutputConfig
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:156    .text.BKP_RTCOutputConfig:00000014 $d
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:161    .text.BKP_SetRTCCalibrationValue:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:166    .text.BKP_SetRTCCalibrationValue:00000000 BKP_SetRTCCalibrationValue
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:193    .text.BKP_SetRTCCalibrationValue:00000014 $d
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:198    .text.BKP_WriteBackupRegister:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:203    .text.BKP_WriteBackupRegister:00000000 BKP_WriteBackupRegister
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:237    .text.BKP_WriteBackupRegister:00000018 $d
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:242    .text.BKP_ReadBackupRegister:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:247    .text.BKP_ReadBackupRegister:00000000 BKP_ReadBackupRegister
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:282    .text.BKP_ReadBackupRegister:0000001c $d
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:287    .text.BKP_GetFlagStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:292    .text.BKP_GetFlagStatus:00000000 BKP_GetFlagStatus
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:308    .text.BKP_GetFlagStatus:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:313    .text.BKP_ClearFlag:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:318    .text.BKP_ClearFlag:00000000 BKP_ClearFlag
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:335    .text.BKP_ClearFlag:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:340    .text.BKP_GetITStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:345    .text.BKP_GetITStatus:00000000 BKP_GetITStatus
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:361    .text.BKP_GetITStatus:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:366    .text.BKP_ClearITPendingBit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:371    .text.BKP_ClearITPendingBit:00000000 BKP_ClearITPendingBit
-C:\Users\Admin\AppData\Local\Temp\cco0xA4L.s:388    .text.BKP_ClearITPendingBit:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:19     .text.BKP_DeInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:24     .text.BKP_DeInit:00000000 BKP_DeInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:49     .text.BKP_TamperPinLevelConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:54     .text.BKP_TamperPinLevelConfig:00000000 BKP_TamperPinLevelConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:69     .text.BKP_TamperPinLevelConfig:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:74     .text.BKP_TamperPinCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:79     .text.BKP_TamperPinCmd:00000000 BKP_TamperPinCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:94     .text.BKP_TamperPinCmd:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:99     .text.BKP_ITConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:104    .text.BKP_ITConfig:00000000 BKP_ITConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:119    .text.BKP_ITConfig:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:124    .text.BKP_RTCOutputConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:129    .text.BKP_RTCOutputConfig:00000000 BKP_RTCOutputConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:156    .text.BKP_RTCOutputConfig:00000014 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:161    .text.BKP_SetRTCCalibrationValue:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:166    .text.BKP_SetRTCCalibrationValue:00000000 BKP_SetRTCCalibrationValue
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:193    .text.BKP_SetRTCCalibrationValue:00000014 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:198    .text.BKP_WriteBackupRegister:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:203    .text.BKP_WriteBackupRegister:00000000 BKP_WriteBackupRegister
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:237    .text.BKP_WriteBackupRegister:00000018 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:242    .text.BKP_ReadBackupRegister:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:247    .text.BKP_ReadBackupRegister:00000000 BKP_ReadBackupRegister
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:282    .text.BKP_ReadBackupRegister:0000001c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:287    .text.BKP_GetFlagStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:292    .text.BKP_GetFlagStatus:00000000 BKP_GetFlagStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:308    .text.BKP_GetFlagStatus:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:313    .text.BKP_ClearFlag:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:318    .text.BKP_ClearFlag:00000000 BKP_ClearFlag
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:335    .text.BKP_ClearFlag:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:340    .text.BKP_GetITStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:345    .text.BKP_GetITStatus:00000000 BKP_GetITStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:361    .text.BKP_GetITStatus:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:366    .text.BKP_ClearITPendingBit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:371    .text.BKP_ClearITPendingBit:00000000 BKP_ClearITPendingBit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccRzXcXN.s:388    .text.BKP_ClearITPendingBit:00000010 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

@@ -2091,27 +2091,27 @@
  466              		.text
  467              	.Letext0:
  468              		.file 3 ".\\CMSIS/stm32f10x.h"
- 469              		.file 4 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 470              		.file 5 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 469              		.file 4 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 470              		.file 5 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  471              		.file 6 ".\\StdPeriphLib\\inc/stm32f10x_gpio.h"
  472              		.file 7 ".\\StdPeriphLib\\inc/stm32f10x_usart.h"
  473              		.file 8 ".\\StdPeriphLib\\inc/stm32f10x_rcc.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 usart1.c
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:19     .text.usart1_ini:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:24     .text.usart1_ini:00000000 usart1_ini
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:128    .text.usart1_ini:00000098 $d
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:134    .text.usart2_ini:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:139    .text.usart2_ini:00000000 usart2_ini
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:241    .text.usart2_ini:00000094 $d
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:247    .text.usart3_ini:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:252    .text.usart3_ini:00000000 usart3_ini
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:354    .text.usart3_ini:00000098 $d
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:360    .text.SendStrtoPC:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:365    .text.SendStrtoPC:00000000 SendStrtoPC
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:428    .text.SendStrtoPC:00000048 $d
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:433    .text.SendBytetoPC:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccOFirT8.s:438    .text.SendBytetoPC:00000000 SendBytetoPC
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:19     .text.usart1_ini:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:24     .text.usart1_ini:00000000 usart1_ini
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:128    .text.usart1_ini:00000098 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:134    .text.usart2_ini:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:139    .text.usart2_ini:00000000 usart2_ini
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:241    .text.usart2_ini:00000094 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:247    .text.usart3_ini:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:252    .text.usart3_ini:00000000 usart3_ini
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:354    .text.usart3_ini:00000098 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:360    .text.SendStrtoPC:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:365    .text.SendStrtoPC:00000000 SendStrtoPC
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:428    .text.SendStrtoPC:00000048 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:433    .text.SendBytetoPC:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cccarrqL.s:438    .text.SendBytetoPC:00000000 SendBytetoPC
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

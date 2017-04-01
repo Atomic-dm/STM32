@@ -1806,62 +1806,62 @@
  951              	.LFE51:
  953              		.text
  954              	.Letext0:
- 955              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 956              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 955              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 956              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  957              		.file 4 ".\\CMSIS/stm32f10x.h"
  958              		.file 5 ".\\StdPeriphLib\\inc/stm32f10x_rcc.h"
  959              		.file 6 ".\\StdPeriphLib\\inc/stm32f10x_spi.h"
  960              		.file 7 ".\\CMSIS/core_cm3.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_spi.c
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:19     .text.SPI_I2S_DeInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:24     .text.SPI_I2S_DeInit:00000000 SPI_I2S_DeInit
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:93     .text.SPI_I2S_DeInit:00000058 $d
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:100    .text.SPI_Init:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:105    .text.SPI_Init:00000000 SPI_Init
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:166    .text.I2S_Init:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:171    .text.I2S_Init:00000000 I2S_Init
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:312    .text.I2S_Init:000000a4 $d
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:317    .text.SPI_StructInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:322    .text.SPI_StructInit:00000000 SPI_StructInit
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:355    .text.I2S_StructInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:360    .text.I2S_StructInit:00000000 I2S_StructInit
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:387    .text.SPI_Cmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:392    .text.SPI_Cmd:00000000 SPI_Cmd
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:420    .text.I2S_Cmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:425    .text.I2S_Cmd:00000000 I2S_Cmd
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:453    .text.SPI_I2S_ITConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:458    .text.SPI_I2S_ITConfig:00000000 SPI_I2S_ITConfig
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:497    .text.SPI_I2S_DMACmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:502    .text.SPI_I2S_DMACmd:00000000 SPI_I2S_DMACmd
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:532    .text.SPI_I2S_SendData:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:537    .text.SPI_I2S_SendData:00000000 SPI_I2S_SendData
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:552    .text.SPI_I2S_ReceiveData:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:557    .text.SPI_I2S_ReceiveData:00000000 SPI_I2S_ReceiveData
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:575    .text.SPI_NSSInternalSoftwareConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:580    .text.SPI_NSSInternalSoftwareConfig:00000000 SPI_NSSInternalSoftwareConfig
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:610    .text.SPI_SSOutputCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:615    .text.SPI_SSOutputCmd:00000000 SPI_SSOutputCmd
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:643    .text.SPI_DataSizeConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:648    .text.SPI_DataSizeConfig:00000000 SPI_DataSizeConfig
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:673    .text.SPI_TransmitCRC:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:678    .text.SPI_TransmitCRC:00000000 SPI_TransmitCRC
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:696    .text.SPI_CalculateCRC:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:701    .text.SPI_CalculateCRC:00000000 SPI_CalculateCRC
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:729    .text.SPI_GetCRC:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:734    .text.SPI_GetCRC:00000000 SPI_GetCRC
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:758    .text.SPI_GetCRCPolynomial:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:763    .text.SPI_GetCRCPolynomial:00000000 SPI_GetCRCPolynomial
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:781    .text.SPI_BiDirectionalLineConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:786    .text.SPI_BiDirectionalLineConfig:00000000 SPI_BiDirectionalLineConfig
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:815    .text.SPI_I2S_GetFlagStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:820    .text.SPI_I2S_GetFlagStatus:00000000 SPI_I2S_GetFlagStatus
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:842    .text.SPI_I2S_ClearFlag:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:847    .text.SPI_I2S_ClearFlag:00000000 SPI_I2S_ClearFlag
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:865    .text.SPI_I2S_GetITStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:870    .text.SPI_I2S_GetITStatus:00000000 SPI_I2S_GetITStatus
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:927    .text.SPI_I2S_ClearITPendingBit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccGJeZ9W.s:932    .text.SPI_I2S_ClearITPendingBit:00000000 SPI_I2S_ClearITPendingBit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:19     .text.SPI_I2S_DeInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:24     .text.SPI_I2S_DeInit:00000000 SPI_I2S_DeInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:93     .text.SPI_I2S_DeInit:00000058 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:100    .text.SPI_Init:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:105    .text.SPI_Init:00000000 SPI_Init
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:166    .text.I2S_Init:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:171    .text.I2S_Init:00000000 I2S_Init
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:312    .text.I2S_Init:000000a4 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:317    .text.SPI_StructInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:322    .text.SPI_StructInit:00000000 SPI_StructInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:355    .text.I2S_StructInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:360    .text.I2S_StructInit:00000000 I2S_StructInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:387    .text.SPI_Cmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:392    .text.SPI_Cmd:00000000 SPI_Cmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:420    .text.I2S_Cmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:425    .text.I2S_Cmd:00000000 I2S_Cmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:453    .text.SPI_I2S_ITConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:458    .text.SPI_I2S_ITConfig:00000000 SPI_I2S_ITConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:497    .text.SPI_I2S_DMACmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:502    .text.SPI_I2S_DMACmd:00000000 SPI_I2S_DMACmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:532    .text.SPI_I2S_SendData:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:537    .text.SPI_I2S_SendData:00000000 SPI_I2S_SendData
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:552    .text.SPI_I2S_ReceiveData:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:557    .text.SPI_I2S_ReceiveData:00000000 SPI_I2S_ReceiveData
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:575    .text.SPI_NSSInternalSoftwareConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:580    .text.SPI_NSSInternalSoftwareConfig:00000000 SPI_NSSInternalSoftwareConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:610    .text.SPI_SSOutputCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:615    .text.SPI_SSOutputCmd:00000000 SPI_SSOutputCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:643    .text.SPI_DataSizeConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:648    .text.SPI_DataSizeConfig:00000000 SPI_DataSizeConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:673    .text.SPI_TransmitCRC:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:678    .text.SPI_TransmitCRC:00000000 SPI_TransmitCRC
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:696    .text.SPI_CalculateCRC:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:701    .text.SPI_CalculateCRC:00000000 SPI_CalculateCRC
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:729    .text.SPI_GetCRC:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:734    .text.SPI_GetCRC:00000000 SPI_GetCRC
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:758    .text.SPI_GetCRCPolynomial:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:763    .text.SPI_GetCRCPolynomial:00000000 SPI_GetCRCPolynomial
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:781    .text.SPI_BiDirectionalLineConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:786    .text.SPI_BiDirectionalLineConfig:00000000 SPI_BiDirectionalLineConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:815    .text.SPI_I2S_GetFlagStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:820    .text.SPI_I2S_GetFlagStatus:00000000 SPI_I2S_GetFlagStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:842    .text.SPI_I2S_ClearFlag:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:847    .text.SPI_I2S_ClearFlag:00000000 SPI_I2S_ClearFlag
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:865    .text.SPI_I2S_GetITStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:870    .text.SPI_I2S_GetITStatus:00000000 SPI_I2S_GetITStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:927    .text.SPI_I2S_ClearITPendingBit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc4bvsXh.s:932    .text.SPI_I2S_ClearITPendingBit:00000000 SPI_I2S_ClearITPendingBit
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

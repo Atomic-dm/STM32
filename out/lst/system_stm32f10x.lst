@@ -1417,22 +1417,22 @@
  333 0000 00A24A04 		.word	72000000
  334              		.text
  335              	.Letext0:
- 336              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 337              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 336              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 337              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  338              		.file 4 ".\\CMSIS/core_cm3.h"
  339              		.file 5 ".\\CMSIS/stm32f10x.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 system_stm32f10x.c
-C:\Users\Admin\AppData\Local\Temp\ccFpYu16.s:19     .text.SystemInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccFpYu16.s:24     .text.SystemInit:00000000 SystemInit
-C:\Users\Admin\AppData\Local\Temp\ccFpYu16.s:178    .text.SystemInit:000000f0 $d
-C:\Users\Admin\AppData\Local\Temp\ccFpYu16.s:186    .text.SystemCoreClockUpdate:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccFpYu16.s:191    .text.SystemCoreClockUpdate:00000000 SystemCoreClockUpdate
-C:\Users\Admin\AppData\Local\Temp\ccFpYu16.s:295    .text.SystemCoreClockUpdate:00000078 $d
-C:\Users\Admin\AppData\Local\Temp\ccFpYu16.s:310    .data.AHBPrescTable:00000000 AHBPrescTable
-C:\Users\Admin\AppData\Local\Temp\ccFpYu16.s:332    .data.SystemCoreClock:00000000 SystemCoreClock
-C:\Users\Admin\AppData\Local\Temp\ccFpYu16.s:306    .data.AHBPrescTable:00000000 $d
-C:\Users\Admin\AppData\Local\Temp\ccFpYu16.s:328    .data.SystemCoreClock:00000000 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cciMdnEv.s:19     .text.SystemInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cciMdnEv.s:24     .text.SystemInit:00000000 SystemInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cciMdnEv.s:178    .text.SystemInit:000000f0 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cciMdnEv.s:186    .text.SystemCoreClockUpdate:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cciMdnEv.s:191    .text.SystemCoreClockUpdate:00000000 SystemCoreClockUpdate
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cciMdnEv.s:295    .text.SystemCoreClockUpdate:00000078 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cciMdnEv.s:310    .data.AHBPrescTable:00000000 AHBPrescTable
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cciMdnEv.s:332    .data.SystemCoreClock:00000000 SystemCoreClock
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cciMdnEv.s:306    .data.AHBPrescTable:00000000 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cciMdnEv.s:328    .data.SystemCoreClock:00000000 $d
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

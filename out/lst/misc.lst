@@ -435,28 +435,28 @@
  231              	.LFE33:
  233              		.text
  234              	.Letext0:
- 235              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 236              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 235              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 236              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  237              		.file 4 ".\\CMSIS/core_cm3.h"
  238              		.file 5 ".\\CMSIS/stm32f10x.h"
  239              		.file 6 ".\\StdPeriphLib\\inc/misc.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 misc.c
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:19     .text.NVIC_PriorityGroupConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:24     .text.NVIC_PriorityGroupConfig:00000000 NVIC_PriorityGroupConfig
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:43     .text.NVIC_PriorityGroupConfig:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:48     .text.NVIC_Init:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:53     .text.NVIC_Init:00000000 NVIC_Init
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:127    .text.NVIC_Init:0000005c $d
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:133    .text.NVIC_SetVectorTable:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:138    .text.NVIC_SetVectorTable:00000000 NVIC_SetVectorTable
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:158    .text.NVIC_SetVectorTable:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:163    .text.NVIC_SystemLPConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:168    .text.NVIC_SystemLPConfig:00000000 NVIC_SystemLPConfig
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:197    .text.NVIC_SystemLPConfig:00000018 $d
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:202    .text.SysTick_CLKSourceConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:207    .text.SysTick_CLKSourceConfig:00000000 SysTick_CLKSourceConfig
-C:\Users\Admin\AppData\Local\Temp\ccvvlisl.s:229    .text.SysTick_CLKSourceConfig:00000014 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:19     .text.NVIC_PriorityGroupConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:24     .text.NVIC_PriorityGroupConfig:00000000 NVIC_PriorityGroupConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:43     .text.NVIC_PriorityGroupConfig:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:48     .text.NVIC_Init:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:53     .text.NVIC_Init:00000000 NVIC_Init
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:127    .text.NVIC_Init:0000005c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:133    .text.NVIC_SetVectorTable:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:138    .text.NVIC_SetVectorTable:00000000 NVIC_SetVectorTable
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:158    .text.NVIC_SetVectorTable:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:163    .text.NVIC_SystemLPConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:168    .text.NVIC_SystemLPConfig:00000000 NVIC_SystemLPConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:197    .text.NVIC_SystemLPConfig:00000018 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:202    .text.SysTick_CLKSourceConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:207    .text.SysTick_CLKSourceConfig:00000000 SysTick_CLKSourceConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\cc6T9l7Y.s:229    .text.SysTick_CLKSourceConfig:00000014 $d
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

@@ -803,54 +803,54 @@
  505              	.LFE42:
  507              		.text
  508              	.Letext0:
- 509              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 510              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 509              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 510              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  511              		.file 4 ".\\CMSIS/stm32f10x.h"
  512              		.file 5 ".\\CMSIS/core_cm3.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_rtc.c
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:19     .text.RTC_ITConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:24     .text.RTC_ITConfig:00000000 RTC_ITConfig
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:56     .text.RTC_ITConfig:0000001c $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:61     .text.RTC_EnterConfigMode:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:66     .text.RTC_EnterConfigMode:00000000 RTC_EnterConfigMode
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:83     .text.RTC_EnterConfigMode:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:88     .text.RTC_ExitConfigMode:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:93     .text.RTC_ExitConfigMode:00000000 RTC_ExitConfigMode
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:111    .text.RTC_ExitConfigMode:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:116    .text.RTC_GetCounter:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:121    .text.RTC_GetCounter:00000000 RTC_GetCounter
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:142    .text.RTC_GetCounter:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:147    .text.RTC_SetCounter:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:152    .text.RTC_SetCounter:00000000 RTC_SetCounter
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:183    .text.RTC_SetCounter:00000018 $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:188    .text.RTC_SetPrescaler:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:193    .text.RTC_SetPrescaler:00000000 RTC_SetPrescaler
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:224    .text.RTC_SetPrescaler:0000001c $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:229    .text.RTC_SetAlarm:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:234    .text.RTC_SetAlarm:00000000 RTC_SetAlarm
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:265    .text.RTC_SetAlarm:00000018 $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:270    .text.RTC_GetDivider:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:275    .text.RTC_GetDivider:00000000 RTC_GetDivider
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:299    .text.RTC_GetDivider:00000014 $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:304    .text.RTC_WaitForLastTask:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:309    .text.RTC_WaitForLastTask:00000000 RTC_WaitForLastTask
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:330    .text.RTC_WaitForLastTask:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:335    .text.RTC_WaitForSynchro:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:340    .text.RTC_WaitForSynchro:00000000 RTC_WaitForSynchro
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:366    .text.RTC_WaitForSynchro:0000001c $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:371    .text.RTC_GetFlagStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:376    .text.RTC_GetFlagStatus:00000000 RTC_GetFlagStatus
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:398    .text.RTC_GetFlagStatus:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:403    .text.RTC_ClearFlag:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:408    .text.RTC_ClearFlag:00000000 RTC_ClearFlag
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:427    .text.RTC_ClearFlag:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:432    .text.RTC_GetITStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:437    .text.RTC_GetITStatus:00000000 RTC_GetITStatus
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:474    .text.RTC_GetITStatus:00000020 $d
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:479    .text.RTC_ClearITPendingBit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:484    .text.RTC_ClearITPendingBit:00000000 RTC_ClearITPendingBit
-C:\Users\Admin\AppData\Local\Temp\ccTGL9O3.s:503    .text.RTC_ClearITPendingBit:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:19     .text.RTC_ITConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:24     .text.RTC_ITConfig:00000000 RTC_ITConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:56     .text.RTC_ITConfig:0000001c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:61     .text.RTC_EnterConfigMode:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:66     .text.RTC_EnterConfigMode:00000000 RTC_EnterConfigMode
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:83     .text.RTC_EnterConfigMode:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:88     .text.RTC_ExitConfigMode:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:93     .text.RTC_ExitConfigMode:00000000 RTC_ExitConfigMode
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:111    .text.RTC_ExitConfigMode:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:116    .text.RTC_GetCounter:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:121    .text.RTC_GetCounter:00000000 RTC_GetCounter
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:142    .text.RTC_GetCounter:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:147    .text.RTC_SetCounter:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:152    .text.RTC_SetCounter:00000000 RTC_SetCounter
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:183    .text.RTC_SetCounter:00000018 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:188    .text.RTC_SetPrescaler:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:193    .text.RTC_SetPrescaler:00000000 RTC_SetPrescaler
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:224    .text.RTC_SetPrescaler:0000001c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:229    .text.RTC_SetAlarm:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:234    .text.RTC_SetAlarm:00000000 RTC_SetAlarm
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:265    .text.RTC_SetAlarm:00000018 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:270    .text.RTC_GetDivider:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:275    .text.RTC_GetDivider:00000000 RTC_GetDivider
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:299    .text.RTC_GetDivider:00000014 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:304    .text.RTC_WaitForLastTask:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:309    .text.RTC_WaitForLastTask:00000000 RTC_WaitForLastTask
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:330    .text.RTC_WaitForLastTask:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:335    .text.RTC_WaitForSynchro:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:340    .text.RTC_WaitForSynchro:00000000 RTC_WaitForSynchro
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:366    .text.RTC_WaitForSynchro:0000001c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:371    .text.RTC_GetFlagStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:376    .text.RTC_GetFlagStatus:00000000 RTC_GetFlagStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:398    .text.RTC_GetFlagStatus:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:403    .text.RTC_ClearFlag:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:408    .text.RTC_ClearFlag:00000000 RTC_ClearFlag
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:427    .text.RTC_ClearFlag:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:432    .text.RTC_GetITStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:437    .text.RTC_GetITStatus:00000000 RTC_GetITStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:474    .text.RTC_GetITStatus:00000020 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:479    .text.RTC_ClearITPendingBit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:484    .text.RTC_ClearITPendingBit:00000000 RTC_ClearITPendingBit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccaKuYxh.s:503    .text.RTC_ClearITPendingBit:00000010 $d
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

@@ -1298,54 +1298,54 @@
  569              	.LFE21:
  571              		.text
  572              	.Letext0:
- 573              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 574              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 573              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 574              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
 DEFINED SYMBOLS
                             *ABS*:00000000 core_cm3.c
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:19     .text.__get_PSP:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:24     .text.__get_PSP:00000000 __get_PSP
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:47     .text.__set_PSP:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:52     .text.__set_PSP:00000000 __set_PSP
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:72     .text.__get_MSP:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:77     .text.__get_MSP:00000000 __get_MSP
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:99     .text.__set_MSP:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:104    .text.__set_MSP:00000000 __set_MSP
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:124    .text.__get_BASEPRI:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:129    .text.__get_BASEPRI:00000000 __get_BASEPRI
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:149    .text.__set_BASEPRI:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:154    .text.__set_BASEPRI:00000000 __set_BASEPRI
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:172    .text.__get_PRIMASK:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:177    .text.__get_PRIMASK:00000000 __get_PRIMASK
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:197    .text.__set_PRIMASK:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:202    .text.__set_PRIMASK:00000000 __set_PRIMASK
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:220    .text.__get_FAULTMASK:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:225    .text.__get_FAULTMASK:00000000 __get_FAULTMASK
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:245    .text.__set_FAULTMASK:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:250    .text.__set_FAULTMASK:00000000 __set_FAULTMASK
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:268    .text.__get_CONTROL:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:273    .text.__get_CONTROL:00000000 __get_CONTROL
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:293    .text.__set_CONTROL:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:298    .text.__set_CONTROL:00000000 __set_CONTROL
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:316    .text.__REV:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:321    .text.__REV:00000000 __REV
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:341    .text.__REV16:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:346    .text.__REV16:00000000 __REV16
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:366    .text.__REVSH:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:371    .text.__REVSH:00000000 __REVSH
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:391    .text.__RBIT:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:396    .text.__RBIT:00000000 __RBIT
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:416    .text.__LDREXB:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:421    .text.__LDREXB:00000000 __LDREXB
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:442    .text.__LDREXH:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:447    .text.__LDREXH:00000000 __LDREXH
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:468    .text.__LDREXW:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:473    .text.__LDREXW:00000000 __LDREXW
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:493    .text.__STREXB:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:498    .text.__STREXB:00000000 __STREXB
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:520    .text.__STREXH:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:525    .text.__STREXH:00000000 __STREXH
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:547    .text.__STREXW:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc1AHGdh.s:552    .text.__STREXW:00000000 __STREXW
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:19     .text.__get_PSP:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:24     .text.__get_PSP:00000000 __get_PSP
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:47     .text.__set_PSP:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:52     .text.__set_PSP:00000000 __set_PSP
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:72     .text.__get_MSP:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:77     .text.__get_MSP:00000000 __get_MSP
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:99     .text.__set_MSP:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:104    .text.__set_MSP:00000000 __set_MSP
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:124    .text.__get_BASEPRI:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:129    .text.__get_BASEPRI:00000000 __get_BASEPRI
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:149    .text.__set_BASEPRI:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:154    .text.__set_BASEPRI:00000000 __set_BASEPRI
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:172    .text.__get_PRIMASK:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:177    .text.__get_PRIMASK:00000000 __get_PRIMASK
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:197    .text.__set_PRIMASK:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:202    .text.__set_PRIMASK:00000000 __set_PRIMASK
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:220    .text.__get_FAULTMASK:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:225    .text.__get_FAULTMASK:00000000 __get_FAULTMASK
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:245    .text.__set_FAULTMASK:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:250    .text.__set_FAULTMASK:00000000 __set_FAULTMASK
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:268    .text.__get_CONTROL:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:273    .text.__get_CONTROL:00000000 __get_CONTROL
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:293    .text.__set_CONTROL:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:298    .text.__set_CONTROL:00000000 __set_CONTROL
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:316    .text.__REV:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:321    .text.__REV:00000000 __REV
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:341    .text.__REV16:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:346    .text.__REV16:00000000 __REV16
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:366    .text.__REVSH:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:371    .text.__REVSH:00000000 __REVSH
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:391    .text.__RBIT:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:396    .text.__RBIT:00000000 __RBIT
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:416    .text.__LDREXB:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:421    .text.__LDREXB:00000000 __LDREXB
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:442    .text.__LDREXH:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:447    .text.__LDREXH:00000000 __LDREXH
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:468    .text.__LDREXW:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:473    .text.__LDREXW:00000000 __LDREXW
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:493    .text.__STREXB:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:498    .text.__STREXB:00000000 __STREXB
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:520    .text.__STREXH:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:525    .text.__STREXH:00000000 __STREXH
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:547    .text.__STREXW:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccHgO5XH.s:552    .text.__STREXW:00000000 __STREXW
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

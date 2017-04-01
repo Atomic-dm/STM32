@@ -2601,90 +2601,90 @@
  1378              	.LFE64:
  1380              		.text
  1381              	.Letext0:
- 1382              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 1383              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1382              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 1383              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  1384              		.file 4 ".\\CMSIS/stm32f10x.h"
  1385              		.file 5 ".\\StdPeriphLib\\inc/stm32f10x_adc.h"
  1386              		.file 6 ".\\CMSIS/core_cm3.h"
  1387              		.file 7 ".\\StdPeriphLib\\inc/stm32f10x_rcc.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_adc.c
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:19     .text.ADC_DeInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:24     .text.ADC_DeInit:00000000 ADC_DeInit
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:93     .text.ADC_DeInit:00000058 $d
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:100    .text.ADC_Init:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:105    .text.ADC_Init:00000000 ADC_Init
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:177    .text.ADC_Init:00000048 $d
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:182    .text.ADC_StructInit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:187    .text.ADC_StructInit:00000000 ADC_StructInit
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:214    .text.ADC_Cmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:219    .text.ADC_Cmd:00000000 ADC_Cmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:244    .text.ADC_DMACmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:249    .text.ADC_DMACmd:00000000 ADC_DMACmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:274    .text.ADC_ITConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:279    .text.ADC_ITConfig:00000000 ADC_ITConfig
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:310    .text.ADC_ResetCalibration:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:315    .text.ADC_ResetCalibration:00000000 ADC_ResetCalibration
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:332    .text.ADC_GetResetCalibrationStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:337    .text.ADC_GetResetCalibrationStatus:00000000 ADC_GetResetCalibrationStatus
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:356    .text.ADC_StartCalibration:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:361    .text.ADC_StartCalibration:00000000 ADC_StartCalibration
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:378    .text.ADC_GetCalibrationStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:383    .text.ADC_GetCalibrationStatus:00000000 ADC_GetCalibrationStatus
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:402    .text.ADC_SoftwareStartConvCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:407    .text.ADC_SoftwareStartConvCmd:00000000 ADC_SoftwareStartConvCmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:432    .text.ADC_GetSoftwareStartConvStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:437    .text.ADC_GetSoftwareStartConvStatus:00000000 ADC_GetSoftwareStartConvStatus
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:456    .text.ADC_DiscModeChannelCountConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:461    .text.ADC_DiscModeChannelCountConfig:00000000 ADC_DiscModeChannelCountConfig
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:488    .text.ADC_DiscModeCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:493    .text.ADC_DiscModeCmd:00000000 ADC_DiscModeCmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:518    .text.ADC_RegularChannelConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:523    .text.ADC_RegularChannelConfig:00000000 ADC_RegularChannelConfig
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:679    .text.ADC_ExternalTrigConvCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:684    .text.ADC_ExternalTrigConvCmd:00000000 ADC_ExternalTrigConvCmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:709    .text.ADC_GetConversionValue:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:714    .text.ADC_GetConversionValue:00000000 ADC_GetConversionValue
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:732    .text.ADC_GetDualModeConversionValue:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:737    .text.ADC_GetDualModeConversionValue:00000000 ADC_GetDualModeConversionValue
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:752    .text.ADC_GetDualModeConversionValue:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:757    .text.ADC_AutoInjectedConvCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:762    .text.ADC_AutoInjectedConvCmd:00000000 ADC_AutoInjectedConvCmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:787    .text.ADC_InjectedDiscModeCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:792    .text.ADC_InjectedDiscModeCmd:00000000 ADC_InjectedDiscModeCmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:817    .text.ADC_ExternalTrigInjectedConvConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:822    .text.ADC_ExternalTrigInjectedConvConfig:00000000 ADC_ExternalTrigInjectedConvConfig
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:846    .text.ADC_ExternalTrigInjectedConvCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:851    .text.ADC_ExternalTrigInjectedConvCmd:00000000 ADC_ExternalTrigInjectedConvCmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:876    .text.ADC_SoftwareStartInjectedConvCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:881    .text.ADC_SoftwareStartInjectedConvCmd:00000000 ADC_SoftwareStartInjectedConvCmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:906    .text.ADC_GetSoftwareStartInjectedConvCmdStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:911    .text.ADC_GetSoftwareStartInjectedConvCmdStatus:00000000 ADC_GetSoftwareStartInjectedConvCmdStatus
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:930    .text.ADC_InjectedChannelConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:935    .text.ADC_InjectedChannelConfig:00000000 ADC_InjectedChannelConfig
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1037   .text.ADC_InjectedSequencerLengthConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1042   .text.ADC_InjectedSequencerLengthConfig:00000000 ADC_InjectedSequencerLengthConfig
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1069   .text.ADC_SetInjectedOffset:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1074   .text.ADC_SetInjectedOffset:00000000 ADC_SetInjectedOffset
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1108   .text.ADC_GetInjectedConversionValue:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1113   .text.ADC_GetInjectedConversionValue:00000000 ADC_GetInjectedConversionValue
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1150   .text.ADC_AnalogWatchdogCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1155   .text.ADC_AnalogWatchdogCmd:00000000 ADC_AnalogWatchdogCmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1181   .text.ADC_AnalogWatchdogThresholdsConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1186   .text.ADC_AnalogWatchdogThresholdsConfig:00000000 ADC_AnalogWatchdogThresholdsConfig
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1203   .text.ADC_AnalogWatchdogSingleChannelConfig:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1208   .text.ADC_AnalogWatchdogSingleChannelConfig:00000000 ADC_AnalogWatchdogSingleChannelConfig
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1232   .text.ADC_TempSensorVrefintCmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1237   .text.ADC_TempSensorVrefintCmd:00000000 ADC_TempSensorVrefintCmd
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1263   .text.ADC_TempSensorVrefintCmd:0000001c $d
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1268   .text.ADC_GetFlagStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1273   .text.ADC_GetFlagStatus:00000000 ADC_GetFlagStatus
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1295   .text.ADC_ClearFlag:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1300   .text.ADC_ClearFlag:00000000 ADC_ClearFlag
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1317   .text.ADC_GetITStatus:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1322   .text.ADC_GetITStatus:00000000 ADC_GetITStatus
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1359   .text.ADC_ClearITPendingBit:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccIWRNE8.s:1364   .text.ADC_ClearITPendingBit:00000000 ADC_ClearITPendingBit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:19     .text.ADC_DeInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:24     .text.ADC_DeInit:00000000 ADC_DeInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:93     .text.ADC_DeInit:00000058 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:100    .text.ADC_Init:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:105    .text.ADC_Init:00000000 ADC_Init
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:177    .text.ADC_Init:00000048 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:182    .text.ADC_StructInit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:187    .text.ADC_StructInit:00000000 ADC_StructInit
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:214    .text.ADC_Cmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:219    .text.ADC_Cmd:00000000 ADC_Cmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:244    .text.ADC_DMACmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:249    .text.ADC_DMACmd:00000000 ADC_DMACmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:274    .text.ADC_ITConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:279    .text.ADC_ITConfig:00000000 ADC_ITConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:310    .text.ADC_ResetCalibration:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:315    .text.ADC_ResetCalibration:00000000 ADC_ResetCalibration
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:332    .text.ADC_GetResetCalibrationStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:337    .text.ADC_GetResetCalibrationStatus:00000000 ADC_GetResetCalibrationStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:356    .text.ADC_StartCalibration:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:361    .text.ADC_StartCalibration:00000000 ADC_StartCalibration
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:378    .text.ADC_GetCalibrationStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:383    .text.ADC_GetCalibrationStatus:00000000 ADC_GetCalibrationStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:402    .text.ADC_SoftwareStartConvCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:407    .text.ADC_SoftwareStartConvCmd:00000000 ADC_SoftwareStartConvCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:432    .text.ADC_GetSoftwareStartConvStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:437    .text.ADC_GetSoftwareStartConvStatus:00000000 ADC_GetSoftwareStartConvStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:456    .text.ADC_DiscModeChannelCountConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:461    .text.ADC_DiscModeChannelCountConfig:00000000 ADC_DiscModeChannelCountConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:488    .text.ADC_DiscModeCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:493    .text.ADC_DiscModeCmd:00000000 ADC_DiscModeCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:518    .text.ADC_RegularChannelConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:523    .text.ADC_RegularChannelConfig:00000000 ADC_RegularChannelConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:679    .text.ADC_ExternalTrigConvCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:684    .text.ADC_ExternalTrigConvCmd:00000000 ADC_ExternalTrigConvCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:709    .text.ADC_GetConversionValue:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:714    .text.ADC_GetConversionValue:00000000 ADC_GetConversionValue
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:732    .text.ADC_GetDualModeConversionValue:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:737    .text.ADC_GetDualModeConversionValue:00000000 ADC_GetDualModeConversionValue
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:752    .text.ADC_GetDualModeConversionValue:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:757    .text.ADC_AutoInjectedConvCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:762    .text.ADC_AutoInjectedConvCmd:00000000 ADC_AutoInjectedConvCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:787    .text.ADC_InjectedDiscModeCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:792    .text.ADC_InjectedDiscModeCmd:00000000 ADC_InjectedDiscModeCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:817    .text.ADC_ExternalTrigInjectedConvConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:822    .text.ADC_ExternalTrigInjectedConvConfig:00000000 ADC_ExternalTrigInjectedConvConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:846    .text.ADC_ExternalTrigInjectedConvCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:851    .text.ADC_ExternalTrigInjectedConvCmd:00000000 ADC_ExternalTrigInjectedConvCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:876    .text.ADC_SoftwareStartInjectedConvCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:881    .text.ADC_SoftwareStartInjectedConvCmd:00000000 ADC_SoftwareStartInjectedConvCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:906    .text.ADC_GetSoftwareStartInjectedConvCmdStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:911    .text.ADC_GetSoftwareStartInjectedConvCmdStatus:00000000 ADC_GetSoftwareStartInjectedConvCmdStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:930    .text.ADC_InjectedChannelConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:935    .text.ADC_InjectedChannelConfig:00000000 ADC_InjectedChannelConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1037   .text.ADC_InjectedSequencerLengthConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1042   .text.ADC_InjectedSequencerLengthConfig:00000000 ADC_InjectedSequencerLengthConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1069   .text.ADC_SetInjectedOffset:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1074   .text.ADC_SetInjectedOffset:00000000 ADC_SetInjectedOffset
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1108   .text.ADC_GetInjectedConversionValue:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1113   .text.ADC_GetInjectedConversionValue:00000000 ADC_GetInjectedConversionValue
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1150   .text.ADC_AnalogWatchdogCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1155   .text.ADC_AnalogWatchdogCmd:00000000 ADC_AnalogWatchdogCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1181   .text.ADC_AnalogWatchdogThresholdsConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1186   .text.ADC_AnalogWatchdogThresholdsConfig:00000000 ADC_AnalogWatchdogThresholdsConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1203   .text.ADC_AnalogWatchdogSingleChannelConfig:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1208   .text.ADC_AnalogWatchdogSingleChannelConfig:00000000 ADC_AnalogWatchdogSingleChannelConfig
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1232   .text.ADC_TempSensorVrefintCmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1237   .text.ADC_TempSensorVrefintCmd:00000000 ADC_TempSensorVrefintCmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1263   .text.ADC_TempSensorVrefintCmd:0000001c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1268   .text.ADC_GetFlagStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1273   .text.ADC_GetFlagStatus:00000000 ADC_GetFlagStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1295   .text.ADC_ClearFlag:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1300   .text.ADC_ClearFlag:00000000 ADC_ClearFlag
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1317   .text.ADC_GetITStatus:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1322   .text.ADC_GetITStatus:00000000 ADC_GetITStatus
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1359   .text.ADC_ClearITPendingBit:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsu1J4j.s:1364   .text.ADC_ClearITPendingBit:00000000 ADC_ClearITPendingBit
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

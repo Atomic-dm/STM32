@@ -1790,7 +1790,7 @@
   77              	.LBE9:
   78              	.LBE8:
   13:.\user-code\src/main.c **** 
-  14:.\user-code\src/main.c **** // comment  ww
+  14:.\user-code\src/main.c **** //fff/ comment  ww
   15:.\user-code\src/main.c **** pin_ini();	
   79              		.loc 1 15 0
   80 002e FFF7FEFF 		bl	pin_ini
@@ -1799,15 +1799,15 @@
   17:.\user-code\src/main.c **** 	while(1)
   18:.\user-code\src/main.c **** 	{
   19:.\user-code\src/main.c **** 	i++;
-  20:.\user-code\src/main.c **** 	delay_ms(10000);
+  20:.\user-code\src/main.c **** 	delay_ms(1000);
   82              		.loc 1 20 0
-  83 0032 42F21076 		movw	r6, #10000
+  83 0032 4FF47A76 		mov	r6, #1000
   21:.\user-code\src/main.c **** 	GPIO_ResetBits(GPIOC,GPIO_Pin_13);
   84              		.loc 1 21 0
   85 0036 104D     		ldr	r5, .L4+16
   86 0038 4FF40054 		mov	r4, #8192
   87              	.L2:
-  19:.\user-code\src/main.c **** 	delay_ms(10000);
+  19:.\user-code\src/main.c **** 	delay_ms(1000);
   88              		.loc 1 19 0 discriminator 1
   89 003c BDF80630 		ldrh	r3, [sp, #6]
   90 0040 0133     		adds	r3, r3, #1
@@ -1823,7 +1823,7 @@
   99 0050 2146     		mov	r1, r4
  100 0052 FFF7FEFF 		bl	GPIO_ResetBits
  101              	.LVL7:
-  22:.\user-code\src/main.c **** 	delay_ms(10000);
+  22:.\user-code\src/main.c **** 	delay_ms(1000);
  102              		.loc 1 22 0 discriminator 1
  103 0056 3046     		mov	r0, r6
  104 0058 FFF7FEFF 		bl	delay_ms
@@ -1851,16 +1851,16 @@
  124              		.text
  125              	.Letext0:
  126              		.file 3 ".\\CMSIS/stm32f10x.h"
- 127              		.file 4 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 128              		.file 5 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 127              		.file 4 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 128              		.file 5 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  129              		.file 6 ".\\CMSIS/system_stm32f10x.h"
  130              		.file 7 ".\\user-code\\inc/main.h"
  131              		.file 8 ".\\StdPeriphLib\\inc/stm32f10x_gpio.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\Admin\AppData\Local\Temp\cccUGOxY.s:19     .text.main:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cccUGOxY.s:24     .text.main:00000000 main
-C:\Users\Admin\AppData\Local\Temp\cccUGOxY.s:116    .text.main:00000068 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccp9uXTI.s:19     .text.main:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccp9uXTI.s:24     .text.main:00000000 main
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccp9uXTI.s:116    .text.main:00000068 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

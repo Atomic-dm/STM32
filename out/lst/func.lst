@@ -217,24 +217,24 @@
  179              		.comm	delay_count,2,2
  180              		.text
  181              	.Letext0:
- 182              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 183              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 182              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 183              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  184              		.file 4 ".\\CMSIS/stm32f10x.h"
  185              		.file 5 ".\\StdPeriphLib\\inc/stm32f10x_gpio.h"
  186              		.file 6 ".\\CMSIS/core_cm3.h"
  187              		.file 7 ".\\StdPeriphLib\\inc/stm32f10x_rcc.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 func.c
-C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:19     .text.SysTick_Handler:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:24     .text.SysTick_Handler:00000000 SysTick_Handler
-C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:48     .text.SysTick_Handler:00000014 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsLOGp5.s:19     .text.SysTick_Handler:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsLOGp5.s:24     .text.SysTick_Handler:00000000 SysTick_Handler
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsLOGp5.s:48     .text.SysTick_Handler:00000014 $d
                             *COM*:00000002 delay_count
-C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:53     .text.delay_ms:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:58     .text.delay_ms:00000000 delay_ms
-C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:82     .text.delay_ms:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:87     .text.pin_ini:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:92     .text.pin_ini:00000000 pin_ini
-C:\Users\Admin\AppData\Local\Temp\ccYs4nIH.s:175    .text.pin_ini:00000064 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsLOGp5.s:53     .text.delay_ms:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsLOGp5.s:58     .text.delay_ms:00000000 delay_ms
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsLOGp5.s:82     .text.delay_ms:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsLOGp5.s:87     .text.pin_ini:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsLOGp5.s:92     .text.pin_ini:00000000 pin_ini
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccsLOGp5.s:175    .text.pin_ini:00000064 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

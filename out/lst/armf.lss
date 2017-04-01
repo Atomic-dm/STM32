@@ -1142,7 +1142,7 @@ Disassembly of section .text:
  8000d52:	2307      	movs	r3, #7
  8000d54:	6013      	str	r3, [r2, #0]
  8000d56:	f7ff ffa3 	bl	8000ca0 <pin_ini>
- 8000d5a:	f242 7610 	movw	r6, #10000	; 0x2710
+ 8000d5a:	f44f 767a 	mov.w	r6, #1000	; 0x3e8
  8000d5e:	4d10      	ldr	r5, [pc, #64]	; (8000da0 <main+0x78>)
  8000d60:	f44f 5400 	mov.w	r4, #8192	; 0x2000
  8000d64:	f8bd 3006 	ldrh.w	r3, [sp, #6]

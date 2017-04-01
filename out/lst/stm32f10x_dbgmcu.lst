@@ -249,21 +249,21 @@
  108              	.LFE31:
  110              		.text
  111              	.Letext0:
- 112              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 113              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 112              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 113              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  114              		.file 4 ".\\CMSIS/stm32f10x.h"
  115              		.file 5 ".\\CMSIS/core_cm3.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f10x_dbgmcu.c
-C:\Users\Admin\AppData\Local\Temp\cc0vsFVq.s:19     .text.DBGMCU_GetREVID:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc0vsFVq.s:24     .text.DBGMCU_GetREVID:00000000 DBGMCU_GetREVID
-C:\Users\Admin\AppData\Local\Temp\cc0vsFVq.s:41     .text.DBGMCU_GetREVID:00000008 $d
-C:\Users\Admin\AppData\Local\Temp\cc0vsFVq.s:46     .text.DBGMCU_GetDEVID:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc0vsFVq.s:51     .text.DBGMCU_GetDEVID:00000000 DBGMCU_GetDEVID
-C:\Users\Admin\AppData\Local\Temp\cc0vsFVq.s:67     .text.DBGMCU_GetDEVID:0000000c $d
-C:\Users\Admin\AppData\Local\Temp\cc0vsFVq.s:72     .text.DBGMCU_Config:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\cc0vsFVq.s:77     .text.DBGMCU_Config:00000000 DBGMCU_Config
-C:\Users\Admin\AppData\Local\Temp\cc0vsFVq.s:106    .text.DBGMCU_Config:00000018 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccPn5KBQ.s:19     .text.DBGMCU_GetREVID:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccPn5KBQ.s:24     .text.DBGMCU_GetREVID:00000000 DBGMCU_GetREVID
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccPn5KBQ.s:41     .text.DBGMCU_GetREVID:00000008 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccPn5KBQ.s:46     .text.DBGMCU_GetDEVID:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccPn5KBQ.s:51     .text.DBGMCU_GetDEVID:00000000 DBGMCU_GetDEVID
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccPn5KBQ.s:67     .text.DBGMCU_GetDEVID:0000000c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccPn5KBQ.s:72     .text.DBGMCU_Config:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccPn5KBQ.s:77     .text.DBGMCU_Config:00000000 DBGMCU_Config
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccPn5KBQ.s:106    .text.DBGMCU_Config:00000018 $d
                      .debug_frame:00000010 $d
 
 NO UNDEFINED SYMBOLS

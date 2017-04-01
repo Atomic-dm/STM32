@@ -3276,8 +3276,8 @@
  2113 0000 01       		.byte	1
  2114              		.text
  2115              	.Letext0:
- 2116              		.file 2 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_default_ty
- 2117              		.file 3 "d:\\atomic\\sublime\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 2116              		.file 2 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\machine\\_de
+ 2117              		.file 3 "c:\\sublime text build 3126\\gnu tools arm embedded\\arm-none-eabi\\include\\sys\\_stdint
  2118              		.file 4 ".\\CMSIS/stm32f10x.h"
  2119              		.file 5 ".\\StdPeriphLib\\inc/stm32f10x_dma.h"
  2120              		.file 6 ".\\StdPeriphLib\\inc/stm32f10x_gpio.h"
@@ -3288,63 +3288,63 @@
  2125              		.file 11 ".\\CMSIS/core_cm3.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 sd_spi_stm32.c
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:19     .text.power_on:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:23     .text.power_on:00000000 power_on
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:162    .text.power_on:000000d8 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:168    .text.stm32_spi_rw:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:172    .text.stm32_spi_rw:00000000 stm32_spi_rw
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:213    .text.stm32_spi_rw:00000024 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:218    .text.rcvr_spi:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:222    .text.rcvr_spi:00000000 rcvr_spi
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:243    .text.wait_ready:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:247    .text.wait_ready:00000000 wait_ready
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:284    .text.wait_ready:00000020 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:289    .text.release_spi:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:293    .text.release_spi:00000000 release_spi
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:316    .text.release_spi:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:321    .text.send_cmd:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:325    .text.send_cmd:00000000 send_cmd
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:454    .text.send_cmd:0000009c $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:459    .text.power_off:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:463    .text.power_off:00000000 power_off
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:534    .text.power_off:0000005c $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:541    .text.stm32_dma_transfer:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:545    .text.stm32_dma_transfer:00000000 stm32_dma_transfer
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:702    .text.stm32_dma_transfer:000000c4 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:710    .text.rcvr_datablock:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:714    .text.rcvr_datablock:00000000 rcvr_datablock
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:783    .text.rcvr_datablock:00000040 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:788    .text.xmit_datablock:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:792    .text.xmit_datablock:00000000 xmit_datablock
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:860    .text.disk_initialize:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:865    .text.disk_initialize:00000000 disk_initialize
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1150   .text.disk_initialize:00000158 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1158   .text.disk_status:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1163   .text.disk_status:00000000 disk_status
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1189   .text.disk_status:00000010 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1194   .text.disk_read:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1199   .text.disk_read:00000000 disk_read
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1332   .text.disk_read:00000088 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1338   .text.disk_write:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1343   .text.disk_write:00000000 disk_write
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1502   .text.disk_write:000000a8 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1508   .text.disk_ioctl:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1513   .text.disk_ioctl:00000000 disk_ioctl
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1585   .text.disk_ioctl:0000004c $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1600   .text.disk_ioctl:0000006a $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:1996   .text.disk_ioctl:0000027c $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2003   .text.disk_timerproc:00000000 $t
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2008   .text.disk_timerproc:00000000 disk_timerproc
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2074   .text.disk_timerproc:0000003c $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2082   .bss.Timer1:00000000 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2086   .bss.Timer1:00000000 Timer1
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2089   .bss.Timer2:00000000 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2093   .bss.Timer2:00000000 Timer2
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2096   .bss.pv.6527:00000000 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2100   .bss.pv.6527:00000000 pv.6527
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2106   .bss.CardType:00000000 CardType
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2107   .bss.CardType:00000000 $d
-C:\Users\Admin\AppData\Local\Temp\ccxukebg.s:2112   .data.Stat:00000000 Stat
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:19     .text.power_on:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:23     .text.power_on:00000000 power_on
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:162    .text.power_on:000000d8 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:168    .text.stm32_spi_rw:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:172    .text.stm32_spi_rw:00000000 stm32_spi_rw
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:213    .text.stm32_spi_rw:00000024 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:218    .text.rcvr_spi:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:222    .text.rcvr_spi:00000000 rcvr_spi
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:243    .text.wait_ready:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:247    .text.wait_ready:00000000 wait_ready
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:284    .text.wait_ready:00000020 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:289    .text.release_spi:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:293    .text.release_spi:00000000 release_spi
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:316    .text.release_spi:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:321    .text.send_cmd:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:325    .text.send_cmd:00000000 send_cmd
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:454    .text.send_cmd:0000009c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:459    .text.power_off:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:463    .text.power_off:00000000 power_off
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:534    .text.power_off:0000005c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:541    .text.stm32_dma_transfer:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:545    .text.stm32_dma_transfer:00000000 stm32_dma_transfer
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:702    .text.stm32_dma_transfer:000000c4 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:710    .text.rcvr_datablock:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:714    .text.rcvr_datablock:00000000 rcvr_datablock
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:783    .text.rcvr_datablock:00000040 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:788    .text.xmit_datablock:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:792    .text.xmit_datablock:00000000 xmit_datablock
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:860    .text.disk_initialize:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:865    .text.disk_initialize:00000000 disk_initialize
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1150   .text.disk_initialize:00000158 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1158   .text.disk_status:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1163   .text.disk_status:00000000 disk_status
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1189   .text.disk_status:00000010 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1194   .text.disk_read:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1199   .text.disk_read:00000000 disk_read
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1332   .text.disk_read:00000088 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1338   .text.disk_write:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1343   .text.disk_write:00000000 disk_write
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1502   .text.disk_write:000000a8 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1508   .text.disk_ioctl:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1513   .text.disk_ioctl:00000000 disk_ioctl
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1585   .text.disk_ioctl:0000004c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1600   .text.disk_ioctl:0000006a $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:1996   .text.disk_ioctl:0000027c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2003   .text.disk_timerproc:00000000 $t
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2008   .text.disk_timerproc:00000000 disk_timerproc
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2074   .text.disk_timerproc:0000003c $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2082   .bss.Timer1:00000000 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2086   .bss.Timer1:00000000 Timer1
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2089   .bss.Timer2:00000000 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2093   .bss.Timer2:00000000 Timer2
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2096   .bss.pv.6527:00000000 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2100   .bss.pv.6527:00000000 pv.6527
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2106   .bss.CardType:00000000 CardType
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2107   .bss.CardType:00000000 $d
+C:\DOCUME~1\C4C4~1\LOCALS~1\Temp\ccIbmRXc.s:2112   .data.Stat:00000000 Stat
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
